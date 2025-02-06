@@ -18,12 +18,13 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <nav className="container flex h-16 items-center">
-        <Link href="/" className="flex items-center space-x-2 mr-6">
+        <Link href="/" className="flex items-center space-x-2">
           <Fish className="h-8 w-8 text-primary" />
           <span className="font-bold text-xl">Shark Bait Scuba</span>
         </Link>
 
-        <div className="hidden md:flex items-center space-x-6 flex-1">
+        {/* Desktop Navigation */}
+        <div className="hidden md:flex items-center justify-center flex-1 space-x-4">
           {navLinks.map((link) => (
             <Link key={link.href} href={link.href}>
               <Button
@@ -39,9 +40,10 @@ export default function Navbar() {
           ))}
         </div>
 
+        {/* Mobile Navigation */}
         <Sheet>
-          <SheetTrigger asChild>
-            <Button variant="ghost" size="icon" className="md:hidden">
+          <SheetTrigger asChild className="md:hidden ml-auto">
+            <Button variant="ghost" size="icon">
               <Menu className="h-6 w-6" />
               <span className="sr-only">Toggle menu</span>
             </Button>

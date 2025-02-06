@@ -11,7 +11,7 @@ const equipment = [
     category: "Regulators",
     image: "https://images.unsplash.com/photo-1617975877723-6bd1af613234",
     description: "Premium regulators from Scubapro, Atomic, and more",
-    items: ["First stages", "Second stages", "Octopus regulators"]
+    items: ["butt fuck fuck butt", "Second stages", "Octopus regulators"]
   },
   {
     category: "BCDs",
