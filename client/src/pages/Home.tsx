@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "wouter";
-import { ArrowRight, Award, Map, Shield } from "lucide-react";
+import { ArrowRight, Award, Users, Shield, Clock } from "lucide-react";
 
 export default function Home() {
   return (
@@ -18,74 +18,104 @@ export default function Home() {
         />
         <div className="container relative z-10 text-white">
           <h1 className="text-5xl md:text-7xl font-bold mb-6">
-            Discover the Gulf Coast
+            Private Scuba Instruction
           </h1>
           <p className="text-xl md:text-2xl mb-8 max-w-2xl">
-            Experience world-class diving in Northwest Florida with Shark Bait Scuba. From springs to wrecks, we'll guide your underwater adventure.
+            Experience personalized one-on-one scuba training in Northwest Florida. Learn at your own pace with dedicated instructor attention.
           </p>
           <div className="space-x-4">
             <Link href="/training">
               <Button size="lg" className="bg-primary hover:bg-primary/90">
-                Start Your Journey
+                Book Private Lessons
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Link>
-            <Link href="/dive-sites">
+            <Link href="/about">
               <Button size="lg" variant="outline" className="bg-white/10 hover:bg-white/20">
-                Explore Dive Sites
+                Meet Your Instructor
               </Button>
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Features Section */}
+      {/* Benefits Section */}
       <section className="py-20 bg-muted/30">
         <div className="container">
-          <h2 className="text-3xl font-bold text-center mb-12">Why Choose Shark Bait Scuba?</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <h2 className="text-3xl font-bold text-center mb-4">Private Instruction Advantages</h2>
+          <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+            Discover the benefits of personalized scuba training with our expert instructors.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <Card className="border-none shadow-lg">
               <CardHeader className="text-center">
-                <Award className="w-12 h-12 mx-auto text-primary mb-4" />
-                <CardTitle>PADI Certified</CardTitle>
+                <Users className="w-12 h-12 mx-auto text-primary mb-4" />
+                <CardTitle>One-on-One Attention</CardTitle>
               </CardHeader>
               <CardContent className="text-center text-muted-foreground">
-                Learn from expert instructors with years of experience in Gulf Coast waters.
+                Dedicated instruction tailored to your learning style and pace.
               </CardContent>
             </Card>
             <Card className="border-none shadow-lg">
               <CardHeader className="text-center">
-                <Map className="w-12 h-12 mx-auto text-primary mb-4" />
-                <CardTitle>Prime Locations</CardTitle>
+                <Clock className="w-12 h-12 mx-auto text-primary mb-4" />
+                <CardTitle>Flexible Schedule</CardTitle>
               </CardHeader>
               <CardContent className="text-center text-muted-foreground">
-                Access to exclusive dive sites, from crystal springs to historic wrecks.
+                Training sessions scheduled around your availability.
+              </CardContent>
+            </Card>
+            <Card className="border-none shadow-lg">
+              <CardHeader className="text-center">
+                <Award className="w-12 h-12 mx-auto text-primary mb-4" />
+                <CardTitle>Expert Guidance</CardTitle>
+              </CardHeader>
+              <CardContent className="text-center text-muted-foreground">
+                Learn from PADI-certified instructors with years of experience.
               </CardContent>
             </Card>
             <Card className="border-none shadow-lg">
               <CardHeader className="text-center">
                 <Shield className="w-12 h-12 mx-auto text-primary mb-4" />
-                <CardTitle>Safety First</CardTitle>
+                <CardTitle>Safety Focus</CardTitle>
               </CardHeader>
               <CardContent className="text-center text-muted-foreground">
-                Top-quality equipment and rigorous safety standards for peace of mind.
+                Enhanced safety with personal supervision throughout your training.
               </CardContent>
             </Card>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* Instructor Section */}
       <section className="py-20">
         <div className="container">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-3xl font-bold mb-6">Personalized Learning Experience</h2>
+            <p className="text-lg text-muted-foreground mb-8">
+              Our private instruction program is designed to help you become a confident and skilled diver. Whether you're a complete beginner or looking to advance your certification, we'll create a custom training plan that meets your goals.
+            </p>
+            <div className="space-y-4">
+              <p className="text-muted-foreground">✓ Custom-paced learning program</p>
+              <p className="text-muted-foreground">✓ Hands-on equipment familiarization</p>
+              <p className="text-muted-foreground">✓ Real-time feedback and adjustment</p>
+              <p className="text-muted-foreground">✓ Focus on your specific interests</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 bg-muted/30">
+        <div className="container">
           <div className="bg-primary rounded-lg p-12 text-white text-center">
-            <h2 className="text-3xl font-bold mb-4">Ready to Start Your Adventure?</h2>
+            <h2 className="text-3xl font-bold mb-4">Start Your Private Training Today</h2>
             <p className="text-lg mb-8 max-w-2xl mx-auto">
-              Join us for world-class diving experiences in Northwest Florida's most beautiful underwater locations.
+              Book your one-on-one scuba instruction and begin your personalized underwater journey.
             </p>
             <Link href="/contact">
               <Button size="lg" variant="secondary">
-                Contact Us Today
+                Schedule Your First Lesson
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Link>
