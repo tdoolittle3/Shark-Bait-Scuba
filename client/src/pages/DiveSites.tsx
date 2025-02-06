@@ -12,33 +12,112 @@ L.Icon.Default.mergeOptions({
 });
 
 const diveSites = [
+  // Springs
+  {
+    name: "Vortex Springs",
+    coordinates: [30.7714, -85.9486],
+    depth: "58ft",
+    level: "All Levels",
+    description: "Crystal clear spring with underwater caves and training platforms. Perfect for training and recreation.",
+    type: "Spring"
+  },
+  {
+    name: "Morrison Springs",
+    coordinates: [30.6577, -85.9071],
+    depth: "45ft",
+    level: "All Levels",
+    description: "Beautiful spring with three cavern entrances and excellent visibility.",
+    type: "Spring"
+  },
+  // Artificial Reefs and Wrecks
   {
     name: "USS Oriskany",
     coordinates: [30.0587, -87.0059],
     depth: "80-150ft",
     level: "Advanced",
-    description: "The world's largest artificial reef, this former aircraft carrier offers an incredible advanced diving experience."
+    description: "The world's largest artificial reef, this former aircraft carrier offers an incredible advanced diving experience.",
+    type: "Wreck"
   },
   {
-    name: "Pensacola Beach Reef",
-    coordinates: [30.3283, -87.1757],
-    depth: "15-20ft",
-    level: "Beginner",
-    description: "A shallow reef system perfect for beginners and snorkelers, featuring various marine life."
-  },
-  {
-    name: "Three Coal Barges",
-    coordinates: [30.3007, -87.1401],
-    depth: "50-60ft",
-    level: "Intermediate",
-    description: "Historic coal barge wrecks from the early 1900s, now home to diverse marine life."
-  },
-  {
-    name: "Pete Tide II",
-    coordinates: [30.1523, -87.2219],
-    depth: "90-100ft",
+    name: "The LuLu",
+    coordinates: [30.1429, -87.5551],
+    depth: "110ft",
     level: "Advanced",
-    description: "A 165-foot former oilfield supply vessel, offering excellent opportunities for wreck diving."
+    description: "271-foot coastal freighter intentionally sunk to create an artificial reef.",
+    type: "Wreck"
+  },
+  {
+    name: "The New Venture",
+    coordinates: [30.0924, -87.2198],
+    depth: "78ft",
+    level: "Intermediate",
+    description: "Former fishing vessel now serving as an artificial reef.",
+    type: "Wreck"
+  },
+  {
+    name: "The Ocean Wind",
+    coordinates: [30.1246, -87.1834],
+    depth: "85ft",
+    level: "Intermediate",
+    description: "Sunken freighter with abundant marine life.",
+    type: "Wreck"
+  },
+  {
+    name: "The Antares",
+    coordinates: [30.1308, -87.2547],
+    depth: "80ft",
+    level: "Intermediate",
+    description: "Former coal freighter creating a thriving artificial reef.",
+    type: "Wreck"
+  },
+  {
+    name: "The Avocet",
+    coordinates: [30.0982, -87.1659],
+    depth: "90ft",
+    level: "Advanced",
+    description: "Tugboat wreck with interesting structure and marine life.",
+    type: "Wreck"
+  },
+  {
+    name: "Russian Freighter",
+    coordinates: [30.1167, -87.2333],
+    depth: "95ft",
+    level: "Advanced",
+    description: "Large cargo vessel with extensive marine growth.",
+    type: "Wreck"
+  },
+  // Nearshore Sites
+  {
+    name: "Perdido Pass Jetties",
+    coordinates: [30.2714, -87.5550],
+    depth: "15-25ft",
+    level: "Beginner",
+    description: "Rocky jetties with abundant marine life, perfect for new divers.",
+    type: "Reef"
+  },
+  {
+    name: "Destin Jetties",
+    coordinates: [30.3931, -86.5137],
+    depth: "15-30ft",
+    level: "Beginner",
+    description: "Popular dive site with easy access and diverse marine life.",
+    type: "Reef"
+  },
+  {
+    name: "Fort Pickens",
+    coordinates: [30.3241, -87.2867],
+    depth: "15-25ft",
+    level: "Beginner",
+    description: "Historic site with jetties and artificial reefs.",
+    type: "Reef"
+  },
+  {
+    name: "Navarre Marine Park",
+    coordinates: [30.3803, -86.8614],
+    depth: "40-60ft",
+    level: "Intermediate",
+    description: "Series of artificial reefs creating a diverse ecosystem.",
+    type: "Reef"
   }
 ];
 
@@ -48,14 +127,14 @@ export default function DiveSites() {
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold mb-4">Northwest Florida Dive Sites</h1>
         <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-          Explore our carefully selected dive sites in the emerald waters of Northwest Florida.
+          Explore our carefully selected dive sites in the emerald waters of Northwest Florida, from springs to wrecks and reefs.
         </p>
       </div>
 
       <div className="mb-12 h-[500px] rounded-lg overflow-hidden border">
         <MapContainer
-          center={[30.3283, -87.1757]}
-          zoom={9}
+          center={[30.2714, -87.2550]} // Centered on Pensacola area
+          zoom={8}
           style={{ height: "100%", width: "100%" }}
         >
           <TileLayer
@@ -67,6 +146,7 @@ export default function DiveSites() {
               <Popup>
                 <div className="p-2">
                   <h3 className="font-bold">{site.name}</h3>
+                  <p className="text-sm">Type: {site.type}</p>
                   <p className="text-sm">Depth: {site.depth}</p>
                   <p className="text-sm">Level: {site.level}</p>
                 </div>
@@ -76,14 +156,18 @@ export default function DiveSites() {
         </MapContainer>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {diveSites.map((site, index) => (
           <Card key={index}>
             <CardHeader>
               <CardTitle>{site.name}</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-2 text-sm">
+              <div className="space-y-2">
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Type:</span>
+                  <span className="font-medium">{site.type}</span>
+                </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Depth:</span>
                   <span className="font-medium">{site.depth}</span>
