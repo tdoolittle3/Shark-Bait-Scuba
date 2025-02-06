@@ -1,47 +1,44 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
+
+// Fix for default marker icons in React Leaflet
+delete (L.Icon.Default.prototype as any)._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
+  iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+});
 
 const diveSites = [
   {
-    name: "Blue Lagoon Reef",
-    image: "https://images.unsplash.com/photo-1499390155271-23e4667060f5",
-    depth: "15-30m",
-    level: "Intermediate",
-    description: "Crystal clear waters teeming with tropical fish and colorful coral formations."
-  },
-  {
-    name: "Shark Point",
-    image: "https://images.unsplash.com/photo-1531803998246-ed33d49b1b76",
-    depth: "20-40m",
+    name: "USS Oriskany",
+    coordinates: [30.0587, -87.0059],
+    depth: "80-150ft",
     level: "Advanced",
-    description: "Famous for its regular shark sightings, particularly nurse sharks and reef sharks."
+    description: "The world's largest artificial reef, this former aircraft carrier offers an incredible advanced diving experience."
   },
   {
-    name: "Turtle Bay",
-    image: "https://images.unsplash.com/photo-1523801999971-dbb0cc4f400e",
-    depth: "10-25m",
+    name: "Pensacola Beach Reef",
+    coordinates: [30.3283, -87.1757],
+    depth: "15-20ft",
     level: "Beginner",
-    description: "Shallow reef system known for its sea turtle population and gentle currents."
+    description: "A shallow reef system perfect for beginners and snorkelers, featuring various marine life."
   },
   {
-    name: "The Wall",
-    image: "https://images.unsplash.com/photo-1483707184940-0f9af17b15e7",
-    depth: "30-60m",
-    level: "Advanced",
-    description: "Dramatic wall dive with overhangs, caves, and pelagic fish encounters."
-  },
-  {
-    name: "Coral Gardens",
-    image: "https://images.unsplash.com/photo-1506253003752-4a5d1f08eab1",
-    depth: "5-15m",
-    level: "Beginner",
-    description: "Shallow site perfect for beginners, featuring abundant coral life."
-  },
-  {
-    name: "Wreck Alley",
-    image: "https://images.unsplash.com/photo-1493225272299-4f6b1d3ff183",
-    depth: "25-35m",
+    name: "Three Coal Barges",
+    coordinates: [30.3007, -87.1401],
+    depth: "50-60ft",
     level: "Intermediate",
-    description: "Series of purposely sunk vessels creating artificial reefs."
+    description: "Historic coal barge wrecks from the early 1900s, now home to diverse marine life."
+  },
+  {
+    name: "Pete Tide II",
+    coordinates: [30.1523, -87.2219],
+    depth: "90-100ft",
+    level: "Advanced",
+    description: "A 165-foot former oilfield supply vessel, offering excellent opportunities for wreck diving."
   }
 ];
 
@@ -49,22 +46,39 @@ export default function DiveSites() {
   return (
     <div className="container py-12">
       <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold mb-4">Dive Sites</h1>
+        <h1 className="text-4xl font-bold mb-4">Northwest Florida Dive Sites</h1>
         <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-          Explore our carefully selected dive sites offering unique experiences for divers of all skill levels.
+          Explore our carefully selected dive sites in the emerald waters of Northwest Florida.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="mb-12 h-[500px] rounded-lg overflow-hidden border">
+        <MapContainer
+          center={[30.3283, -87.1757]}
+          zoom={9}
+          style={{ height: "100%", width: "100%" }}
+        >
+          <TileLayer
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          />
+          {diveSites.map((site, index) => (
+            <Marker key={index} position={site.coordinates}>
+              <Popup>
+                <div className="p-2">
+                  <h3 className="font-bold">{site.name}</h3>
+                  <p className="text-sm">Depth: {site.depth}</p>
+                  <p className="text-sm">Level: {site.level}</p>
+                </div>
+              </Popup>
+            </Marker>
+          ))}
+        </MapContainer>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {diveSites.map((site, index) => (
-          <Card key={index} className="overflow-hidden">
-            <div className="aspect-video relative">
-              <img
-                src={site.image}
-                alt={site.name}
-                className="absolute inset-0 object-cover w-full h-full"
-              />
-            </div>
+          <Card key={index}>
             <CardHeader>
               <CardTitle>{site.name}</CardTitle>
             </CardHeader>
@@ -79,6 +93,9 @@ export default function DiveSites() {
                   <span className="font-medium">{site.level}</span>
                 </div>
                 <p className="text-muted-foreground mt-4">{site.description}</p>
+                <div className="text-sm text-muted-foreground">
+                  Coordinates: {site.coordinates[0].toFixed(4)}°N, {site.coordinates[1].toFixed(4)}°W
+                </div>
               </div>
             </CardContent>
           </Card>
