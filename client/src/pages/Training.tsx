@@ -5,36 +5,27 @@ import {
   CardHeader,
   CardTitle
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 
 const courses = [
   {
     title: "Discover Scuba",
     image: "https://images.unsplash.com/photo-1470753323753-3f8091bb0232",
-    description: "First-time experience for those curious about scuba diving",
-    duration: "1 day",
-    price: "$199"
+    description: "Perfect for first-time divers, this introductory course lets you experience the thrill of breathing underwater in a controlled environment. You'll learn basic safety guidelines and skills needed to dive under the direct supervision of a PADI Professional."
   },
   {
     title: "Open Water Certification",
     image: "https://images.unsplash.com/photo-1516481265257-97e5f4bc50d5",
-    description: "Complete certification course for beginners",
-    duration: "4-5 days",
-    price: "$499"
+    description: "The first step in becoming a certified diver. This comprehensive course covers essential diving theory, confined water skills practice, and open water dives. Upon completion, you'll be certified to dive independently with a buddy to a maximum depth of 18 meters."
   },
   {
     title: "Advanced Open Water",
     image: "https://images.unsplash.com/photo-1529516548873-9ce57c8f155e",
-    description: "Enhance your skills with specialized dive training",
-    duration: "2-3 days",
-    price: "$399"
+    description: "Take your diving to the next level with specialized training in deep diving, underwater navigation, night diving, and more. This course helps you build confidence and expand your diving capabilities through different adventure dives."
   },
   {
     title: "Rescue Diver",
     image: "https://images.unsplash.com/photo-1540206235220-7590996b7a5a",
-    description: "Learn to prevent and manage dive emergencies",
-    duration: "4 days",
-    price: "$599"
+    description: "Learn to prevent and manage dive emergencies, minor and major diving problems, and rescue procedures. This challenging and rewarding course will make you a better buddy and prepare you for diving leadership roles."
   }
 ];
 
@@ -48,35 +39,26 @@ export default function Training() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {courses.map((course, index) => (
-          <Card key={index} className="flex flex-col">
-            <div className="aspect-video relative">
-              <img
-                src={course.image}
-                alt={course.title}
-                className="absolute inset-0 object-cover w-full h-full"
-              />
-            </div>
-            <CardHeader>
-              <CardTitle>{course.title}</CardTitle>
-              <CardDescription>{course.description}</CardDescription>
-            </CardHeader>
-            <CardContent className="flex-grow">
-              <div className="space-y-2">
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Duration:</span>
-                  <span>{course.duration}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Price:</span>
-                  <span className="font-bold">{course.price}</span>
-                </div>
+      <div className="overflow-x-auto pb-6">
+        <div className="flex gap-6 min-w-max">
+          {courses.map((course, index) => (
+            <Card key={index} className="w-[400px] flex-shrink-0">
+              <div className="aspect-video relative">
+                <img
+                  src={course.image}
+                  alt={course.title}
+                  className="absolute inset-0 object-cover w-full h-full"
+                />
               </div>
-              <Button className="w-full mt-6">Enroll Now</Button>
-            </CardContent>
-          </Card>
-        ))}
+              <CardHeader>
+                <CardTitle>{course.title}</CardTitle>
+                <CardDescription className="text-sm text-muted-foreground">
+                  {course.description}
+                </CardDescription>
+              </CardHeader>
+            </Card>
+          ))}
+        </div>
       </div>
     </div>
   );
