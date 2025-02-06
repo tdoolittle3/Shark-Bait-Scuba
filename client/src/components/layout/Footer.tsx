@@ -1,52 +1,99 @@
-import { Fish } from "lucide-react";
+import { Link } from "wouter";
+import { Fish, Facebook, Instagram, Twitter } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export default function Footer() {
   return (
     <footer className="border-t bg-muted/50">
-      <div className="container py-8 md:py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="flex flex-col space-y-3">
+      <div className="container py-12 md:py-16">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+          {/* Company Info */}
+          <div className="space-y-4">
             <div className="flex items-center space-x-2">
               <Fish className="h-6 w-6 text-primary" />
-              <span className="font-bold">Shark Bait Scuba</span>
+              <span className="font-bold text-lg">Shark Bait Scuba</span>
             </div>
             <p className="text-sm text-muted-foreground">
-              Your trusted partner in underwater adventures since 2010
+              Your trusted partner for scuba diving adventures in Northwest Florida since 2010.
             </p>
+            <div className="flex space-x-4">
+              <Button variant="ghost" size="icon" aria-label="Facebook">
+                <Facebook className="h-5 w-5" />
+              </Button>
+              <Button variant="ghost" size="icon" aria-label="Instagram">
+                <Instagram className="h-5 w-5" />
+              </Button>
+              <Button variant="ghost" size="icon" aria-label="Twitter">
+                <Twitter className="h-5 w-5" />
+              </Button>
+            </div>
           </div>
 
+          {/* Quick Links */}
           <div>
-            <h4 className="font-semibold mb-4">Quick Links</h4>
-            <ul className="space-y-2 text-sm">
-              <li>Dive Sites</li>
-              <li>Training Courses</li>
-              <li>Equipment</li>
-              <li>About Us</li>
+            <h4 className="font-semibold mb-4 text-lg">Quick Links</h4>
+            <ul className="space-y-3">
+              {[
+                { href: "/dive-sites", label: "Dive Sites" },
+                { href: "/training", label: "Training Courses" },
+                { href: "/gear", label: "Equipment" },
+                { href: "/about", label: "About Us" },
+                { href: "/contact", label: "Contact" }
+              ].map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href}>
+                    <Button variant="link" className="h-auto p-0 text-muted-foreground hover:text-primary">
+                      {link.label}
+                    </Button>
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
+          {/* Contact Info */}
           <div>
-            <h4 className="font-semibold mb-4">Contact</h4>
-            <ul className="space-y-2 text-sm">
+            <h4 className="font-semibold mb-4 text-lg">Contact</h4>
+            <ul className="space-y-3 text-sm text-muted-foreground">
               <li>123 Ocean Drive</li>
-              <li>Coral Bay, FL 33019</li>
-              <li>info@sharkbaitscuba.com</li>
-              <li>(555) 123-4567</li>
+              <li>Pensacola Beach, FL 32561</li>
+              <li className="font-medium">info@sharkbaitscuba.com</li>
+              <li className="font-medium">(850) 123-4567</li>
             </ul>
           </div>
 
+          {/* Hours */}
           <div>
-            <h4 className="font-semibold mb-4">Hours</h4>
-            <ul className="space-y-2 text-sm">
-              <li>Mon-Fri: 8am - 6pm</li>
-              <li>Sat: 7am - 7pm</li>
-              <li>Sun: 7am - 5pm</li>
+            <h4 className="font-semibold mb-4 text-lg">Hours</h4>
+            <ul className="space-y-3 text-sm text-muted-foreground">
+              <li>
+                <span className="font-medium">Mon-Fri:</span> 8:00 AM - 6:00 PM
+              </li>
+              <li>
+                <span className="font-medium">Saturday:</span> 7:00 AM - 7:00 PM
+              </li>
+              <li>
+                <span className="font-medium">Sunday:</span> 7:00 AM - 5:00 PM
+              </li>
+              <li className="text-xs mt-4">
+                * Hours may vary during peak season
+              </li>
             </ul>
           </div>
         </div>
 
-        <div className="mt-8 pt-8 border-t text-center text-sm text-muted-foreground">
-          © 2024 Shark Bait Scuba. All rights reserved.
+        <div className="pt-8 border-t">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
+            <p>© 2024 Shark Bait Scuba. All rights reserved.</p>
+            <div className="flex gap-4">
+              <Button variant="link" className="h-auto p-0 text-muted-foreground hover:text-primary">
+                Privacy Policy
+              </Button>
+              <Button variant="link" className="h-auto p-0 text-muted-foreground hover:text-primary">
+                Terms of Service
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
     </footer>

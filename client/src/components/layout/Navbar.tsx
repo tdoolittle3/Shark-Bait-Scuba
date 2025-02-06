@@ -1,7 +1,8 @@
 import { Link, useLocation } from "wouter";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Fish } from "lucide-react";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Fish, Menu } from "lucide-react";
 
 export default function Navbar() {
   const [location] = useLocation();
@@ -28,7 +29,7 @@ export default function Navbar() {
               <Button
                 variant="ghost"
                 className={cn(
-                  "text-sm font-medium transition-colors",
+                  "text-sm font-medium transition-colors hover:text-primary",
                   location === link.href && "text-primary"
                 )}
               >
@@ -38,9 +39,31 @@ export default function Navbar() {
           ))}
         </div>
 
-        <Button className="md:hidden" variant="ghost">
-          Menu
-        </Button>
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button variant="ghost" size="icon" className="md:hidden">
+              <Menu className="h-6 w-6" />
+              <span className="sr-only">Toggle menu</span>
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="right">
+            <nav className="flex flex-col space-y-4 mt-6">
+              {navLinks.map((link) => (
+                <Link key={link.href} href={link.href}>
+                  <Button
+                    variant="ghost"
+                    className={cn(
+                      "w-full justify-start text-lg",
+                      location === link.href && "text-primary"
+                    )}
+                  >
+                    {link.label}
+                  </Button>
+                </Link>
+              ))}
+            </nav>
+          </SheetContent>
+        </Sheet>
       </nav>
     </header>
   );
