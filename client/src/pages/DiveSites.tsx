@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
+import { getImagePath } from "@/lib/utils";
 
 // Fix for default marker icons in React Leaflet
 delete (L.Icon.Default.prototype as any)._getIconUrl;
@@ -19,7 +20,8 @@ const diveSites = [
     depth: "58ft",
     level: "All Levels",
     description: "Crystal clear spring with underwater caves and training platforms. Perfect for training and recreation.",
-    type: "Spring"
+    type: "Spring",
+    image: getImagePath('dive-sites/springs/vortex-spring.jpg')
   },
   {
     name: "Morrison Springs",
@@ -36,7 +38,8 @@ const diveSites = [
     depth: "80-150ft",
     level: "Advanced",
     description: "The world's largest artificial reef, this former aircraft carrier offers an incredible advanced diving experience.",
-    type: "Wreck"
+    type: "Wreck",
+    image: getImagePath('dive-sites/wrecks/oriskany.jpg')
   },
   {
     name: "The LuLu",
@@ -159,6 +162,15 @@ export default function DiveSites() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {diveSites.map((site, index) => (
           <Card key={index}>
+            {site.image && (
+              <div className="aspect-video relative">
+                <img
+                  src={site.image}
+                  alt={site.name}
+                  className="absolute inset-0 object-cover w-full h-full rounded-t-lg"
+                />
+              </div>
+            )}
             <CardHeader>
               <CardTitle>{site.name}</CardTitle>
             </CardHeader>
