@@ -16,9 +16,10 @@ export default function About() {
 
       {/* Instructor Profile */}
       <Card className="max-w-3xl mx-auto mb-12">
-        <CardContent className="pt-6">
-          <div className="flex flex-col md:flex-row items-center gap-8">
-            <div className="w-48 h-48 rounded-full overflow-hidden shrink-0">
+        <CardContent className="pt-6 space-y-8">
+          {/* First Section - Profile Picture and First Paragraph */}
+          <div className="flex flex-col md:flex-row items-start gap-8">
+            <div className="w-48 h-48 rounded-full overflow-hidden shrink-0 mx-auto md:mx-0">
               <img
                 src="/images/about/robbydoolittleinstructorpic.jpg"
                 alt="Robby Doolittle"
@@ -28,23 +29,26 @@ export default function About() {
             <div className="text-center md:text-left">
               <h2 className="text-2xl font-bold mb-2">Robby Doolittle</h2>
               <p className="text-primary font-medium mb-4">PADI Open Water Scuba Instructor #423428</p>
-              <p className="text-muted-foreground mb-6">
+              <p className="text-muted-foreground">
                 I have been diving since I was a kid in 2009 and now have the opportunity to teach divers here in Pensacola. I have been a PADI Divemaster since 2018 and an instructor since 2024. If I am not diving, I am probably working my "real" job as a paramedic with a local EMS service.
-              </p>
-
-              <p className="text-muted-foreground mb-6">
-                When I was five years old, I was attacked by a shark in Corpus Christi, Texas that left me with a severe injury to my left lower leg and almost lost my life. Thanks to my Dad and the surgeons, I was able to keep my life and leg despite the severe damage. Despite this encounter, I love the ocean and interacting with sharks on a regular basis.
               </p>
             </div>
           </div>
 
-          {/* Additional Image */}
-          <div className="mt-8">
-            <img
-              src="/images/about/markup_1000000453.jpg"
-              alt="Additional diving photo"
-              className="w-full h-auto rounded-lg shadow-lg"
-            />
+          {/* Second Section - Second Paragraph and Additional Image */}
+          <div className="flex flex-col-reverse md:flex-row items-start gap-8">
+            <div className="text-center md:text-left md:flex-1">
+              <p className="text-muted-foreground">
+                When I was five years old, I was attacked by a shark in Corpus Christi, Texas that left me with a severe injury to my left lower leg and almost lost my life. Thanks to my Dad and the surgeons, I was able to keep my life and leg despite the severe damage. Despite this encounter, I love the ocean and interacting with sharks on a regular basis.
+              </p>
+            </div>
+            <div className="w-full md:w-72 shrink-0">
+              <img
+                src="/images/about/markup_1000000453.jpg"
+                alt="Additional diving photo"
+                className="w-full h-auto rounded-lg shadow-lg"
+              />
+            </div>
           </div>
         </CardContent>
       </Card>
