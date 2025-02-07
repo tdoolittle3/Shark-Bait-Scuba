@@ -6,7 +6,7 @@ export default function Footer() {
   return (
     <footer className="border-t bg-muted/50">
       <div className="container py-12 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           {/* Company Info */}
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
@@ -59,25 +59,6 @@ export default function Footer() {
               <li>Pensacola Beach, FL 32561</li>
               <li className="font-medium">info@sharkbaitscuba.com</li>
               <li className="font-medium">(850) 123-4567</li>
-            </ul>
-          </div>
-
-          {/* Hours */}
-          <div>
-            <h4 className="font-semibold mb-4 text-lg">Hours</h4>
-            <ul className="space-y-3 text-sm text-muted-foreground">
-              <li>
-                <span className="font-medium">Mon-Fri:</span> 8:00 AM - 6:00 PM
-              </li>
-              <li>
-                <span className="font-medium">Saturday:</span> 7:00 AM - 7:00 PM
-              </li>
-              <li>
-                <span className="font-medium">Sunday:</span> 7:00 AM - 5:00 PM
-              </li>
-              <li className="text-xs mt-4">
-                * Hours may vary during peak season
-              </li>
             </ul>
           </div>
         </div>
