@@ -38,15 +38,17 @@ export default function Home() {
       }, 500); // Wait for fade out before changing content
     }, 8000); // Change every 8 seconds
 
-    // Load Instagram embed script
+    // Load EmbedSocial script
     const script = document.createElement('script');
-    script.src = '//www.instagram.com/embed.js';
-    script.async = true;
+    script.src = 'https://embedsocial.com/cdn/ht.js';
+    script.id = 'EmbedSocialIframeLightbox';
     document.body.appendChild(script);
 
     return () => {
       clearInterval(timer);
-      document.body.removeChild(script);
+      if (script && script.parentNode) {
+        document.body.removeChild(script);
+      }
     };
   }, []);
 
@@ -120,41 +122,8 @@ export default function Home() {
       <section className="py-20">
         <div className="container">
           <h2 className="text-3xl font-bold text-center mb-12">Follow Our Adventures</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Replace these blockquotes with your actual Instagram post URLs */}
-            <div className="mx-auto">
-              <blockquote
-                className="instagram-media"
-                data-instgrm-permalink="https://www.instagram.com/p/YOUR_INSTAGRAM_POST_ID_1/"
-                data-instgrm-version="14"
-              />
-            </div>
-            <div className="mx-auto">
-              <blockquote
-                className="instagram-media"
-                data-instgrm-permalink="https://www.instagram.com/p/YOUR_INSTAGRAM_POST_ID_2/"
-                data-instgrm-version="14"
-              />
-            </div>
-            <div className="mx-auto">
-              <blockquote
-                className="instagram-media"
-                data-instgrm-permalink="https://www.instagram.com/p/YOUR_INSTAGRAM_POST_ID_3/"
-                data-instgrm-version="14"
-              />
-            </div>
-          </div>
-          <div className="text-center mt-8">
-            <a 
-              href="https://www.instagram.com/YOUR_INSTAGRAM_USERNAME/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-primary hover:text-primary/80"
-            >
-              <span className="font-medium">Follow us on Instagram</span>
-              <ArrowRight className="h-4 w-4" />
-            </a>
-          </div>
+          {/* EmbedSocial Instagram Feed */}
+          <div className="embedsocial-instagram" data-ref=""></div>
         </div>
       </section>
     </div>
