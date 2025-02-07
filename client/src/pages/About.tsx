@@ -8,10 +8,10 @@ export default function About() {
       <div className="max-w-3xl mx-auto text-center mb-12">
         <h1 className="text-4xl font-bold mb-4">About Shark Bait Scuba</h1>
         <p className="text-lg text-muted-foreground mb-6">
-          Since 2010, we've been helping divers of all levels explore the underwater world safely and confidently.
+          Based in Pensacola, Florida, Shark Bait Scuba is a private scuba training and guiding service whos mission is to spread get you diving in the Florida Panhandle.
         </p>
         <p className="text-muted-foreground">
-          Our mission is to provide exceptional scuba diving experiences through professional instruction, quality equipment, and unforgettable adventures.
+          We offer a wide range of training and guiding services for divers of all skill levels. Reach out to us today to make your next scuba adventure a success!
         </p>
       </div>
 
@@ -30,7 +30,7 @@ export default function About() {
               <h2 className="text-2xl font-bold mb-2">Robby Doolittle</h2>
               <p className="text-primary font-medium mb-4">PADI Open Water Scuba Instructor #423428</p>
               <p className="text-muted-foreground mb-6">
-                With over 15 years of diving experience and thousands of successful certifications, Mike brings unparalleled expertise to every class. His patient teaching style and commitment to safety have made him one of the most sought-after instructors in Northwest Florida.
+                I have been diving since I was a kid in 2009 and now have the opportunity to teach divers here in Pensacola. I have been a PADI Divemaster since 2018 and an instructor since 2024. If I am not diving, I am probably working my "real" job as a paramedic with a local EMS service.
               </p>
             </div>
           </div>
