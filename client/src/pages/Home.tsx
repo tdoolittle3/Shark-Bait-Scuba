@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "wouter";
 import { ArrowRight, Award, Users, Shield, Clock } from "lucide-react";
+import { getImagePath } from "@/lib/utils";
 
 export default function Home() {
   return (
@@ -11,7 +12,7 @@ export default function Home() {
         <div 
           className="absolute inset-0 z-0"
           style={{
-            backgroundImage: 'linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(https://images.unsplash.com/photo-1544551763-46a013bb70d5)',
+            backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(${getImagePath('hero/hero-banner.jpg')})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center'
           }}
