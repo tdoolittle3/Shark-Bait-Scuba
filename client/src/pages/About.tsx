@@ -1,6 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Star, Award, Shield, Users } from "lucide-react";
-import { getImagePath } from "@/lib/utils";
 
 export default function About() {
   return (
@@ -21,7 +20,7 @@ export default function About() {
           <div className="flex flex-col md:flex-row items-center gap-8">
             <div className="w-48 h-48 rounded-full overflow-hidden shrink-0">
               <img
-                src={getImagePath('about/IMG_20250128_154008.jpg')}
+                src="/images/about/IMG_20250128_154008.jpg"
                 alt="Robby Doolittle"
                 className="w-full h-full object-cover"
               />
@@ -32,9 +31,9 @@ export default function About() {
               <p className="text-muted-foreground mb-6">
                 I have been diving since I was a kid in 2009 and now have the opportunity to teach divers here in Pensacola. I have been a PADI Divemaster since 2018 and an instructor since 2024. If I am not diving, I am probably working my "real" job as a paramedic with a local EMS service.
               </p>
-              
+
               <p className="text-muted-foreground mb-6">
-                Your new paragraph text goes here.
+                When I was five years old, I was attacked by a shark in Corpus Christi, Texas that left me with a severe injury to my left lower leg and almost lost my life. Thanks to my Dad and the surgeons, I was able to keep my life and leg despite the severe damage. Despite this encounter, I love the ocean and interacting with sharks on a regular basis.
               </p>
             </div>
           </div>
