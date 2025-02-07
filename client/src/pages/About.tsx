@@ -1,5 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Star, Award, Shield, Users } from "lucide-react";
+import { getImagePath } from "@/lib/utils";
 
 export default function About() {
   return (
@@ -20,14 +21,14 @@ export default function About() {
           <div className="flex flex-col md:flex-row items-center gap-8">
             <div className="w-48 h-48 rounded-full overflow-hidden shrink-0">
               <img
-                src="https://images.unsplash.com/photo-1516880711640-ef7db81be3e1"
-                alt="Mike Johnson"
+                src={getImagePath('about/IMG_20250128_154008.jpg')}
+                alt="Robby Doolittle"
                 className="w-full h-full object-cover"
               />
             </div>
             <div className="text-center md:text-left">
-              <h2 className="text-2xl font-bold mb-2">Mike Johnson</h2>
-              <p className="text-primary font-medium mb-4">PADI Course Director & Lead Instructor</p>
+              <h2 className="text-2xl font-bold mb-2">Robby Doolittle</h2>
+              <p className="text-primary font-medium mb-4">PADI Open Water Scuba Instructor #423428</p>
               <p className="text-muted-foreground mb-6">
                 With over 15 years of diving experience and thousands of successful certifications, Mike brings unparalleled expertise to every class. His patient teaching style and commitment to safety have made him one of the most sought-after instructors in Northwest Florida.
               </p>
