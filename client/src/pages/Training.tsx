@@ -13,7 +13,46 @@ const courses = [
   },
   {
     title: "Open Water Diver",
-    description: "The PADI Open Water Diver Course is your gateway to the underwater world! This globally recognized certification allows you to dive independently with a buddy to a maximum depth of 60 feet (18 meters).\n\nWhat You'll Learn:\n• Knowledge Development – Learn diving principles, safety procedures, and equipment usage through self-study or instructor-led sessions.\n• Confined Water Training – Practice essential dive skills in a pool or pool-like environment to build confidence and control underwater.\n• Open Water Dives – Apply what you've learned in four open water dives under instructor supervision.\n\nCourse Requirements:\n• Minimum Age: 10 years old (Junior Open Water Diver for ages 10-14)\n• Swimming Skills: Must be able to swim 200 meters (or 300 meters with mask, snorkel, and fins) and float/tread water for 10 minutes.\n• Health & Safety: Complete a medical questionnaire; clearance from a physician may be required.\n\nWhy Take This Course?\n• Gain the freedom to explore the ocean with a dive buddy.\n• Join a worldwide community of certified divers.\n• Open the door to advanced diving adventures like wreck diving, night diving, and underwater photography!\n\nReady to start your diving journey? Contact me for more details or to schedule your course."
+    description: (
+      <>
+        <p className="mb-4">
+          The PADI Open Water Diver Course is your gateway to the underwater world! This globally recognized certification allows you to dive independently with a buddy to a maximum depth of 60 feet (18 meters).
+        </p>
+
+        <div className="space-y-4">
+          <div>
+            <h4 className="font-semibold mb-2">What You'll Learn:</h4>
+            <ul className="list-disc pl-5 space-y-1">
+              <li>Knowledge Development – Learn diving principles, safety procedures, and equipment usage through self-study or instructor-led sessions.</li>
+              <li>Confined Water Training – Practice essential dive skills in a pool or pool-like environment to build confidence and control underwater.</li>
+              <li>Open Water Dives – Apply what you've learned in four open water dives under instructor supervision.</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold mb-2">Course Requirements:</h4>
+            <ul className="list-disc pl-5 space-y-1">
+              <li>Minimum Age: 10 years old (Junior Open Water Diver for ages 10-14)</li>
+              <li>Swimming Skills: Must be able to swim 200 meters (or 300 meters with mask, snorkel, and fins) and float/tread water for 10 minutes.</li>
+              <li>Health & Safety: Complete a medical questionnaire; clearance from a physician may be required.</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold mb-2">Why Take This Course?</h4>
+            <ul className="list-disc pl-5 space-y-1">
+              <li>Gain the freedom to explore the ocean with a dive buddy.</li>
+              <li>Join a worldwide community of certified divers.</li>
+              <li>Open the door to advanced diving adventures like wreck diving, night diving, and underwater photography!</li>
+            </ul>
+          </div>
+        </div>
+
+        <p className="mt-4 font-medium">
+          Ready to start your diving journey? Contact me for more details or to schedule your course.
+        </p>
+      </>
+    )
   },
   {
     title: "Advanced Open Water",
@@ -40,7 +79,7 @@ export default function Training() {
           <Card key={index}>
             <CardHeader>
               <CardTitle>{course.title}</CardTitle>
-              <CardDescription className="text-sm text-muted-foreground">
+              <CardDescription className="whitespace-pre-wrap text-sm text-muted-foreground">
                 {course.description}
               </CardDescription>
             </CardHeader>
