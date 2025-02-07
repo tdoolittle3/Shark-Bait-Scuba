@@ -32,6 +32,10 @@ export default function About() {
               <p className="text-muted-foreground mb-6">
                 I have been diving since I was a kid in 2009 and now have the opportunity to teach divers here in Pensacola. I have been a PADI Divemaster since 2018 and an instructor since 2024. If I am not diving, I am probably working my "real" job as a paramedic with a local EMS service.
               </p>
+              
+              <p className="text-muted-foreground mb-6">
+                Your new paragraph text goes here.
+              </p>
             </div>
           </div>
         </CardContent>
