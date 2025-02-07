@@ -36,28 +36,6 @@ export default function About() {
           </div>
         </CardContent>
       </Card>
-
-      {/* Certifications Section */}
-      <div className="bg-muted/30 rounded-lg p-8 text-center max-w-3xl mx-auto">
-        <h2 className="text-2xl font-bold mb-4">Our Certifications</h2>
-        <p className="text-muted-foreground mb-4">
-          We're proud to be a PADI 5-Star Dive Center, meeting the highest standards in the diving industry. Our lead instructor holds multiple specialty certifications and maintains active status with all major diving organizations.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
-          <div className="p-4">
-            <h3 className="font-bold mb-2">PADI</h3>
-            <p className="text-sm text-muted-foreground">Course Director #54321</p>
-          </div>
-          <div className="p-4">
-            <h3 className="font-bold mb-2">SSI</h3>
-            <p className="text-sm text-muted-foreground">Advanced Instructor</p>
-          </div>
-          <div className="p-4">
-            <h3 className="font-bold mb-2">DAN</h3>
-            <p className="text-sm text-muted-foreground">First Aid Instructor</p>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
