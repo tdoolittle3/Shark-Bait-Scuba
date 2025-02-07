@@ -141,7 +141,7 @@ export default function Home() {
             <div className="mx-auto w-full aspect-square">
               <blockquote
                 className="instagram-media"
-                data-instgrm-permalink="https://www.instagram.com/p/DFx43QzOhpf/?utm_source=ig_embed&amp;utm_campaign=loading&amp;cards=false&amp;hideCaption=true"
+                data-instgrm-permalink="https://www.instagram.com/p/DFx43QzOhpf/?utm_source=ig_embed&amp;utm_campaign=loading&amp;cards=1&amp;hideCaption=1&amp;embedsource=custom"
                 data-instgrm-version="14"
                 style={{ maxWidth: '100%', width: '100%', height: '100%', margin: 0 }}
               />
@@ -149,7 +149,7 @@ export default function Home() {
             <div className="mx-auto w-full aspect-square">
               <blockquote
                 className="instagram-media"
-                data-instgrm-permalink="https://www.instagram.com/reel/DFyEJ9BvHVO/?utm_source=ig_embed&amp;utm_campaign=loading&amp;cards=false&amp;hideCaption=true"
+                data-instgrm-permalink="https://www.instagram.com/reel/DFyEJ9BvHVO/?utm_source=ig_embed&amp;utm_campaign=loading&amp;cards=1&amp;hideCaption=1&amp;embedsource=custom&amp;mute=1"
                 data-instgrm-version="14"
                 style={{ maxWidth: '100%', width: '100%', height: '100%', margin: 0 }}
               />
@@ -157,7 +157,7 @@ export default function Home() {
             <div className="mx-auto w-full aspect-square">
               <blockquote
                 className="instagram-media"
-                data-instgrm-permalink="https://www.instagram.com/reel/DFyEa1ePI5u/?utm_source=ig_embed&amp;utm_campaign=loading&amp;cards=false&amp;hideCaption=true"
+                data-instgrm-permalink="https://www.instagram.com/reel/DFyEa1ePI5u/?utm_source=ig_embed&amp;utm_campaign=loading&amp;cards=1&amp;hideCaption=1&amp;embedsource=custom&amp;mute=1"
                 data-instgrm-version="14"
                 style={{ maxWidth: '100%', width: '100%', height: '100%', margin: 0 }}
               />
@@ -165,7 +165,7 @@ export default function Home() {
             <div className="mx-auto w-full aspect-square">
               <blockquote
                 className="instagram-media"
-                data-instgrm-permalink="https://www.instagram.com/reel/DFyElWpvtCE/?utm_source=ig_embed&amp;utm_campaign=loading&amp;cards=false&amp;hideCaption=true"
+                data-instgrm-permalink="https://www.instagram.com/reel/DFyElWpvtCE/?utm_source=ig_embed&amp;utm_campaign=loading&amp;cards=1&amp;hideCaption=1&amp;embedsource=custom&amp;mute=1"
                 data-instgrm-version="14"
                 style={{ maxWidth: '100%', width: '100%', height: '100%', margin: 0 }}
               />
