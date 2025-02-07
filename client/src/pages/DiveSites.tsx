@@ -138,6 +138,13 @@ const diveSites = [
   }
 ];
 
+function scrollToCard(siteId: string) {
+  const element = document.getElementById(siteId);
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+}
+
 export default function DiveSites() {
   return (
     <div className="container py-12">
@@ -160,13 +167,25 @@ export default function DiveSites() {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           />
           {diveSites.map((site, index) => (
-            <Marker key={index} position={site.coordinates}>
+            <Marker 
+              key={index} 
+              position={[site.coordinates[0], site.coordinates[1]] as [number, number]}
+              eventHandlers={{
+                click: () => scrollToCard(`dive-site-${index}`)
+              }}
+            >
               <Popup>
                 <div className="p-2">
                   <h3 className="font-bold">{site.name}</h3>
                   <p className="text-sm">Type: {site.type}</p>
                   <p className="text-sm">Depth: {site.depth}</p>
                   <p className="text-sm">Level: {site.level}</p>
+                  <button 
+                    onClick={() => scrollToCard(`dive-site-${index}`)}
+                    className="mt-2 text-sm text-primary hover:underline"
+                  >
+                    View Details
+                  </button>
                 </div>
               </Popup>
             </Marker>
@@ -176,7 +195,7 @@ export default function DiveSites() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {diveSites.map((site, index) => (
-          <Card key={index}>
+          <Card key={index} id={`dive-site-${index}`}>
             {site.image && (
               <div className="aspect-video relative">
                 <img
