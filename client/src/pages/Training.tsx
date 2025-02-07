@@ -146,6 +146,52 @@ const courses = [
         </p>
       </>
     )
+  },
+  {
+    title: "Enriched Air (Nitrox) Diver",
+    description: (
+      <>
+        <p className="mb-4">
+          The Enriched Air Diver course, commonly referred to as the Nitrox course, is one of the most popular scuba diving specialties. This certification allows divers to safely use enriched air nitrox blends containing 22% to 40% oxygen, extending no-stop dive times and reducing nitrogen absorption. The course emphasizes the benefits, risks, and procedures associated with diving on nitrox, equipping divers with the knowledge to safely plan and execute enriched air dives.
+        </p>
+
+        <div className="space-y-4">
+          <div>
+            <h4 className="font-semibold mb-2">Course Topics:</h4>
+            <ul className="list-disc pl-5 space-y-1">
+              <li>Advantages and disadvantages of diving with enriched air nitrox</li>
+              <li>Equipment considerations for enriched air diving</li>
+              <li>Oxygen exposure limits and safety precautions</li>
+              <li>Procedures for analyzing and obtaining enriched air fills</li>
+              <li>Setting and using enriched air-compatible dive computers</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold mb-2">Best for:</h4>
+            <p className="text-muted-foreground">
+              This course is ideal for certified Open Water divers (ages 12 and up) looking to extend their bottom time and reduce post-dive fatigue. It is especially beneficial for those planning repetitive dives, such as during dive vacations or liveaboard trips.
+            </p>
+          </div>
+
+          <div>
+            <h4 className="font-semibold mb-2">Course Format:</h4>
+            <ul className="list-disc pl-5 space-y-1">
+              <li>Independent study through eLearning or manual-based knowledge development</li>
+              <li>Practical application sessions, including gas analysis and computer settings</li>
+              <li>Optional open water dives using enriched air</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold mb-2">Get Certified:</h4>
+            <p className="text-muted-foreground">
+              Certification can be completed with me as your instructor. No dives are required, making it a flexible option for divers of all experience levels. However, if you'd like to apply your knowledge in the water, you can complete two enriched air dives as part of the course. This course can also be completed together with any other PADI course offered. If you plan on diving in the Gulf, this is a must!
+            </p>
+          </div>
+        </div>
+      </>
+    )
   }
 ];
 
