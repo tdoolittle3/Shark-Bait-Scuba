@@ -4,6 +4,7 @@ import { queryClient } from "./lib/queryClient";
 import { Toaster } from "@/components/ui/toaster";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import FloatingPhoneWidget from "@/components/layout/FloatingPhoneWidget";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
 import DiveSites from "@/pages/DiveSites";
@@ -28,6 +29,7 @@ function Router() {
         </Switch>
       </main>
       <Footer />
+      <FloatingPhoneWidget />
     </div>
   );
 }

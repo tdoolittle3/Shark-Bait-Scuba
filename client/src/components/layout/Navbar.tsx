@@ -2,7 +2,7 @@ import { Link, useLocation } from "wouter";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Fish, Menu, Phone } from "lucide-react";
+import { Fish, Menu } from "lucide-react";
 
 export default function Navbar() {
   const [location] = useLocation();
@@ -40,15 +40,6 @@ export default function Navbar() {
               </Link>
             ))}
           </div>
-
-          {/* Phone Number */}
-          <a 
-            href="tel:850-366-2437" 
-            className="flex items-center space-x-2 text-primary hover:text-primary/90"
-          >
-            <Phone className="h-5 w-5" />
-            <span className="font-medium">850-366-2437</span>
-          </a>
         </div>
 
         {/* Mobile Navigation */}
@@ -61,14 +52,6 @@ export default function Navbar() {
           </SheetTrigger>
           <SheetContent side="right">
             <nav className="flex flex-col space-y-4 mt-6">
-              {/* Phone Number in Mobile Menu */}
-              <a 
-                href="tel:850-366-2437" 
-                className="flex items-center space-x-2 text-primary hover:text-primary/90 px-4 py-2"
-              >
-                <Phone className="h-5 w-5" />
-                <span className="font-medium">850-366-2437</span>
-              </a>
               {navLinks.map((link) => (
                 <Link key={link.href} href={link.href}>
                   <Button
