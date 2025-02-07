@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { getImagePath } from "@/lib/utils";
 import { useState, useEffect } from "react";
 
@@ -36,10 +36,24 @@ export default function Home() {
         setCurrentTagline((current) => (current + 1) % taglines.length);
         setIsTransitioning(false);
       }, 500); // Wait for fade out before changing content
-    }, 5000); // Change every 5 seconds
+    }, 8000); // Change every 8 seconds
 
     return () => clearInterval(timer);
   }, []);
+
+  const handleNavigation = (direction: 'prev' | 'next') => {
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setCurrentTagline((current) => {
+        if (direction === 'prev') {
+          return current === 0 ? taglines.length - 1 : current - 1;
+        } else {
+          return (current + 1) % taglines.length;
+        }
+      });
+      setIsTransitioning(false);
+    }, 500);
+  };
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -70,6 +84,26 @@ export default function Home() {
               </Link>
             </div>
           </div>
+        </div>
+
+        {/* Navigation Buttons */}
+        <div className="absolute bottom-8 left-0 right-0 flex justify-center gap-4 z-10">
+          <Button
+            variant="outline"
+            size="icon"
+            className="bg-white/10 hover:bg-white/20 text-white rounded-full"
+            onClick={() => handleNavigation('prev')}
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </Button>
+          <Button
+            variant="outline"
+            size="icon"
+            className="bg-white/10 hover:bg-white/20 text-white rounded-full"
+            onClick={() => handleNavigation('next')}
+          >
+            <ChevronRight className="h-4 w-4" />
+          </Button>
         </div>
       </section>
     </div>
