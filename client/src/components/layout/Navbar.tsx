@@ -8,6 +8,7 @@ export default function Navbar() {
   const [location] = useLocation();
 
   const navLinks = [
+    { href: "/", label: "Home" },
     { href: "/dive-sites", label: "Dive Sites" },
     { href: "/training", label: "Training" },
     { href: "/gear", label: "Gear" },
@@ -24,27 +25,25 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex flex-col flex-1">
-          <div className="flex items-center space-x-4">
-            {navLinks.map((link) => (
-              <Link key={link.href} href={link.href}>
-                <Button
-                  variant="ghost"
-                  className={cn(
-                    "text-sm font-medium transition-colors hover:text-primary",
-                    location === link.href && "text-primary"
-                  )}
-                >
-                  {link.label}
-                </Button>
-              </Link>
-            ))}
-          </div>
+        <div className="hidden md:flex items-center space-x-4 flex-1">
+          {navLinks.map((link) => (
+            <Link key={link.href} href={link.href}>
+              <Button
+                variant="ghost"
+                className={cn(
+                  "text-sm font-medium transition-colors hover:text-primary",
+                  location === link.href && "text-primary"
+                )}
+              >
+                {link.label}
+              </Button>
+            </Link>
+          ))}
 
           {/* Phone Number */}
           <a 
             href="tel:850-366-2437" 
-            className="flex items-center space-x-2 text-primary hover:text-primary/90 mt-2"
+            className="flex items-center space-x-2 text-primary hover:text-primary/90"
           >
             <Phone className="h-5 w-5" />
             <span className="font-medium">850-366-2437</span>
