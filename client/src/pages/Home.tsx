@@ -3,7 +3,6 @@ import { Link } from "wouter";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { getImagePath } from "@/lib/utils";
 import { useState, useEffect } from "react";
-import { InstagramEmbed } from 'react-social-media-embed';
 
 const taglines = [
   {
@@ -26,13 +25,6 @@ const taglines = [
   }
 ];
 
-const instagramPosts = [
-  'https://www.instagram.com/p/DFx43QzOhpf',
-  'https://www.instagram.com/reel/DFyEJ9BvHVO',
-  'https://www.instagram.com/reel/DFyEa1ePI5u',
-  'https://www.instagram.com/reel/DFyElWpvtCE'
-];
-
 export default function Home() {
   const [currentTagline, setCurrentTagline] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -43,10 +35,21 @@ export default function Home() {
       setTimeout(() => {
         setCurrentTagline((current) => (current + 1) % taglines.length);
         setIsTransitioning(false);
-      }, 500);
-    }, 8000);
+      }, 500); // Wait for fade out before changing content
+    }, 8000); // Change every 8 seconds
 
-    return () => clearInterval(timer);
+    // Load Instagram embed script
+    const script = document.createElement('script');
+    script.src = '//www.instagram.com/embed.js';
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      clearInterval(timer);
+      if (script && script.parentNode) {
+        document.body.removeChild(script);
+      }
+    };
   }, []);
 
   const handleNavigation = (direction: 'prev' | 'next') => {
@@ -67,7 +70,7 @@ export default function Home() {
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
       <section className="relative h-[600px] flex items-center">
-        <div
+        <div 
           className="absolute inset-0 z-0"
           style={{
             backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(${getImagePath('hero/hero-banner.jpg')})`,
@@ -119,21 +122,33 @@ export default function Home() {
       <section className="py-20">
         <div className="container">
           <h2 className="text-3xl font-bold text-center mb-12">Follow Our Adventures</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {instagramPosts.map((post, index) => (
-              <div key={index} className="mx-auto w-full">
-                <InstagramEmbed
-                  url={post}
-                  width={328}
-                  height={328}
-                  captioned={false}
-                />
-              </div>
-            ))}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Replace these blockquotes with your actual Instagram post URLs */}
+            <div className="mx-auto">
+              <blockquote
+                className="instagram-media"
+                data-instgrm-permalink="https://www.instagram.com/p/YOUR_INSTAGRAM_POST_ID_1/"
+                data-instgrm-version="14"
+              />
+            </div>
+            <div className="mx-auto">
+              <blockquote
+                className="instagram-media"
+                data-instgrm-permalink="https://www.instagram.com/p/YOUR_INSTAGRAM_POST_ID_2/"
+                data-instgrm-version="14"
+              />
+            </div>
+            <div className="mx-auto">
+              <blockquote
+                className="instagram-media"
+                data-instgrm-permalink="https://www.instagram.com/p/YOUR_INSTAGRAM_POST_ID_3/"
+                data-instgrm-version="14"
+              />
+            </div>
           </div>
           <div className="text-center mt-8">
-            <a
-              href="https://www.instagram.com/sharkbaitscubafl/"
+            <a 
+              href="https://www.instagram.com/YOUR_INSTAGRAM_USERNAME/"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-primary hover:text-primary/80"
