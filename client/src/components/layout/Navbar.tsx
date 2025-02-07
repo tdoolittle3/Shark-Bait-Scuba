@@ -8,7 +8,6 @@ export default function Navbar() {
   const [location] = useLocation();
 
   const navLinks = [
-    { href: "/", label: "Home" },
     { href: "/dive-sites", label: "Dive Sites" },
     { href: "/training", label: "Training" },
     { href: "/gear", label: "Gear" },
@@ -25,20 +24,22 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center space-x-4 flex-1">
-          {navLinks.map((link) => (
-            <Link key={link.href} href={link.href}>
-              <Button
-                variant="ghost"
-                className={cn(
-                  "text-sm font-medium transition-colors hover:text-primary",
-                  location === link.href && "text-primary"
-                )}
-              >
-                {link.label}
-              </Button>
-            </Link>
-          ))}
+        <div className="hidden md:flex items-center justify-between flex-1">
+          <div className="flex items-center space-x-4">
+            {navLinks.map((link) => (
+              <Link key={link.href} href={link.href}>
+                <Button
+                  variant="ghost"
+                  className={cn(
+                    "text-sm font-medium transition-colors hover:text-primary",
+                    location === link.href && "text-primary"
+                  )}
+                >
+                  {link.label}
+                </Button>
+              </Link>
+            ))}
+          </div>
 
           {/* Phone Number */}
           <a 
