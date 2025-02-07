@@ -20,9 +20,15 @@ export default function Footer() {
               <Button variant="ghost" size="icon" aria-label="Facebook">
                 <Facebook className="h-5 w-5" />
               </Button>
-              <Button variant="ghost" size="icon" aria-label="Instagram">
-                <Instagram className="h-5 w-5" />
-              </Button>
+              <a 
+                href="https://www.instagram.com/sharkbaitscubafl/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button variant="ghost" size="icon" aria-label="Instagram">
+                  <Instagram className="h-5 w-5" />
+                </Button>
+              </a>
               <Button variant="ghost" size="icon" aria-label="Twitter">
                 <Twitter className="h-5 w-5" />
               </Button>

@@ -123,32 +123,31 @@ export default function Home() {
         <div className="container">
           <h2 className="text-3xl font-bold text-center mb-12">Follow Our Adventures</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Replace these blockquotes with your actual Instagram post URLs */}
             <div className="mx-auto">
               <blockquote
                 className="instagram-media"
-                data-instgrm-permalink="https://www.instagram.com/reel/DFyElWpvtCE/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
+                data-instgrm-permalink="https://www.instagram.com/reel/DFyEa1ePI5u/"
                 data-instgrm-version="14"
               />
             </div>
             <div className="mx-auto">
               <blockquote
                 className="instagram-media"
-                data-instgrm-permalink="https://www.instagram.com/p/YOUR_INSTAGRAM_POST_ID_2/"
+                data-instgrm-permalink="https://www.instagram.com/reel/DFyEJ9BvHVO/"
                 data-instgrm-version="14"
               />
             </div>
             <div className="mx-auto">
               <blockquote
                 className="instagram-media"
-                data-instgrm-permalink="https://www.instagram.com/p/YOUR_INSTAGRAM_POST_ID_3/"
+                data-instgrm-permalink="https://www.instagram.com/p/DFx43QzOhpf/"
                 data-instgrm-version="14"
               />
             </div>
           </div>
           <div className="text-center mt-8">
             <a 
-              href="https://www.instagram.com/YOUR_INSTAGRAM_USERNAME/"
+              href="https://www.instagram.com/sharkbaitscubafl/"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-primary hover:text-primary/80"
