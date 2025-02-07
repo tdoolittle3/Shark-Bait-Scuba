@@ -20,7 +20,7 @@ export default function About() {
           <div className="flex flex-col md:flex-row items-center gap-8">
             <div className="w-48 h-48 rounded-full overflow-hidden shrink-0">
               <img
-                src="/images/about/IMG_20250128_154008.jpg"
+                src="/images/about/robbydoolittleinstructorpic.jpg"
                 alt="Robby Doolittle"
                 className="w-full h-full object-cover"
               />
