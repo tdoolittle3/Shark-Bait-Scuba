@@ -37,6 +37,15 @@ export default function About() {
               </p>
             </div>
           </div>
+
+          {/* Additional Image */}
+          <div className="mt-8">
+            <img
+              src="/images/about/markup_1000000453.jpg"
+              alt="Additional diving photo"
+              className="w-full h-auto rounded-lg shadow-lg"
+            />
+          </div>
         </CardContent>
       </Card>
     </div>
