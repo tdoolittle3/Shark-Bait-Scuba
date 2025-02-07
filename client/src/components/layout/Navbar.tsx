@@ -18,36 +18,38 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <nav className="container flex h-16 items-center">
-        <Link href="/" className="flex items-center space-x-2">
+        <Link href="/" className="flex items-center space-x-2 mr-8">
           <Fish className="h-8 w-8 text-primary" />
           <span className="font-bold text-xl">Shark Bait Scuba</span>
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center justify-center flex-1 space-x-4">
-          {navLinks.map((link) => (
-            <Link key={link.href} href={link.href}>
-              <Button
-                variant="ghost"
-                className={cn(
-                  "text-sm font-medium transition-colors hover:text-primary",
-                  location === link.href && "text-primary"
-                )}
-              >
-                {link.label}
-              </Button>
-            </Link>
-          ))}
-        </div>
+        <div className="hidden md:flex items-center justify-between flex-1">
+          <div className="flex items-center space-x-4">
+            {navLinks.map((link) => (
+              <Link key={link.href} href={link.href}>
+                <Button
+                  variant="ghost"
+                  className={cn(
+                    "text-sm font-medium transition-colors hover:text-primary",
+                    location === link.href && "text-primary"
+                  )}
+                >
+                  {link.label}
+                </Button>
+              </Link>
+            ))}
+          </div>
 
-        {/* Phone Number */}
-        <a 
-          href="tel:850-366-2437" 
-          className="hidden md:flex items-center space-x-2 text-primary hover:text-primary/90 mr-4"
-        >
-          <Phone className="h-5 w-5" />
-          <span className="font-medium">850-366-2437</span>
-        </a>
+          {/* Phone Number */}
+          <a 
+            href="tel:850-366-2437" 
+            className="flex items-center space-x-2 text-primary hover:text-primary/90"
+          >
+            <Phone className="h-5 w-5" />
+            <span className="font-medium">850-366-2437</span>
+          </a>
+        </div>
 
         {/* Mobile Navigation */}
         <Sheet>
