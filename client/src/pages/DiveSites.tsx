@@ -170,9 +170,6 @@ export default function DiveSites() {
             <Marker
               key={index}
               position={[site.coordinates[0], site.coordinates[1]] as [number, number]}
-              eventHandlers={{
-                click: () => scrollToCard(`dive-site-${index}`)
-              }}
             >
               <Popup>
                 <div className="p-2">
