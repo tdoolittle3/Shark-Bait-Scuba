@@ -24,7 +24,7 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center justify-between flex-1">
+        <div className="hidden md:flex flex-col flex-1">
           <div className="flex items-center space-x-4">
             {navLinks.map((link) => (
               <Link key={link.href} href={link.href}>
@@ -44,7 +44,7 @@ export default function Navbar() {
           {/* Phone Number */}
           <a 
             href="tel:850-366-2437" 
-            className="flex items-center space-x-2 text-primary hover:text-primary/90"
+            className="flex items-center space-x-2 text-primary hover:text-primary/90 mt-2"
           >
             <Phone className="h-5 w-5" />
             <span className="font-medium">850-366-2437</span>
