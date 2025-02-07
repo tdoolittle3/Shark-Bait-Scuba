@@ -3,6 +3,7 @@ import { Link } from "wouter";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { getImagePath } from "@/lib/utils";
 import { useState, useEffect } from "react";
+import { InstagramEmbed } from 'react-social-media-embed';
 
 const taglines = [
   {
@@ -104,6 +105,33 @@ export default function Home() {
           >
             <ChevronRight className="h-4 w-4" />
           </Button>
+        </div>
+      </section>
+
+      {/* Instagram Feed Section */}
+      <section className="py-20">
+        <div className="container">
+          <h2 className="text-3xl font-bold text-center mb-12">Follow Our Adventures</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="mx-auto">
+              <InstagramEmbed 
+                url="https://www.instagram.com/p/C0DLYjLP2KX/"
+                width={328}
+              />
+            </div>
+            <div className="mx-auto">
+              <InstagramEmbed 
+                url="https://www.instagram.com/p/C0DLYjLP2KX/"
+                width={328}
+              />
+            </div>
+            <div className="mx-auto">
+              <InstagramEmbed 
+                url="https://www.instagram.com/p/C0DLYjLP2KX/"
+                width={328}
+              />
+            </div>
+          </div>
         </div>
       </section>
     </div>
