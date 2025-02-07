@@ -167,8 +167,8 @@ export default function DiveSites() {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           />
           {diveSites.map((site, index) => (
-            <Marker 
-              key={index} 
+            <Marker
+              key={index}
               position={[site.coordinates[0], site.coordinates[1]] as [number, number]}
               eventHandlers={{
                 click: () => scrollToCard(`dive-site-${index}`)
@@ -176,16 +176,15 @@ export default function DiveSites() {
             >
               <Popup>
                 <div className="p-2">
-                  <h3 className="font-bold">{site.name}</h3>
+                  <h3
+                    onClick={() => scrollToCard(`dive-site-${index}`)}
+                    className="font-bold text-primary hover:underline cursor-pointer"
+                  >
+                    {site.name}
+                  </h3>
                   <p className="text-sm">Type: {site.type}</p>
                   <p className="text-sm">Depth: {site.depth}</p>
                   <p className="text-sm">Level: {site.level}</p>
-                  <button 
-                    onClick={() => scrollToCard(`dive-site-${index}`)}
-                    className="mt-2 text-sm text-primary hover:underline"
-                  >
-                    View Details
-                  </button>
                 </div>
               </Popup>
             </Marker>
