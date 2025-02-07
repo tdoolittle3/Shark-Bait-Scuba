@@ -25,9 +25,11 @@ app.use((req, res, next) => {
   next();
 });
 
-// Logging middleware
+// Enhanced logging middleware
 app.use((req, res, next) => {
   const start = Date.now();
+  log(`Incoming request: ${req.method} ${req.path}`);
+
   res.on("finish", () => {
     const duration = Date.now() - start;
     log(`${req.method} ${req.path} ${res.statusCode} in ${duration}ms`);
@@ -38,20 +40,26 @@ app.use((req, res, next) => {
 (async () => {
   const server = registerRoutes(app);
 
-  // Global error handler
+  // Global error handler with detailed logging
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
-    console.error('Error:', err);
+    console.error('Error details:', {
+      message: err.message,
+      stack: err.stack,
+      status: err.status || 500
+    });
     res.status(500).json({ message: 'Internal Server Error' });
   });
 
   if (process.env.NODE_ENV === "production") {
     serveStatic(app);
   } else {
+    log('Setting up Vite development server...');
     await setupVite(app, server);
   }
 
-  const PORT = process.env.PORT || 5000;
+  const PORT = Number(process.env.PORT) || 3000;
   server.listen(PORT, "0.0.0.0", () => {
     log(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
+    log(`Server URL: http://0.0.0.0:${PORT}`);
   });
 })();
