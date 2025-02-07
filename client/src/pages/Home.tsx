@@ -19,10 +19,10 @@ export default function Home() {
         />
         <div className="container relative z-10 text-white">
           <h1 className="text-5xl md:text-7xl font-bold mb-6">
-            Private Scuba Instruction
+            Private Scuba Instruction and Guiding
           </h1>
           <p className="text-xl md:text-2xl mb-8 max-w-2xl">
-            Experience personalized one-on-one scuba training in Northwest Florida. Learn at your own pace with dedicated instructor attention.
+            Experience personalized scuba training and guiding in Pensacola, Florida.
           </p>
           <div className="space-x-4">
             <Link href="/training">
