@@ -3,6 +3,7 @@ import { Link } from "wouter";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { getImagePath } from "@/lib/utils";
 import { useState, useEffect } from "react";
+import { InstagramEmbed } from 'react-social-media-embed';
 
 const taglines = [
   {
@@ -25,25 +26,16 @@ const taglines = [
   }
 ];
 
+const instagramPosts = [
+  'https://www.instagram.com/p/DFx43QzOhpf',
+  'https://www.instagram.com/reel/DFyEJ9BvHVO',
+  'https://www.instagram.com/reel/DFyEa1ePI5u',
+  'https://www.instagram.com/reel/DFyElWpvtCE'
+];
+
 export default function Home() {
   const [currentTagline, setCurrentTagline] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
-
-  // Function to load Instagram embed script
-  const loadInstagramEmbed = () => {
-    // Remove existing script if any
-    const existingScript = document.getElementById('instagram-embed-script');
-    if (existingScript) {
-      existingScript.remove();
-    }
-
-    // Create and add new script
-    const script = document.createElement('script');
-    script.id = 'instagram-embed-script';
-    script.src = 'https://www.instagram.com/embed.js';
-    script.async = true;
-    document.body.appendChild(script);
-  };
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -54,17 +46,7 @@ export default function Home() {
       }, 500);
     }, 8000);
 
-    // Load Instagram embed script
-    loadInstagramEmbed();
-
-    return () => {
-      clearInterval(timer);
-      // Clean up Instagram script on unmount
-      const script = document.getElementById('instagram-embed-script');
-      if (script) {
-        script.remove();
-      }
-    };
+    return () => clearInterval(timer);
   }, []);
 
   const handleNavigation = (direction: 'prev' | 'next') => {
@@ -138,38 +120,16 @@ export default function Home() {
         <div className="container">
           <h2 className="text-3xl font-bold text-center mb-12">Follow Our Adventures</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="mx-auto w-full aspect-square">
-              <blockquote
-                className="instagram-media"
-                data-instgrm-permalink="https://www.instagram.com/p/DFx43QzOhpf/?utm_source=ig_embed&amp;utm_campaign=loading&amp;cards=1&amp;hideCaption=1&amp;embedsource=custom"
-                data-instgrm-version="14"
-                style={{ maxWidth: '100%', width: '100%', height: '100%', margin: 0 }}
-              />
-            </div>
-            <div className="mx-auto w-full aspect-square">
-              <blockquote
-                className="instagram-media"
-                data-instgrm-permalink="https://www.instagram.com/reel/DFyEJ9BvHVO/?utm_source=ig_embed&amp;utm_campaign=loading&amp;cards=1&amp;hideCaption=1&amp;embedsource=custom&amp;mute=1"
-                data-instgrm-version="14"
-                style={{ maxWidth: '100%', width: '100%', height: '100%', margin: 0 }}
-              />
-            </div>
-            <div className="mx-auto w-full aspect-square">
-              <blockquote
-                className="instagram-media"
-                data-instgrm-permalink="https://www.instagram.com/reel/DFyEa1ePI5u/?utm_source=ig_embed&amp;utm_campaign=loading&amp;cards=1&amp;hideCaption=1&amp;embedsource=custom&amp;mute=1"
-                data-instgrm-version="14"
-                style={{ maxWidth: '100%', width: '100%', height: '100%', margin: 0 }}
-              />
-            </div>
-            <div className="mx-auto w-full aspect-square">
-              <blockquote
-                className="instagram-media"
-                data-instgrm-permalink="https://www.instagram.com/reel/DFyElWpvtCE/?utm_source=ig_embed&amp;utm_campaign=loading&amp;cards=1&amp;hideCaption=1&amp;embedsource=custom&amp;mute=1"
-                data-instgrm-version="14"
-                style={{ maxWidth: '100%', width: '100%', height: '100%', margin: 0 }}
-              />
-            </div>
+            {instagramPosts.map((post, index) => (
+              <div key={index} className="mx-auto w-full">
+                <InstagramEmbed
+                  url={post}
+                  width={328}
+                  height={328}
+                  captioned={false}
+                />
+              </div>
+            ))}
           </div>
           <div className="text-center mt-8">
             <a
