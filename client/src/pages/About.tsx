@@ -19,11 +19,11 @@ export default function About() {
         <CardContent className="pt-6 space-y-8">
           {/* First Section - Profile Picture and First Paragraph */}
           <div className="flex flex-col md:flex-row items-start gap-8">
-            <div className="w-48 h-48 rounded-full overflow-hidden shrink-0 mx-auto md:mx-0">
+            <div className="w-64 h-80 overflow-hidden shrink-0 mx-auto md:mx-0">
               <img
                 src="/images/about/robbydoolittleinstructorpic.jpg"
                 alt="Robby Doolittle"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover rounded-lg"
               />
             </div>
             <div className="text-center md:text-left">
