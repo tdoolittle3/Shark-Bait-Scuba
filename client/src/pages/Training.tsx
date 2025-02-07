@@ -108,7 +108,48 @@ const courses = [
   },
   {
     title: "Rescue Diver",
-    description: "Learn to prevent and manage dive emergencies, minor and major diving problems, and rescue procedures. This challenging and rewarding course will make you a better buddy and prepare you for diving leadership roles."
+    description: (
+      <>
+        <p className="mb-4">
+          Become a more confident and capable diver with the PADI Rescue Diver Course! This challenging yet rewarding course teaches you how to prevent and manage dive emergencies, making you a safer diver and a better dive buddy.
+        </p>
+
+        <div className="space-y-4">
+          <div>
+            <h4 className="font-semibold mb-2">What You'll Learn:</h4>
+            <ul className="list-disc pl-5 space-y-1">
+              <li>Self-Rescue Skills – Improve your ability to recognize and respond to potential problems.</li>
+              <li>Rescue Techniques – Learn how to assist tired, panicked, or unconscious divers.</li>
+              <li>Emergency Management – Practice in-water rescue scenarios and master accident response.</li>
+              <li>Teamwork & Leadership – Build confidence in handling dive emergencies and working with others.</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold mb-2">Course Requirements:</h4>
+            <ul className="list-disc pl-5 space-y-1">
+              <li>Minimum Age: 12 years old (Junior Rescue Diver for ages 12-14)</li>
+              <li>Prerequisite: Advanced Open Water Diver certification (or Adventure Diver with Underwater Navigation)</li>
+              <li>First Aid & CPR Certification: Must have a current Emergency First Response (EFR) certification or equivalent within the last 24 months. (Don't have it yet? No problem! As an EFR Instructor, I can include this training as part of your Rescue Diver course!)</li>
+              <li>Health & Safety: Complete a medical questionnaire; clearance from a physician may be required.</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold mb-2">Why Take This Course?</h4>
+            <ul className="list-disc pl-5 space-y-1">
+              <li>Develop the skills to recognize and respond to dive emergencies.</li>
+              <li>Gain the confidence to help others and enhance your own safety as a diver.</li>
+              <li>Prepare for PADI Divemaster training or a future career in diving.</li>
+            </ul>
+          </div>
+        </div>
+
+        <p className="mt-4 font-medium">
+          Ready to take on the challenge? Sign up today and become the diver everyone wants as a buddy! Contact me for more details or to schedule your course.
+        </p>
+      </>
+    )
   }
 ];
 
