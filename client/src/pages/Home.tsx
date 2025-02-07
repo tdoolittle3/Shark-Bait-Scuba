@@ -127,7 +127,7 @@ export default function Home() {
             <div className="mx-auto">
               <blockquote
                 className="instagram-media"
-                data-instgrm-permalink="https://www.instagram.com/p/YOUR_INSTAGRAM_POST_ID_1/"
+                data-instgrm-permalink="https://www.instagram.com/reel/DFyElWpvtCE/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
                 data-instgrm-version="14"
               />
             </div>
