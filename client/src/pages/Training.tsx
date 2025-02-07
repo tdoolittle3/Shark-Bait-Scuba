@@ -13,7 +13,24 @@ const courses = [
   },
   {
     title: "Open Water Diver",
-    description: "The PADI Open Water Diver Course is your gateway to the underwater world! This globally recognized certification allows you to dive independently with a buddy to a maximum depth of 60 feet (18 meters).\n\nWhat You'll Learn:\n• Knowledge Development – Learn diving principles, safety procedures, and equipment usage through self-study or instructor-led sessions.\n• Confined Water Training – Practice essential dive skills in a pool or pool-like environment to build confidence and control underwater.\n• Open Water Dives – Apply what you've learned in four open water dives under instructor supervision.\n\nCourse Requirements:\n• Minimum Age: 10 years old (Junior Open Water Diver for ages 10-14)\n• Swimming Skills: Must be able to swim 200 meters (or 300 meters with mask, snorkel, and fins) and float/tread water for 10 minutes.\n• Health & Safety: Complete a medical questionnaire; clearance from a physician may be required.\n\nWhy Take This Course?\n• Gain the freedom to explore the ocean with a dive buddy.\n• Join a worldwide community of certified divers.\n• Open the door to advanced diving adventures like wreck diving, night diving, and underwater photography!\n\nReady to start your diving journey? Contact me for more details or to schedule your course."
+    description: `The PADI Open Water Diver Course is your gateway to the underwater world! This globally recognized certification allows you to dive independently with a buddy to a maximum depth of 60 feet (18 meters).
+
+What You'll Learn:
+  • Knowledge Development – Learn diving principles, safety procedures, and equipment usage through self-study or instructor-led sessions.
+  • Confined Water Training – Practice essential dive skills in a pool or pool-like environment to build confidence and control underwater.
+  • Open Water Dives – Apply what you've learned in four open water dives under instructor supervision.
+
+Course Requirements:
+  • Minimum Age: 10 years old (Junior Open Water Diver for ages 10-14)
+  • Swimming Skills: Must be able to swim 200 meters (or 300 meters with mask, snorkel, and fins) and float/tread water for 10 minutes.
+  • Health & Safety: Complete a medical questionnaire; clearance from a physician may be required.
+
+Why Take This Course?
+  • Gain the freedom to explore the ocean with a dive buddy.
+  • Join a worldwide community of certified divers.
+  • Open the door to advanced diving adventures like wreck diving, night diving, and underwater photography!
+
+Ready to start your diving journey? Contact me for more details or to schedule your course.`
   },
   {
     title: "Advanced Open Water",
