@@ -32,28 +32,6 @@ export default function About() {
               <p className="text-muted-foreground mb-6">
                 With over 15 years of diving experience and thousands of successful certifications, Mike brings unparalleled expertise to every class. His patient teaching style and commitment to safety have made him one of the most sought-after instructors in Northwest Florida.
               </p>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-                <div>
-                  <Star className="w-6 h-6 text-primary mx-auto mb-2" />
-                  <p className="font-medium">5000+</p>
-                  <p className="text-sm text-muted-foreground">Dives</p>
-                </div>
-                <div>
-                  <Award className="w-6 h-6 text-primary mx-auto mb-2" />
-                  <p className="font-medium">1000+</p>
-                  <p className="text-sm text-muted-foreground">Certifications</p>
-                </div>
-                <div>
-                  <Shield className="w-6 h-6 text-primary mx-auto mb-2" />
-                  <p className="font-medium">15+ Years</p>
-                  <p className="text-sm text-muted-foreground">Experience</p>
-                </div>
-                <div>
-                  <Users className="w-6 h-6 text-primary mx-auto mb-2" />
-                  <p className="font-medium">100%</p>
-                  <p className="text-sm text-muted-foreground">Success Rate</p>
-                </div>
-              </div>
             </div>
           </div>
         </CardContent>
