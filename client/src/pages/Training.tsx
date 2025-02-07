@@ -56,7 +56,55 @@ const courses = [
   },
   {
     title: "Advanced Open Water",
-    description: "Take your diving to the next level with specialized training in deep diving, underwater navigation, night diving, and more. This course helps you build confidence and expand your diving capabilities through different adventure dives."
+    description: (
+      <>
+        <p className="mb-4">
+          Take your diving skills to the next level with the PADI Advanced Open Water Diver Course! This course builds on your existing knowledge and experience, introducing you to new types of diving while increasing your confidence and abilities underwater.
+        </p>
+
+        <div className="space-y-4">
+          <div>
+            <h4 className="font-semibold mb-2">What You'll Learn:</h4>
+            <ul className="list-disc pl-5 space-y-1">
+              <li>Five Adventure Dives – Two core dives (Deep & Underwater Navigation) plus three additional adventure dives of your choice, such as:
+                <ul className="list-disc pl-5 mt-1 space-y-1">
+                  <li>Wreck Diving</li>
+                  <li>Night Diving</li>
+                  <li>Peak Performance Buoyancy</li>
+                  <li>Drift Diving</li>
+                  <li>Search & Recovery, and more!</li>
+                </ul>
+              </li>
+              <li>Deep Diving – Learn how to safely explore depths up to 100 feet (30 meters).</li>
+              <li>Navigation Skills – Improve your underwater navigation using a compass and natural references.</li>
+              <li>Specialty Diving Techniques – Experience different types of diving to discover what excites you most!</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold mb-2">Course Requirements:</h4>
+            <ul className="list-disc pl-5 space-y-1">
+              <li>Minimum Age: 12 years old (Junior Advanced Open Water for ages 12-14)</li>
+              <li>Prerequisite: PADI Open Water Diver certification</li>
+              <li>Health & Safety: Complete a medical questionnaire; clearance from a physician may be required.</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold mb-2">Why Take This Course?</h4>
+            <ul className="list-disc pl-5 space-y-1">
+              <li>Expand your diving experience and boost your confidence in new environments.</li>
+              <li>Gain deeper depth certification, allowing you to explore more dive sites.</li>
+              <li>Work toward specialty certifications and future pro-level training.</li>
+            </ul>
+          </div>
+        </div>
+
+        <p className="mt-4 font-medium">
+          Ready to level up your dive skills? Sign up today and start exploring the underwater world in new ways! Contact me for details or to schedule your course.
+        </p>
+      </>
+    )
   },
   {
     title: "Rescue Diver",
