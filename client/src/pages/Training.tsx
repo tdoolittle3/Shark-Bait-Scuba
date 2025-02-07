@@ -12,8 +12,8 @@ const courses = [
     description: "Perfect for first-time divers, this introductory course lets you experience the thrill of breathing underwater in a controlled environment. You'll learn basic safety guidelines and skills needed to dive under the direct supervision of a PADI Professional."
   },
   {
-    title: "Open Water Certification",
-    description: "The first step in becoming a certified diver. This comprehensive course covers essential diving theory, confined water skills practice, and open water dives. Upon completion, you'll be certified to dive independently with a buddy to a maximum depth of 18 meters."
+    title: "Open Water Diver",
+    description: ""
   },
   {
     title: "Advanced Open Water",
