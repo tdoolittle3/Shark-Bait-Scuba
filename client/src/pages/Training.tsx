@@ -8,10 +8,6 @@ import {
 
 const courses = [
   {
-    title: "Discover Scuba",
-    description: "Perfect for first-time divers, this introductory course lets you experience the thrill of breathing underwater in a controlled environment. You'll learn basic safety guidelines and skills needed to dive under the direct supervision of a PADI Professional."
-  },
-  {
     title: "Open Water Diver",
     description: (
       <>
