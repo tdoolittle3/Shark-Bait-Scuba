@@ -24,13 +24,7 @@ export default function Home() {
           <p className="text-xl md:text-2xl mb-8 max-w-2xl">
             Experience personalized scuba training and guiding in Pensacola, Florida.
           </p>
-          <div className="space-x-4">
-            <Link href="/training">
-              <Button size="lg" className="bg-primary hover:bg-primary/90">
-                Book Private Lessons
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
+          <div>
             <Link href="/about">
               <Button size="lg" variant="outline" className="bg-white/10 hover:bg-white/20">
                 Meet Your Instructor
