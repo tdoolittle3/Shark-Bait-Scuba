@@ -59,54 +59,6 @@ Dive Site Details:
 • Conditions: The wreck's upright structure and relatively calm water conditions make for an easy descent and exploration, with generally good visibility. Beware of rust making visibility difficult at times especially inside the wreck when it has been disturbed.`,
     type: "Wreck"
   },
-  {
-    name: "The LuLu",
-    coordinates: [30.1429, -87.5551],
-    depth: "110ft",
-    level: "Advanced",
-    description: "271-foot coastal freighter intentionally sunk to create an artificial reef.",
-    type: "Wreck"
-  },
-  {
-    name: "The New Venture",
-    coordinates: [30.0924, -87.2198],
-    depth: "78ft",
-    level: "Intermediate",
-    description: "Former fishing vessel now serving as an artificial reef.",
-    type: "Wreck"
-  },
-  {
-    name: "The Ocean Wind",
-    coordinates: [30.1246, -87.1834],
-    depth: "85ft",
-    level: "Intermediate",
-    description: "Sunken freighter with abundant marine life.",
-    type: "Wreck"
-  },
-  {
-    name: "The Antares",
-    coordinates: [30.1308, -87.2547],
-    depth: "80ft",
-    level: "Intermediate",
-    description: "Former coal freighter creating a thriving artificial reef.",
-    type: "Wreck"
-  },
-  {
-    name: "The Avocet",
-    coordinates: [30.0982, -87.1659],
-    depth: "90ft",
-    level: "Advanced",
-    description: "Tugboat wreck with interesting structure and marine life.",
-    type: "Wreck"
-  },
-  {
-    name: "Russian Freighter",
-    coordinates: [30.1167, -87.2333],
-    depth: "95ft",
-    level: "Advanced",
-    description: "Large cargo vessel with extensive marine growth.",
-    type: "Wreck"
-  },
   // Nearshore Sites
   {
     name: "Perdido Pass Jetties",
