@@ -60,7 +60,7 @@ Dive Site Overview:
 
 Today, the Oriskany serves as a thriving underwater ecosystem, attracting divers from around the world. Its sheer size and depth provide an impressive and challenging wreck diving experience, making it one of the most iconic dive sites in the Gulf of Mexico.`,
     type: "Wreck",
-    image: "/attached_assets/GH010076_1738999906214.jpg"
+    image: "/images/dive-sites/wrecks/oriskany.jpg"
   },
   {
     name: "The LuLu",
