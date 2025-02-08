@@ -67,15 +67,13 @@ Today, the Oriskany serves as a thriving underwater ecosystem, attracting divers
     coordinates: [30.1555, -87.2666],
     depth: "60-105ft",
     level: "Intermediate",
-    description: `The Pete Tide II is a 180-foot decommissioned oil field supply vessel that was intentionally sunk in 1993 to serve as an artificial reef. Resting about 12 nautical miles off Pensacola Pass, this wreck has become a thriving marine habitat and a favorite dive site in the region.
+    description: `The Pete Tide II is a 180-foot decommissioned oil field supply vessel that was sunk about 12 miles off Pensacola Pass. Sunk in 1993, this wreck has become a thriving marine habitat and a local favorite!
 
 Dive Site Details:
 • Depth: The ship sits upright in 100-105 feet (30-32 meters) of water, with the pilot house positioned around 60 feet (18 meters) below the surface.
 • Experience Level: Divers of varying skill levels can enjoy this site, as it offers accessible areas for newer divers while still providing deeper sections for more advanced exploration.
-• Marine Life: Schools of spadefish, blackfin tuna, wahoo, and minnows frequently surround the wreck, making it an excellent site for observing marine biodiversity.
-• Conditions: The wreck's upright structure and relatively calm water conditions make for an easy descent and exploration, with generally good visibility.
-
-As part of the Florida Panhandle Shipwreck Trail, the Pete Tide II is a well-preserved artificial reef that offers plenty of opportunities for divers to explore multiple deck levels and encounter a variety of marine species. Whether you're interested in wreck penetration or simply enjoying the abundant sea life, this site provides a dynamic and rewarding dive experience.`,
+• Marine Life: Large schools of different types of fish, sharks, and recently a resident goliath grouper are all found on the wreck.
+• Conditions: The wreck's upright structure and relatively calm water conditions make for an easy descent and exploration, with generally good visibility. Beware of rust making visibility difficult at times especially inside the wreck when it has been disturbed.`,
     type: "Wreck"
   },
   {
