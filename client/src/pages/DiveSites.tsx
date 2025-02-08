@@ -47,11 +47,11 @@ const diveSites = [
   },
   // Artificial Reefs and Wrecks
   {
-    name: "USS Oriskany",
+    name: "USS Oriskany – The World's Largest Artificial Reef",
     coordinates: [30.0587, -87.0059],
-    depth: "80-150ft",
-    level: "Advanced",
-    description: "The world's largest artificial reef, this former aircraft carrier offers an incredible advanced diving experience.",
+    depth: "84-212ft",
+    level: "Advanced/Technical",
+    description: "The USS Oriskany, also known as the \"Mighty O,\" is an Essex-class aircraft carrier intentionally sunk in 2006 to create an artificial reef. Located 22 miles southeast of Pensacola, Florida, it is the largest vessel ever intentionally scuttled for diving purposes.\n\nDive Site Overview:\nDepth: The wreck sits at 212 feet (65 meters), with the tower starting at 84 feet (26 meters) and the flight deck at 145 feet (44 meters).\nSkill Level: Due to its depth and potential for strong currents, this site is recommended for advanced and technical divers.\nMarine Life: Over the years, the wreck has become home to a wide variety of marine species, including grouper, amberjack, barracuda, snapper, and sharks.\nConditions: Visibility is typically good, but currents can be strong, requiring careful dive planning.\n\nToday, the Oriskany serves as a thriving underwater ecosystem, attracting divers from around the world. Its sheer size and depth provide an impressive and challenging wreck diving experience, making it one of the most iconic dive sites in the Gulf of Mexico.",
     type: "Wreck",
     image: getImagePath('dive-sites/wrecks/oriskany.jpg')
   },
