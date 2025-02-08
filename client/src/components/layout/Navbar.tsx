@@ -10,7 +10,6 @@ export default function Navbar() {
   const navLinks = [
     { href: "/dive-sites", label: "Dive Sites" },
     { href: "/training", label: "Training" },
-    { href: "/gear", label: "Gear" },
     { href: "/about", label: "About" },
     { href: "/contact", label: "Contact" },
   ];
