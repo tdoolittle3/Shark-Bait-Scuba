@@ -1,3 +1,13 @@
+declare global {
+  interface Window {
+    instgrm?: {
+      Embeds: {
+        process(): void;
+      };
+    };
+  }
+}
+
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
@@ -29,27 +39,48 @@ export default function Home() {
   const [currentTagline, setCurrentTagline] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
+  // Handle tagline rotation
   useEffect(() => {
     const timer = setInterval(() => {
       setIsTransitioning(true);
       setTimeout(() => {
         setCurrentTagline((current) => (current + 1) % taglines.length);
         setIsTransitioning(false);
-      }, 500); // Wait for fade out before changing content
-    }, 8000); // Change every 8 seconds
+      }, 500);
+    }, 8000);
 
-    // Load Instagram embed script
+    return () => clearInterval(timer);
+  }, []);
+
+  // Handle Instagram embed script loading
+  useEffect(() => {
     const script = document.createElement('script');
-    script.src = '//www.instagram.com/embed.js';
+    script.src = 'https://www.instagram.com/embed.js';
     script.async = true;
+    script.defer = true;
+
+    // Process embeds after script loads
+    script.onload = () => {
+      if (window.instgrm) {
+        window.instgrm.Embeds.process();
+      }
+    };
+
     document.body.appendChild(script);
 
     return () => {
-      clearInterval(timer);
-      if (script && script.parentNode) {
+      // Clean up script when component unmounts
+      if (script.parentNode) {
         document.body.removeChild(script);
       }
     };
+  }, []);
+
+  // Process embeds whenever component mounts or updates
+  useEffect(() => {
+    if (window.instgrm) {
+      window.instgrm.Embeds.process();
+    }
   }, []);
 
   const handleNavigation = (direction: 'prev' | 'next') => {
