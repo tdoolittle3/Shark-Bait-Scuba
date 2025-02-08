@@ -51,7 +51,7 @@ const diveSites = [
     coordinates: [30.0587, -87.0059],
     depth: "84-212ft",
     level: "Advanced/Technical",
-    description: `The USS Oriskany, also known as the "Mighty O," is an Essex-class aircraft carrier intentionally sunk in 2006 to create an artificial reef. Located 22 miles southeast of Pensacola, Florida, it is the largest vessel ever intentionally scuttled for diving purposes.
+    description: `The USS Oriskany, also known as the "Mighty O" or the "Great Carrier Reef," is an Essex-class aircraft carrier intentionally sunk in 2006 to create an artificial reef. Located 22 miles southeast of Pensacola, Florida, it is the largest vessel ever intentionally scuttled for diving purposes.
 Dive Site Overview:
 • Depth: The wreck sits at 212 feet (65 meters), with the tower starting at 84 feet (26 meters) and the flight deck at 145 feet (44 meters).
 • Skill Level: Due to its depth and potential for strong currents, this site is recommended for advanced and technical divers.
@@ -200,11 +200,16 @@ export default function DiveSites() {
         {diveSites.map((site, index) => (
           <Card key={index} id={`dive-site-${index}`}>
             {site.image && (
-              <div className="aspect-video relative">
+              <div className="aspect-video relative overflow-hidden">
                 <img
                   src={site.image}
                   alt={site.name}
                   className="absolute inset-0 object-cover w-full h-full rounded-t-lg"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.style.display = 'none';
+                    console.error(`Failed to load image for ${site.name}`);
+                  }}
                 />
               </div>
             )}
