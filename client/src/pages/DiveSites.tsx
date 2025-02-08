@@ -64,7 +64,7 @@ Today, the Oriskany serves as a thriving underwater ecosystem, attracting divers
   },
   {
     name: "Pete Tide II",
-    coordinates: [30.1555, -87.2666], // Approximate coordinates for Pensacola Pass area
+    coordinates: [30.1555, -87.2666],
     depth: "60-105ft",
     level: "Intermediate",
     description: `The Pete Tide II is a 180-foot decommissioned oil field supply vessel that was intentionally sunk in 1993 to serve as an artificial reef. Resting about 12 nautical miles off Pensacola Pass, this wreck has become a thriving marine habitat and a favorite dive site in the region.
