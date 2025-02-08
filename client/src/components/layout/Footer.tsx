@@ -6,7 +6,7 @@ export default function Footer() {
   return (
     <footer className="border-t bg-muted/50">
       <div className="container py-12 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
           {/* Company Info */}
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
@@ -14,7 +14,7 @@ export default function Footer() {
               <span className="font-bold text-lg">Shark Bait Scuba</span>
             </div>
             <p className="text-sm text-muted-foreground">
-              Your trusted partner for scuba diving adventures in Northwest Florida since 2010.
+              Pensacola, Florida
             </p>
             <div className="flex space-x-4">
               <Button variant="ghost" size="icon" aria-label="Facebook">
@@ -53,17 +53,6 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
-            </ul>
-          </div>
-
-          {/* Contact Info */}
-          <div>
-            <h4 className="font-semibold mb-4 text-lg">Contact</h4>
-            <ul className="space-y-3 text-sm text-muted-foreground">
-              <li>123 Ocean Drive</li>
-              <li>Pensacola Beach, FL 32561</li>
-              <li className="font-medium">info@sharkbaitscuba.com</li>
-              <li className="font-medium">(850) 123-4567</li>
             </ul>
           </div>
         </div>
