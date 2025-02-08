@@ -42,7 +42,6 @@ export default function Footer() {
               {[
                 { href: "/dive-sites", label: "Dive Sites" },
                 { href: "/training", label: "Training Courses" },
-                { href: "/gear", label: "Equipment" },
                 { href: "/about", label: "About Us" },
                 { href: "/contact", label: "Contact" }
               ].map((link) => (

@@ -10,7 +10,6 @@ import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
 import DiveSites from "@/pages/DiveSites";
 import Training from "@/pages/Training";
-import Gear from "@/pages/Gear";
 import About from "@/pages/About";
 import Contact from "@/pages/Contact";
 
@@ -24,7 +23,6 @@ function Router() {
           <Route path="/" component={Home} />
           <Route path="/dive-sites" component={DiveSites} />
           <Route path="/training" component={Training} />
-          <Route path="/gear" component={Gear} />
           <Route path="/about" component={About} />
           <Route path="/contact" component={Contact} />
           <Route component={NotFound} />

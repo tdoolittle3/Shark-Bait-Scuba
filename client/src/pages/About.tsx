@@ -39,7 +39,7 @@ export default function About() {
           <div className="flex flex-col-reverse md:flex-row items-start gap-8">
             <div className="text-center md:text-left md:flex-1">
               <p className="text-muted-foreground">
-                When I was five years old, I was attacked by a shark in Corpus Christi, Texas that left me with a severe injury to my left lower leg and almost lost my life. Thanks to my Dad and the surgeons, I was able to keep my life and leg despite the severe damage. Despite this encounter, I love the ocean and interacting with sharks on a regular basis.
+                When I was five years old, I was attacked by a shark in Corpus Christi, Texas and almost lost my leg. This is where the name "Shark Bait" comes from. No one should be afraid of the water even though things sometimes happen. Nothing is as cool as going underwater and getting to see sharks in their natural habitat.
               </p>
             </div>
             <div className="w-full md:w-72 shrink-0">

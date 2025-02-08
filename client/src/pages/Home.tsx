@@ -7,13 +7,13 @@ import { useState, useEffect } from "react";
 const taglines = [
   {
     title: "Private Scuba Training and Guiding",
-    subtitle: "Experience personalized scuba training and guiding in Pensacola, Florida.",
+    subtitle: "Experience personalized scuba training and guiding around Pensacola, Florida.",
     buttonText: "Meet Your Instructor",
     buttonLink: "/about"
   },
   {
     title: "Explore Northwest Florida's Dive Sites",
-    subtitle: "From pristine springs to historic wrecks, discover the best diving spots.",
+    subtitle: "From the world's largest artificial reef USS Oriskany to pristine natural springs",
     buttonText: "View Dive Sites",
     buttonLink: "/dive-sites"
   },
