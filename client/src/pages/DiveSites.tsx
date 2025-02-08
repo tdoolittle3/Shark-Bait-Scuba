@@ -189,7 +189,7 @@ export default function DiveSites() {
         </MapContainer>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 gap-6 max-w-3xl mx-auto">
         {diveSites.map((site, index) => (
           <Card key={index} id={`dive-site-${index}`}>
             {site.image && (
@@ -227,6 +227,7 @@ export default function DiveSites() {
           </Card>
         ))}
       </div>
+
     </div>
   );
 }

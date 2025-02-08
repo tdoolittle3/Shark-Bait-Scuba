@@ -4,7 +4,7 @@ export default function Diving() {
   return (
     <div className="container py-12">
       <div className="max-w-3xl mx-auto text-center mb-12">
-        <h1 className="text-4xl font-bold mb-4">Diving Services</h1>
+        <h1 className="text-4xl font-bold mb-4">Let's Go Diving</h1>
         <p className="text-lg text-muted-foreground">
           Experience the best of Northwest Florida's underwater world with our specialized diving services.
         </p>
