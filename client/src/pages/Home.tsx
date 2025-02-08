@@ -7,19 +7,19 @@ import { useState, useEffect } from "react";
 const taglines = [
   {
     title: "Private Scuba Training and Guiding",
-    subtitle: "Experience personalized scuba training and guiding around Pensacola, Florida.",
+    subtitle: "Personalized scuba training and guiding around Pensacola, Florida",
     buttonText: "Meet Your Instructor",
     buttonLink: "/about"
   },
   {
     title: "Explore Northwest Florida's Dive Sites",
-    subtitle: "From the world's largest artificial reef USS Oriskany to pristine natural springs",
+    subtitle: "From offshore wrecks, shore dives, and natural springs- there is something for everyone",
     buttonText: "View Dive Sites",
     buttonLink: "/dive-sites"
   },
   {
-    title: "Professional PADI Certification Courses",
-    subtitle: "Start your diving journey or advance your skills with certified instruction.",
+    title: "PADI Scuba Courses",
+    subtitle: "Start your diving journey or advance your skills",
     buttonText: "Browse Courses",
     buttonLink: "/training"
   }
@@ -121,7 +121,7 @@ export default function Home() {
       {/* Instagram Feed Section */}
       <section className="py-20">
         <div className="container">
-          <h2 className="text-3xl font-bold text-center mb-12">Follow Our Adventures</h2>
+          <h2 className="text-3xl font-bold text-center mb-12">Check It Out</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="mx-auto">
               <blockquote

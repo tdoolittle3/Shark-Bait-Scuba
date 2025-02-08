@@ -12,6 +12,7 @@ import DiveSites from "@/pages/DiveSites";
 import Training from "@/pages/Training";
 import About from "@/pages/About";
 import Contact from "@/pages/Contact";
+import Diving from "@/pages/Diving";
 
 function Router() {
   return (
@@ -23,6 +24,7 @@ function Router() {
           <Route path="/" component={Home} />
           <Route path="/dive-sites" component={DiveSites} />
           <Route path="/training" component={Training} />
+          <Route path="/diving" component={Diving} />
           <Route path="/about" component={About} />
           <Route path="/contact" component={Contact} />
           <Route component={NotFound} />
