@@ -27,31 +27,14 @@ function MapInvalidator() {
 }
 
 const diveSites = [
-  // Springs
-  {
-    name: "Vortex Springs",
-    coordinates: [30.7714, -85.9486],
-    depth: "58ft",
-    level: "All Levels",
-    description: "Crystal clear spring with underwater caves and training platforms. Perfect for training and recreation.",
-    type: "Spring",
-    image: getImagePath('dive-sites/springs/vortex-spring.jpg')
-  },
-  {
-    name: "Morrison Springs",
-    coordinates: [30.6577, -85.9071],
-    depth: "45ft",
-    level: "All Levels",
-    description: "Beautiful spring with three cavern entrances and excellent visibility.",
-    type: "Spring"
-  },
-  // Artificial Reefs and Wrecks
+  // Wrecks
   {
     name: "USS Oriskany – The World's Largest Artificial Reef",
     coordinates: [30.0587, -87.0059],
     depth: "84-212ft",
     level: "Advanced/Technical",
     description: `The USS Oriskany, also known as the "Mighty O" or the "Great Carrier Reef," is an Essex-class aircraft carrier intentionally sunk in 2006 to create an artificial reef. Located 22 miles southeast of Pensacola, Florida, it is the largest vessel ever intentionally scuttled for diving purposes.
+
 Dive Site Overview:
 • Depth: The wreck sits at 212 feet (65 meters), with the tower starting at 84 feet (26 meters) and the flight deck at 145 feet (44 meters).
 • Skill Level: Due to its depth and potential for strong currents, this site is recommended for advanced and technical divers.
@@ -156,6 +139,24 @@ Dive Site Details:
     level: "Intermediate",
     description: "Series of artificial reefs creating a diverse ecosystem.",
     type: "Reef"
+  },
+  // Springs
+  {
+    name: "Vortex Springs",
+    coordinates: [30.7714, -85.9486],
+    depth: "58ft",
+    level: "All Levels",
+    description: "Crystal clear spring with underwater caves and training platforms. Perfect for training and recreation.",
+    type: "Spring",
+    image: getImagePath('dive-sites/springs/vortex-spring.jpg')
+  },
+  {
+    name: "Morrison Springs",
+    coordinates: [30.6577, -85.9071],
+    depth: "45ft",
+    level: "All Levels",
+    description: "Beautiful spring with three cavern entrances and excellent visibility.",
+    type: "Spring"
   }
 ];
 
