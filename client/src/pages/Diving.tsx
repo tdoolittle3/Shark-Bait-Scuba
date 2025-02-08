@@ -1,5 +1,4 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight } from "lucide-react";
 
 export default function Diving() {
   return (
@@ -12,50 +11,39 @@ export default function Diving() {
       </div>
 
       <div className="max-w-3xl mx-auto space-y-6">
-        {/* Private Guiding Section */}
+        {/* Discover Local Diving Section */}
         <Card>
           <CardHeader>
-            <CardTitle>Private Guiding</CardTitle>
+            <CardTitle>Discover Local Diving – Explore with a Private Guide!</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <p>
-              Our private guiding service offers a personalized diving experience tailored to your interests and skill level. Whether you're new to the area or looking to explore specific dive sites, our experienced guides will ensure a safe and memorable dive.
+              New to the area or just want to dive with an experienced local? The PADI Discover Local Diving program is the perfect way to explore the best shore dive sites around Pensacola and the surrounding areas with a private scuba guide.
             </p>
-            <div className="space-y-2">
-              <h4 className="font-semibold">What We Offer:</h4>
-              <ul className="list-disc pl-5 space-y-1">
-                <li>Customized dive plans based on your experience and interests</li>
-                <li>Local knowledge of the best dive sites and conditions</li>
-                <li>Flexible scheduling to accommodate your availability</li>
-                <li>Small groups or one-on-one guidance</li>
-                <li>Equipment advice and assistance if needed</li>
-              </ul>
-            </div>
+            <p>
+              With expert site orientation, safety tips, and local insights, you'll get the most out of your dive while feeling comfortable and confident underwater. No tests, no skills—just great diving!
+            </p>
+            <p className="font-medium">
+              Ready to discover the best dive spots in Northwest Florida? Contact me to book your personalized dive experience today! Every excursion is tailored to what you want to do! Take the work out of diving and let us take care of you!
+            </p>
           </CardContent>
         </Card>
 
         {/* Lionfish Hunting Section */}
         <Card>
           <CardHeader>
-            <CardTitle>Lionfish Hunting</CardTitle>
+            <CardTitle>Lionfish Hunting – Adventure with a Purpose!</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <p>
-              Join us in helping to control the invasive lionfish population while learning safe and effective hunting techniques. Lionfish hunting combines conservation with an exciting underwater challenge.
+              Join me for an exciting and rewarding lionfish hunting adventure aboard Niuhi Dive Charters, where you'll not only experience the thrill of the hunt but also help protect our local reefs from this invasive species. Lionfish have no natural predators in the Gulf of Mexico and are rapidly destroying native fish populations, making responsible hunting essential for preserving our underwater ecosystems.
             </p>
-            <div className="space-y-2">
-              <h4 className="font-semibold">Program Features:</h4>
-              <ul className="list-disc pl-5 space-y-1">
-                <li>Safety briefing and lionfish handling instruction</li>
-                <li>Training in proper hunting techniques and equipment use</li>
-                <li>Information about lionfish impact on local ecosystems</li>
-                <li>Tips for safe capture and handling</li>
-                <li>Optional cooking and preparation guidance</li>
-              </ul>
-            </div>
-            <div className="mt-4 text-sm text-muted-foreground">
-              <strong>Note:</strong> Special certification or experience may be required. Contact us for details.
-            </div>
+            <p>
+              With my expertise, I'll teach you how to safely and effectively hunt lionfish, from proper spearfishing techniques to handling these venomous fish. After the dive, I'll also show you how to properly clean your catch, so you can enjoy some of the freshest, most delicious seafood around!
+            </p>
+            <p className="font-medium">
+              Ready to dive, hunt, and make a difference? Book your lionfish hunting trip today! For more information on lionfish conservation efforts, visit the Ocean Strike Team.
+            </p>
           </CardContent>
         </Card>
 
@@ -64,23 +52,22 @@ export default function Diving() {
           <CardHeader>
             <CardTitle>Spearfishing</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent>
             <p>
-              Experience the ancient art of spearfishing in the rich waters of the Gulf Coast. Our guided spearfishing trips combine traditional techniques with modern equipment for an unforgettable underwater hunting experience.
+              Ready to take the hunt to the next level but unsure where to start? Contact me to discuss details!
             </p>
-            <div className="space-y-2">
-              <h4 className="font-semibold">What to Expect:</h4>
-              <ul className="list-disc pl-5 space-y-1">
-                <li>Comprehensive safety and technique briefing</li>
-                <li>Equipment guidance and recommendations</li>
-                <li>Local regulations and sustainable fishing practices</li>
-                <li>Guidance on fish identification and selection</li>
-                <li>Tips for improving accuracy and hunting success</li>
-              </ul>
-            </div>
-            <div className="mt-4 text-sm text-muted-foreground">
-              <strong>Requirements:</strong> Basic diving certification required. Advanced certification recommended.
-            </div>
+          </CardContent>
+        </Card>
+
+        {/* Divemaster Services Section */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Divemaster Services</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p>
+              In need of a divemaster or want a private divemaster/guide while on board a local charter? Contact me to discuss details!
+            </p>
           </CardContent>
         </Card>
       </div>
