@@ -53,10 +53,10 @@ Today, the Oriskany serves as a thriving underwater ecosystem, attracting divers
     description: `The Pete Tide II is a 180-foot decommissioned oil field supply vessel that was sunk about 12 miles off Pensacola Pass. Sunk in 1993, this wreck has become a thriving marine habitat and a local favorite!
 
 Dive Site Details:
-• Depth: The ship sits upright in 100-105 feet (30-32 meters) of water, with the pilot house positioned around 60 feet (18 meters) below the surface.
+• Depth: The ship sits upright in about 100 feet (30 meters) of water, with the top of the wreck positioned around 60 feet (18 meters) below the surface.
 • Experience Level: Divers of varying skill levels can enjoy this site, as it offers accessible areas for newer divers while still providing deeper sections for more advanced exploration.
 • Marine Life: Large schools of different types of fish, sharks, and recently a resident goliath grouper are all found on the wreck.
-• Conditions: The wreck's upright structure and relatively calm water conditions make for an easy descent and exploration, with generally good visibility. Beware of rust making visibility difficult at times especially inside the wreck when it has been disturbed.`,
+• Conditions: The wreck's upright structure and relatively calm water conditions make for an easy descent and exploration, with generally good visibility. However, beware of rust making visibility difficult at times especially inside the wreck when it has been disturbed.`,
     type: "Wreck"
   },
   // Nearshore Sites
@@ -79,7 +79,7 @@ Dive Site Details:
   {
     name: "Fort Pickens",
     coordinates: [30.3241, -87.2867],
-    depth: "15-25ft",
+    depth: "Gentle Slope to Approx 50ft",
     level: "Beginner",
     description: "Historic site with jetties and artificial reefs.",
     type: "Reef"
