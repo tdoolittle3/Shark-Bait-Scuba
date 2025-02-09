@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { Fish, Facebook, Instagram, Twitter } from "lucide-react";
+import { Facebook, Instagram, Twitter } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function Footer() {
@@ -9,8 +9,11 @@ export default function Footer() {
         {/* Company Info - Centered */}
         <div className="flex flex-col items-center space-y-4 mb-8">
           <div className="flex items-center space-x-2">
-            <Fish className="h-6 w-6 text-primary" />
-            <span className="font-bold text-lg">Shark Bait Scuba</span>
+            <img 
+              src="/attached_assets/sb_scuba.png" 
+              alt="Shark Bait Scuba Logo" 
+              className="h-6 w-auto"
+            />
           </div>
           <p className="text-sm text-muted-foreground">
             Pensacola, Florida

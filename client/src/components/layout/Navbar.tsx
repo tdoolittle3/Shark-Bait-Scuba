@@ -2,7 +2,7 @@ import { Link, useLocation } from "wouter";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Fish, Menu } from "lucide-react";
+import { Menu } from "lucide-react";
 
 export default function Navbar() {
   const [location] = useLocation();
@@ -19,7 +19,11 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <nav className="container flex h-16 items-center">
         <Link href="/" className="flex items-center space-x-2 mr-8">
-          <Fish className="h-8 w-8 text-primary" />
+          <img 
+            src="/attached_assets/sb_scuba.png" 
+            alt="Shark Bait Scuba Logo" 
+            className="h-8 w-auto"
+          />
           <span className="font-bold text-xl">Shark Bait Scuba</span>
         </Link>
 
