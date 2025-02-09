@@ -42,7 +42,7 @@ export default function Diving() {
               With my expertise, I'll teach you how to safely and effectively hunt lionfish, from proper spearfishing techniques to handling these venomous fish. After the dive, I'll also show you how to properly clean your catch, so you can enjoy some of the freshest, most delicious seafood around!
             </p>
             <p className="text-foreground font-medium">
-              Ready to dive, hunt, and make a difference? Book your lionfish hunting trip today! For more information on lionfish conservation efforts, visit the Ocean Strike Team.
+              Ready to dive, hunt, and make a difference? Book your lionfish hunting trip today! For more information on lionfish conservation efforts, visit the <a href="https://oceanstriketeam.org" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Ocean Strike Team</a>.
             </p>
           </CardContent>
         </Card>
