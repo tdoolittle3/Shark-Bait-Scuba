@@ -42,7 +42,7 @@ Dive Site Overview:
 • Conditions: Visibility is typically good, but currents can be strong, requiring careful dive planning.
 
 Today, the Oriskany serves as a thriving underwater ecosystem, attracting divers from around the world. Its sheer size and depth provide an impressive and challenging wreck diving experience, making it one of the most iconic dive sites in the Gulf of Mexico.`,
-    type: "Wreck",
+    type: "Offshore",
     image: "/images/dive-sites/wrecks/oriskany.jpg"
   },
   {
@@ -57,7 +57,7 @@ Dive Site Details:
 • Experience Level: Divers of varying skill levels can enjoy this site, as it offers accessible areas for newer divers while still providing deeper sections for more advanced exploration.
 • Marine Life: Large schools of different types of fish, sharks, and recently a resident goliath grouper are all found on the wreck.
 • Conditions: The wreck's upright structure and relatively calm water conditions make for an easy descent and exploration, with generally good visibility. However, beware of rust making visibility difficult at times especially inside the wreck when it has been disturbed.`,
-    type: "Wreck"
+    type: "Offshore"
   },
   // Nearshore Sites
   {
@@ -66,7 +66,7 @@ Dive Site Details:
     depth: "15-25ft",
     level: "Beginner",
     description: "Rocky jetties with abundant marine life, perfect for new divers.",
-    type: "Reef"
+    type: "Shore"
   },
   {
     name: "Destin Jetties",
@@ -74,7 +74,7 @@ Dive Site Details:
     depth: "15-30ft",
     level: "Beginner",
     description: "Popular dive site with easy access and diverse marine life.",
-    type: "Reef"
+    type: "Shore"
   },
   {
     name: "Fort Pickens – A Unique Gulf Coast Dive Site",
@@ -99,7 +99,7 @@ Marine Life:
 • Seasonal appearances of tarpon, barracuda, and sea turtles add to the site's appeal.
 
 Fort Pickens offers a rewarding dive experience for those looking to explore Florida's Gulf Coast waters while enjoying the backdrop of a historic military fort.`,
-    type: "Reef"
+    type: "Shore"
   },
   {
     name: "Navarre Marine Park",
@@ -107,7 +107,7 @@ Fort Pickens offers a rewarding dive experience for those looking to explore Flo
     depth: "40-60ft",
     level: "Intermediate",
     description: "Series of artificial reefs creating a diverse ecosystem.",
-    type: "Reef"
+    type: "Shore"
   },
   // Springs
   {
