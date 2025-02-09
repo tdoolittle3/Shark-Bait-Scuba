@@ -156,10 +156,9 @@ Diving at Morrison Springs
 Depth and Conditions:
 • The main basin ranges from 5 to 30 feet, with a large open water area ideal for training and recreational dives.
 • The spring vent cavern reaches depths of 50 to 90 feet, with multiple entrances leading into the underground system.
-• Water is crystal clear, with visibility often exceeding 100 feet, depending on recent rainfall and water levels.
+• Water is usually crystal clear, with visibility often exceeding 100 feet, depending on recent rainfall and water levels. Recent heavy rainfall can cause the basin to turn to chocolate milk. <a href="https://www.mywaltonfl.gov/523/Morrison-Springs" target="_blank" rel="noopener noreferrer">Thankfully, Walton County periodically updates the clarity here</a>.
 
 Underwater Features:
-• Three primary spring vents release up to 48 million gallons of water daily, creating a noticeable upwelling.
 • The cavern zone features overhangs, rock formations, and narrow passages. Cave diving beyond the cavern is dangerous and should only be attempted by certified cave divers.
 • The basin's white sandy bottom and submerged tree trunks create a unique, photogenic dive environment.
 
