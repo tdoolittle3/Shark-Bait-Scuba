@@ -28,7 +28,7 @@ export default function Navbar() {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center justify-between flex-1">
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-4 mx-auto">
             {navLinks.map((link) => (
               <Link key={link.href} href={link.href}>
                 <Button
