@@ -17,9 +17,21 @@ import Diving from "@/pages/Diving";
 function Router() {
   return (
     <div className="min-h-screen flex flex-col">
+      {/* Fixed Background Image */}
+      <div 
+        className="fixed inset-0 z-0 pointer-events-none opacity-5"
+        style={{
+          backgroundImage: 'url("/images/sb_fin.png")',
+          backgroundPosition: 'center',
+          backgroundSize: 'contain',
+          backgroundRepeat: 'no-repeat',
+          backgroundAttachment: 'fixed'
+        }}
+      />
+
       <Navbar />
       <ScrollToTop />
-      <main className="flex-grow">
+      <main className="flex-grow relative z-10">
         <Switch>
           <Route path="/" component={Home} />
           <Route path="/dive-sites" component={DiveSites} />
