@@ -106,7 +106,7 @@ Diving at Vortex Spring:
 • Training Features: Training platforms, a sunken boat, and various underwater features make for an engaging dive experience.
 • Marine Life: Divers can encounter koi, catfish, eels, turtles, and other aquatic life that have made the spring their home.
 
-For more information, visit their website at: <a href="https://vortexspring.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">vortexspring.com</a>`,
+For more information, visit their website at <a href="https://vortexspring.com" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">vortexspring.com</a>`,
     type: "Spring",
     image: getImagePath('dive-sites/springs/vortex-spring.jpg')
   },
@@ -205,7 +205,10 @@ export default function DiveSites() {
                   <span className="text-foreground">Level:</span>
                   <span className="font-medium text-foreground">{site.level}</span>
                 </div>
-                <p className="text-foreground mt-4 whitespace-pre-line">{site.description}</p>
+                <div 
+                  className="text-foreground mt-4 whitespace-pre-line"
+                  dangerouslySetInnerHTML={{ __html: site.description }}
+                />
                 <div className="text-sm text-foreground">
                   Coordinates: {site.coordinates[0].toFixed(4)}°N, {site.coordinates[1].toFixed(4)}°W
                 </div>
