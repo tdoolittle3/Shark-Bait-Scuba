@@ -165,7 +165,7 @@ export default function DiveSites() {
 
       <div className="grid grid-cols-1 gap-6 max-w-3xl mx-auto">
         {diveSites.map((site, index) => (
-          <Card key={index} id={`dive-site-${index}`} className="backdrop-blur-sm bg-background/70 border shadow-md">
+          <Card key={index} id={`dive-site-${index}`} className="backdrop-blur-sm bg-background/30 border shadow-md hover:bg-background/40 transition-colors">
             {site.image && (
               <div className="aspect-video relative overflow-hidden">
                 <img
@@ -181,24 +181,24 @@ export default function DiveSites() {
               </div>
             )}
             <CardHeader>
-              <CardTitle>{site.name}</CardTitle>
+              <CardTitle className="text-foreground">{site.name}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-2">
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Type:</span>
-                  <span className="font-medium">{site.type}</span>
+                  <span className="text-foreground">Type:</span>
+                  <span className="font-medium text-foreground">{site.type}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Depth:</span>
-                  <span className="font-medium">{site.depth}</span>
+                  <span className="text-foreground">Depth:</span>
+                  <span className="font-medium text-foreground">{site.depth}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Level:</span>
-                  <span className="font-medium">{site.level}</span>
+                  <span className="text-foreground">Level:</span>
+                  <span className="font-medium text-foreground">{site.level}</span>
                 </div>
-                <p className="text-muted-foreground mt-4 whitespace-pre-line">{site.description}</p>
-                <div className="text-sm text-muted-foreground">
+                <p className="text-foreground mt-4 whitespace-pre-line">{site.description}</p>
+                <div className="text-sm text-foreground">
                   Coordinates: {site.coordinates[0].toFixed(4)}°N, {site.coordinates[1].toFixed(4)}°W
                 </div>
               </div>
