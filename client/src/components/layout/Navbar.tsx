@@ -17,7 +17,7 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <nav className="container flex h-16 sm:h-20 md:h-24 items-center">
+      <nav className="container flex h-16 sm:h-20 md:h-24 items-center justify-between">
         <Link href="/" className="mr-8">
           <img 
             src="/images/sb_scuba.png" 
@@ -27,8 +27,8 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center justify-between flex-1">
-          <div className="flex items-center space-x-4 mx-auto">
+        <div className="hidden md:flex flex-grow justify-center">
+          <div className="flex items-center space-x-4">
             {navLinks.map((link) => (
               <Link key={link.href} href={link.href}>
                 <Button
@@ -47,7 +47,7 @@ export default function Navbar() {
 
         {/* Mobile Navigation */}
         <Sheet>
-          <SheetTrigger asChild className="md:hidden ml-auto">
+          <SheetTrigger asChild className="md:hidden">
             <Button variant="ghost" size="icon">
               <Menu className="h-6 w-6" />
               <span className="sr-only">Toggle menu</span>
