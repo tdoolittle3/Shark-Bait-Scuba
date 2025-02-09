@@ -58,7 +58,7 @@ export default function Contact() {
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold mb-4">Contact Us</h1>
           <p className="text-lg text-muted-foreground">
-            Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
+            Have questions? The best way to get in touch is call or text us at 850-366-2437. Prefer email? Send us a message below.
           </p>
         </div>
 
