@@ -77,11 +77,28 @@ Dive Site Details:
     type: "Reef"
   },
   {
-    name: "Fort Pickens",
+    name: "Fort Pickens – A Unique Gulf Coast Dive Site",
     coordinates: [30.3241, -87.2867],
-    depth: "Gentle Slope to Approx 50ft",
-    level: "Beginner",
-    description: "Historic site with jetties and artificial reefs.",
+    depth: "15-50ft",
+    level: "Beginner/Intermediate",
+    description: `Located within Gulf Islands National Seashore near Pensacola, Florida, Fort Pickens is a historic site offering an exciting shore dive along the Gulf Coast. The area provides a mix of history, marine life, and underwater structures, making it a favorite for local divers.
+
+Diving at Fort Pickens
+
+Depth and Conditions:
+• Depths range from 15 to 50 feet, making it suitable for beginner and intermediate divers.
+• Visibility varies depending on tides and weather, typically between 10 and 30 feet.
+• Best diving conditions occur during slack high tide when water clarity is optimal.
+
+Underwater Features:
+• A mix of rock jetties, artificial reef structures, and sandy bottoms provide diverse dive environments.
+• The site is known for strong tidal currents, so divers should plan accordingly and be mindful of changing conditions.
+
+Marine Life:
+• Divers can encounter octopuses, flounder, sheepshead, redfish, and stingrays among the rocks and reef structures.
+• Seasonal appearances of tarpon, barracuda, and sea turtles add to the site's appeal.
+
+Fort Pickens offers a rewarding dive experience for those looking to explore Florida's Gulf Coast waters while enjoying the backdrop of a historic military fort.`,
     type: "Reef"
   },
   {
@@ -205,7 +222,7 @@ export default function DiveSites() {
                   <span className="text-foreground">Level:</span>
                   <span className="font-medium text-foreground">{site.level}</span>
                 </div>
-                <div 
+                <div
                   className="text-foreground mt-4 whitespace-pre-line"
                   dangerouslySetInnerHTML={{ __html: site.description }}
                 />

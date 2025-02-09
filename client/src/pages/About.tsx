@@ -30,7 +30,7 @@ export default function About() {
               <h2 className="text-2xl font-bold mb-2">Robby Doolittle</h2>
               <p className="text-primary font-medium mb-4">PADI Open Water Scuba Instructor #423428</p>
               <p className="text-muted-foreground">
-                I have been diving since I was a kid in 2009 and now have the opportunity to teach divers here in Pensacola. I have been a PADI Divemaster since 2018 and an instructor since 2024. If I am not diving, I am probably working my "real" job as a paramedic with a local EMS service.
+                I have been diving since I was a kid in 2009 and now have the opportunity to teach divers here in Pensacola. I have been a PADI Divemaster since 2018 and an instructor since 2024. In addition to teaching, I work as a divemaster for Niuhi Dive Charters. If I am not diving, I am probably working my "real" job as a paramedic with a local EMS service.
               </p>
             </div>
           </div>
