@@ -17,7 +17,7 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <nav className="container flex h-16 sm:h-20 md:h-24 items-center justify-between">
+      <nav className="container flex h-16 sm:h-20 md:h-24 items-center justify-between px-6">
         <Link href="/" className="flex-shrink-0">
           <img 
             src="/images/sb_scuba.png" 
@@ -28,7 +28,7 @@ export default function Navbar() {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex flex-grow justify-end">
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-4 pr-4">
             {navLinks.map((link) => (
               <Link key={link.href} href={link.href}>
                 <Button
