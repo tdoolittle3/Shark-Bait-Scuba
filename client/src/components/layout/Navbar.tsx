@@ -17,12 +17,12 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <nav className="container flex h-16 items-center">
+      <nav className="container flex h-16 sm:h-20 md:h-24 items-center">
         <Link href="/" className="mr-8">
           <img 
             src="/images/sb_scuba.png" 
             alt="Shark Bait Scuba Logo" 
-            className="h-10 w-auto" // Increased from h-8 to h-10
+            className="h-10 sm:h-12 md:h-14 w-auto transition-all" 
           />
         </Link>
 
@@ -34,7 +34,7 @@ export default function Navbar() {
                 <Button
                   variant="ghost"
                   className={cn(
-                    "text-sm font-medium transition-colors hover:text-primary",
+                    "text-sm md:text-base font-medium transition-colors hover:text-primary",
                     location === link.href && "text-primary"
                   )}
                 >
