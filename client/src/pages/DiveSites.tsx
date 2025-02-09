@@ -94,11 +94,17 @@ Dive Site Details:
   },
   // Springs
   {
-    name: "Vortex Springs",
+    name: "Vortex Spring – A Premier Freshwater Dive Site in Florida",
     coordinates: [30.7714, -85.9486],
-    depth: "58ft",
+    depth: "20-58ft",
     level: "All Levels",
-    description: "Crystal clear spring with underwater caves and training platforms. Perfect for training and recreation.",
+    description: `Located near Ponce de Leon, Florida, Vortex Spring is one of the most popular freshwater diving destinations in the Southeast. With crystal-clear waters, a constant temperature of 68°F (20°C), and excellent visibility often exceeding 100 feet, it is an ideal site for divers of all levels.
+
+Diving at Vortex Spring:
+• Clear, Refreshing Waters: The spring-fed basin provides a pristine underwater environment perfect for both recreational and training dives.
+• Depth and Features: The main basin ranges from 20 to 30 feet, making it ideal for beginner divers and training courses. A cavern entrance sits at around 50-60 feet, leading into a restricted cave system. Only properly certified cave divers are allowed beyond the gated entrance.
+• Training Features: Training platforms, a sunken boat, and various underwater features make for an engaging dive experience.
+• Marine Life: Divers can encounter koi, catfish, eels, turtles, and other aquatic life that have made the spring their home.`,
     type: "Spring",
     image: getImagePath('dive-sites/springs/vortex-spring.jpg')
   },
