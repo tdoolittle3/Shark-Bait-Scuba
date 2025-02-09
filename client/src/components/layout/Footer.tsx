@@ -10,7 +10,7 @@ export default function Footer() {
         <div className="flex flex-col items-center space-y-4 mb-8">
           <div className="flex items-center space-x-2">
             <img 
-              src="/attached_assets/sb_scuba.png" 
+              src="/images/sb_scuba.png" 
               alt="Shark Bait Scuba Logo" 
               className="h-6 w-auto"
             />

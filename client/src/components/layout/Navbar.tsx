@@ -18,13 +18,12 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <nav className="container flex h-16 items-center">
-        <Link href="/" className="flex items-center space-x-2 mr-8">
+        <Link href="/" className="mr-8">
           <img 
-            src="/attached_assets/sb_scuba.png" 
+            src="/images/sb_scuba.png" 
             alt="Shark Bait Scuba Logo" 
             className="h-8 w-auto"
           />
-          <span className="font-bold text-xl">Shark Bait Scuba</span>
         </Link>
 
         {/* Desktop Navigation */}
