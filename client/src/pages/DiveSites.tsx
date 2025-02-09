@@ -165,7 +165,7 @@ export default function DiveSites() {
 
       <div className="grid grid-cols-1 gap-6 max-w-3xl mx-auto">
         {diveSites.map((site, index) => (
-          <Card key={index} id={`dive-site-${index}`}>
+          <Card key={index} id={`dive-site-${index}`} className="backdrop-blur-sm bg-background/70 border shadow-md">
             {site.image && (
               <div className="aspect-video relative overflow-hidden">
                 <img

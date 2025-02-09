@@ -207,7 +207,7 @@ export default function Training() {
 
       <div className="max-w-3xl mx-auto space-y-6">
         {courses.map((course, index) => (
-          <Card key={index}>
+          <Card key={index} className="backdrop-blur-sm bg-background/70 border shadow-md">
             <CardHeader>
               <CardTitle>{course.title}</CardTitle>
               <CardDescription className="whitespace-pre-wrap text-sm text-muted-foreground">

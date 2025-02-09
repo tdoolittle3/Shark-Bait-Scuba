@@ -12,7 +12,7 @@ export default function Diving() {
 
       <div className="max-w-3xl mx-auto space-y-6">
         {/* Discover Local Diving Section */}
-        <Card>
+        <Card className="backdrop-blur-sm bg-background/70 border shadow-md">
           <CardHeader>
             <CardTitle>Discover Local Diving – Explore with a Private Guide!</CardTitle>
           </CardHeader>
@@ -30,7 +30,7 @@ export default function Diving() {
         </Card>
 
         {/* Lionfish Hunting Section */}
-        <Card>
+        <Card className="backdrop-blur-sm bg-background/70 border shadow-md">
           <CardHeader>
             <CardTitle>Lionfish Hunting – Adventure with a Purpose!</CardTitle>
           </CardHeader>
@@ -48,7 +48,7 @@ export default function Diving() {
         </Card>
 
         {/* Spearfishing Section */}
-        <Card>
+        <Card className="backdrop-blur-sm bg-background/70 border shadow-md">
           <CardHeader>
             <CardTitle>Spearfishing</CardTitle>
           </CardHeader>
@@ -60,7 +60,7 @@ export default function Diving() {
         </Card>
 
         {/* Divemaster Services Section */}
-        <Card>
+        <Card className="backdrop-blur-sm bg-background/70 border shadow-md">
           <CardHeader>
             <CardTitle>Divemaster Services</CardTitle>
           </CardHeader>
