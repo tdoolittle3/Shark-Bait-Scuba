@@ -102,11 +102,28 @@ Fort Pickens offers a rewarding dive experience for those looking to explore Flo
     type: "Shore"
   },
   {
-    name: "Navarre Marine Park",
+    name: "Navarre Beach Marine Sanctuary – Artificial Reefs for Easy Shore Diving",
     coordinates: [30.3803, -86.8614],
-    depth: "40-60ft",
+    depth: "6-15ft",
     level: "Intermediate",
-    description: "Series of artificial reefs creating a diverse ecosystem.",
+    description: `Located just off Navarre Beach, the Navarre Beach Marine Sanctuary consists of artificial reef structures designed to promote marine life and provide easily accessible shore diving. The sanctuary features multiple reef sites, making it an excellent location for both beginners and experienced divers.
+
+Diving at Navarre Beach Marine Sanctuary
+
+Depth and Conditions:
+• Depth ranges from 6 to 15 feet, making it ideal for shallow diving and snorkeling.
+• Visibility varies with surf conditions, with the best clarity on calm days.
+• Gentle currents allow for relaxed exploration.
+
+Underwater Features:
+• The reefs begin approximately 150 feet from shore, with the closest structures reachable by a short surface swim.
+• Over 100 artificial reef structures made of limestone and concrete create a thriving ecosystem.
+• The reefs are arranged in clusters, providing multiple areas to explore.
+
+Marine Life:
+• Frequent sightings of octopuses, crabs, flounder, sheepshead, and spadefish.
+• Schools of baitfish attract Spanish mackerel and redfish.
+• Seasonal encounters with sea turtles and rays add to the experience.`,
     type: "Shore"
   },
   // Springs
