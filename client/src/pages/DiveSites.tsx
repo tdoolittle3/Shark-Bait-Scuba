@@ -59,23 +59,6 @@ Dive Site Details:
 • Conditions: The wreck's upright structure and relatively calm water conditions make for an easy descent and exploration, with generally good visibility. However, beware of rust making visibility difficult at times especially inside the wreck when it has been disturbed.`,
     type: "Offshore"
   },
-  // Nearshore Sites
-  {
-    name: "Perdido Pass Jetties",
-    coordinates: [30.2714, -87.5550],
-    depth: "15-25ft",
-    level: "Beginner",
-    description: "Rocky jetties with abundant marine life, perfect for new divers.",
-    type: "Shore"
-  },
-  {
-    name: "Destin Jetties",
-    coordinates: [30.3931, -86.5137],
-    depth: "15-30ft",
-    level: "Beginner",
-    description: "Popular dive site with easy access and diverse marine life.",
-    type: "Shore"
-  },
   {
     name: "Fort Pickens – A Unique Gulf Coast Dive Site",
     coordinates: [30.3241, -87.2867],
@@ -159,6 +142,7 @@ Depth and Conditions:
 • Water is usually crystal clear, with visibility often exceeding 100 feet, depending on recent rainfall and water levels. Recent heavy rainfall can cause the basin to turn to chocolate milk. <a href="https://www.mywaltonfl.gov/523/Morrison-Springs" target="_blank" rel="noopener noreferrer">Thankfully, Walton County periodically updates the clarity here</a>.
 
 Underwater Features:
+• Three primary spring vents release up to 48 million gallons of water daily, creating a noticeable upwelling.
 • The cavern zone features overhangs, rock formations, and narrow passages. Cave diving beyond the cavern is dangerous and should only be attempted by certified cave divers.
 • The basin's white sandy bottom and submerged tree trunks create a unique, photogenic dive environment.
 
