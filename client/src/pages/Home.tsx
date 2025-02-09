@@ -101,7 +101,7 @@ export default function Home() {
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
       <section className="relative h-[600px] flex items-center">
-        <div 
+        <div
           className="absolute inset-0 z-0"
           style={{
             backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(${getImagePath('hero/hero-banner.jpg')})`,
@@ -109,12 +109,12 @@ export default function Home() {
             backgroundPosition: 'center'
           }}
         />
-        <div className="container relative z-10 text-white">
+        <div className="container relative z-10 text-white text-center">
           <div className={`transition-opacity duration-500 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
             <h1 className="text-5xl md:text-7xl font-bold mb-6">
               {taglines[currentTagline].title}
             </h1>
-            <p className="text-xl md:text-2xl mb-8 max-w-2xl">
+            <p className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto">
               {taglines[currentTagline].subtitle}
             </p>
             <div>
@@ -184,7 +184,7 @@ export default function Home() {
             </div>
           </div>
           <div className="text-center mt-8">
-            <a 
+            <a
               href="https://www.instagram.com/sharkbaitscubafl/"
               target="_blank"
               rel="noopener noreferrer"
