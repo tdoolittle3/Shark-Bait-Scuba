@@ -18,7 +18,7 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <nav className="container flex h-16 sm:h-20 md:h-24 items-center justify-between">
-        <Link href="/" className="mr-8">
+        <Link href="/" className="flex-shrink-0">
           <img 
             src="/images/sb_scuba.png" 
             alt="Shark Bait Scuba Logo" 
@@ -27,8 +27,8 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:block absolute left-0 right-0">
-          <div className="flex items-center justify-center space-x-4 lg:px-64 md:px-48">
+        <div className="hidden md:flex flex-grow justify-end">
+          <div className="flex items-center space-x-4">
             {navLinks.map((link) => (
               <Link key={link.href} href={link.href}>
                 <Button
