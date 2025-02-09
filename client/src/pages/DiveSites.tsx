@@ -145,11 +145,28 @@ For more information, visit their website at <a href="https://vortexspring.com" 
     image: getImagePath('dive-sites/springs/vortex-spring.jpg')
   },
   {
-    name: "Morrison Springs",
+    name: "Morrison Springs – A Pristine Freshwater Cavern Dive",
     coordinates: [30.6577, -85.9071],
-    depth: "45ft",
+    depth: "5-90ft",
     level: "All Levels",
-    description: "Beautiful spring with three cavern entrances and excellent visibility.",
+    description: `Located in Walton County, Morrison Springs is a crystal-clear freshwater spring known for its cavern system, white sandy bottom, and excellent visibility. Fed by an underground aquifer, the spring maintains a constant temperature of 68°F (20°C) year-round, making it a popular dive site for both recreational and technical divers.
+
+Diving at Morrison Springs
+
+Depth and Conditions:
+• The main basin ranges from 5 to 30 feet, with a large open water area ideal for training and recreational dives.
+• The spring vent cavern reaches depths of 50 to 90 feet, with multiple entrances leading into the underground system.
+• Water is crystal clear, with visibility often exceeding 100 feet, depending on recent rainfall and water levels.
+
+Underwater Features:
+• Three primary spring vents release up to 48 million gallons of water daily, creating a noticeable upwelling.
+• The cavern zone features overhangs, rock formations, and narrow passages. Cave diving beyond the cavern is dangerous and should only be attempted by certified cave divers.
+• The basin's white sandy bottom and submerged tree trunks create a unique, photogenic dive environment.
+
+Marine Life:
+• Freshwater species such as bream, bass, catfish, and freshwater eels inhabit the spring.
+• Turtles and occasional gar can be spotted near the tree line.
+• Seasonal variations bring changes in aquatic life, with some migratory fish appearing during certain times of the year.`,
     type: "Spring"
   }
 ];
