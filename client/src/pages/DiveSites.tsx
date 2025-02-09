@@ -140,7 +140,7 @@ Diving at Vortex Spring:
 • Training Features: Training platforms, a sunken boat, and various underwater features make for an engaging dive experience.
 • Marine Life: Divers can encounter koi, catfish, eels, turtles, and other aquatic life that have made the spring their home.
 
-For more information, visit their website at <a href="https://vortexspring.com" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">vortexspring.com</a>`,
+For more information, visit their website at <a href="https://vortexspring.com" target="_blank" rel="noopener noreferrer">vortexspring.com</a>`,
     type: "Spring",
     image: getImagePath('dive-sites/springs/vortex-spring.jpg')
   },
@@ -156,7 +156,7 @@ Diving at Morrison Springs
 Depth and Conditions:
 • The main basin ranges from 5 to 30 feet, with a large open water area ideal for training and recreational dives.
 • The spring vent cavern reaches depths of 50 to 90 feet, with multiple entrances leading into the underground system.
-• Water is usually crystal clear, with visibility often exceeding 100 feet, depending on recent rainfall and water levels. Recent heavy rainfall can cause the basin to turn to chocolate milk. <a href="https://www.mywaltonfl.gov/523/Morrison-Springs" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Thankfully, Walton County periodically updates the clarity here</a>.
+• Water is usually crystal clear, with visibility often exceeding 100 feet, depending on recent rainfall and water levels. Recent heavy rainfall can cause the basin to turn to chocolate milk. <a href="https://www.mywaltonfl.gov/523/Morrison-Springs" target="_blank" rel="noopener noreferrer">Thankfully, Walton County periodically updates the clarity here</a>.
 
 Underwater Features:
 • The cavern zone features overhangs, rock formations, and narrow passages. Cave diving beyond the cavern is dangerous and should only be attempted by certified cave divers.
@@ -256,10 +256,10 @@ export default function DiveSites() {
                   <span className="font-medium text-foreground">{site.level}</span>
                 </div>
                 <div
-                  className="text-foreground mt-4 whitespace-pre-line"
+                  className="text-foreground mt-4 whitespace-pre-line [&_a]:text-primary [&_a]:hover:underline [&_a]:transition-colors [&_a]:duration-200"
                   dangerouslySetInnerHTML={{ __html: site.description }}
                 />
-                <div className="text-sm text-foreground">
+                <div className="text-sm text-foreground mt-2">
                   Coordinates: {site.coordinates[0].toFixed(4)}°N, {site.coordinates[1].toFixed(4)}°W
                 </div>
               </div>
