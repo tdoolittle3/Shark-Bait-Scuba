@@ -22,7 +22,7 @@ export default function Navbar() {
           <img 
             src="/images/sb_scuba.png" 
             alt="Shark Bait Scuba Logo" 
-            className="h-8 w-auto"
+            className="h-10 w-auto" // Increased from h-8 to h-10
           />
         </Link>
 
