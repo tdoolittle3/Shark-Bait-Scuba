@@ -105,7 +105,7 @@ Fort Pickens offers a rewarding dive experience for those looking to explore Flo
     name: "Navarre Beach Marine Sanctuary – Artificial Reefs for Easy Shore Diving",
     coordinates: [30.3803, -86.8614],
     depth: "6-15ft",
-    level: "Intermediate",
+    level: "Beginner",
     description: `Located just off Navarre Beach, the Navarre Beach Marine Sanctuary consists of artificial reef structures designed to promote marine life and provide easily accessible shore diving. The sanctuary features multiple reef sites, making it an excellent location for both beginners and experienced divers.
 
 Diving at Navarre Beach Marine Sanctuary
