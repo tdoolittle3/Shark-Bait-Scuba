@@ -36,7 +36,7 @@ export default function Diving() {
           </CardHeader>
           <CardContent>
             <p className="text-foreground">
-              Join me for an exciting and rewarding lionfish hunting adventure aboard Niuhi Dive Charters, where you'll not only experience the thrill of the hunt but also help protect our local reefs from this invasive species. Lionfish have no natural predators in the Gulf of Mexico and are rapidly destroying native fish populations, making responsible hunting essential for preserving our underwater ecosystems.
+              Join me for an exciting and rewarding lionfish hunting adventure aboard <a href="https://niuhidivecharters.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Niuhi Dive Charters</a>, where you'll not only experience the thrill of the hunt but also help protect our local reefs from this invasive species. Lionfish have no natural predators in the Gulf of Mexico and are rapidly destroying native fish populations, making responsible hunting essential for preserving our underwater ecosystems.
             </p>
             <p className="text-foreground">
               With my expertise, I'll teach you how to safely and effectively hunt lionfish, from proper spearfishing techniques to handling these venomous fish. After the dive, I'll also show you how to properly clean your catch, so you can enjoy some of the freshest, most delicious seafood around!
