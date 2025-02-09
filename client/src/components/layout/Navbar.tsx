@@ -32,10 +32,10 @@ export default function Navbar() {
             {navLinks.map((link) => (
               <Link key={link.href} href={link.href}>
                 <Button
-                  variant="ghost"
+                  variant="outline"
                   className={cn(
-                    "text-sm md:text-base font-medium transition-colors hover:text-primary",
-                    location === link.href && "text-primary"
+                    "text-sm md:text-base font-medium transition-colors hover:text-primary border-2",
+                    location === link.href ? "bg-primary/10 border-primary text-primary" : "border-muted-foreground/20"
                   )}
                 >
                   {link.label}
