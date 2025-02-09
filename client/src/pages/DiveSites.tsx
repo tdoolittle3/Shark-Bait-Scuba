@@ -104,7 +104,9 @@ Diving at Vortex Spring:
 • Clear, Refreshing Waters: The spring-fed basin provides a pristine underwater environment perfect for both recreational and training dives.
 • Depth and Features: The main basin ranges from 20 to 30 feet, making it ideal for beginner divers and training courses. A cavern entrance sits at around 50-60 feet, leading into a restricted cave system. Only properly certified cave divers are allowed beyond the gated entrance.
 • Training Features: Training platforms, a sunken boat, and various underwater features make for an engaging dive experience.
-• Marine Life: Divers can encounter koi, catfish, eels, turtles, and other aquatic life that have made the spring their home.`,
+• Marine Life: Divers can encounter koi, catfish, eels, turtles, and other aquatic life that have made the spring their home.
+
+For more information, visit their website at: <a href="https://vortexspring.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">vortexspring.com</a>`,
     type: "Spring",
     image: getImagePath('dive-sites/springs/vortex-spring.jpg')
   },
