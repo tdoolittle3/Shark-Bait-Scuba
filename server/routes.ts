@@ -1,11 +1,41 @@
 import type { Express } from "express";
+import express from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertMessageSchema } from "@shared/schema";
 import { insertProductSchema } from "@shared/schema";
 import { z } from "zod";
+import multer from "multer";
+import path from "path";
+import sharp from "sharp";
+import fs from "fs";
+
+// Configure multer for handling file uploads
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: {
+    fileSize: 5 * 1024 * 1024, // 5MB limit
+  },
+  fileFilter: (_req, file, cb) => {
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+    if (allowedTypes.includes(file.mimetype)) {
+      cb(null, true);
+    } else {
+      cb(new Error('Invalid file type. Only JPEG, PNG and WebP images are allowed.'));
+    }
+  }
+});
+
+// Ensure upload directory exists
+const uploadDir = path.join(process.cwd(), 'uploads');
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
 
 export function registerRoutes(app: Express): Server {
+  // Serve uploaded files statically
+  app.use('/uploads', express.static(uploadDir));
+
   // Test endpoint to verify API is working
   app.get("/api/health", (_req, res) => {
     res.json({ 
@@ -112,6 +142,48 @@ export function registerRoutes(app: Express): Server {
     } catch (error) {
       res.status(500).json({ 
         message: "Failed to update product",
+        error: error instanceof Error ? error.message : "Unknown error"
+      });
+    }
+  });
+
+  // Upload product image
+  app.post("/api/products/:id/image", upload.single('image'), async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ 
+          message: "Invalid product ID"
+        });
+      }
+
+      if (!req.file) {
+        return res.status(400).json({ 
+          message: "No image file provided"
+        });
+      }
+
+      const timestamp = Date.now();
+      const filename = `product-${id}-${timestamp}.webp`;
+      const filepath = path.join(uploadDir, filename);
+
+      // Process and save the image
+      await sharp(req.file.buffer)
+        .resize(800, 800, { fit: 'inside', withoutEnlargement: true })
+        .webp({ quality: 80 })
+        .toFile(filepath);
+
+      // Update product with new image URL
+      const imageUrl = `/uploads/${filename}`;
+      const product = await storage.updateProduct(id, { imageUrl });
+
+      res.json({
+        message: "Image uploaded successfully",
+        data: product
+      });
+    } catch (error) {
+      res.status(500).json({ 
+        message: "Failed to upload image",
         error: error instanceof Error ? error.message : "Unknown error"
       });
     }

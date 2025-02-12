@@ -11,7 +11,7 @@ import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-
+import { FileUpload } from "@/components/ui/file-upload";
 
 interface ProductsResponse {
   message: string;
@@ -27,6 +27,7 @@ interface EditingProduct extends Product {
 export default function AdminDashboard() {
   const { toast } = useToast();
   const [editingProducts, setEditingProducts] = useState<Record<number, EditingProduct>>({});
+  const [uploadingImage, setUploadingImage] = useState<Record<number, boolean>>({});
 
   const { data: productsResponse, isLoading, error } = useQuery<ProductsResponse>({
     queryKey: ['/api/products'],
@@ -54,6 +55,47 @@ export default function AdminDashboard() {
       });
     },
   });
+
+  const uploadImageMutation = useMutation({
+    mutationFn: async ({ id, file }: { id: number; file: File }) => {
+      const formData = new FormData();
+      formData.append('image', file);
+
+      const response = await fetch(`/api/products/${id}/image`, {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to upload image');
+      }
+
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/products'] });
+      toast({
+        title: "Success",
+        description: "Image uploaded successfully",
+      });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
+  const handleImageUpload = async (productId: number, file: File) => {
+    setUploadingImage(prev => ({ ...prev, [productId]: true }));
+    try {
+      await uploadImageMutation.mutateAsync({ id: productId, file });
+    } finally {
+      setUploadingImage(prev => ({ ...prev, [productId]: false }));
+    }
+  };
 
   const startEditing = (product: Product) => {
     setEditingProducts(prev => ({
@@ -105,6 +147,7 @@ export default function AdminDashboard() {
   const renderProductCard = (product: Product) => {
     const editingProduct = editingProducts[product.id];
     const isEditing = editingProduct?.isEditing;
+    const isUploading = uploadingImage[product.id];
 
     return (
       <Card key={product.id} className="relative">
@@ -134,7 +177,7 @@ export default function AdminDashboard() {
         </CardHeader>
         <CardContent>
           {isEditing ? (
-            <>
+            <div className="space-y-4">
               <Textarea
                 defaultValue={product.description}
                 onChange={(e) => handleInputChange(product.id, 'description', e.target.value)}
@@ -148,12 +191,27 @@ export default function AdminDashboard() {
                 className="w-32"
                 placeholder="Inventory"
               />
-            </>
+              <FileUpload
+                onFileSelected={(file) => handleImageUpload(product.id, file)}
+                uploading={isUploading}
+                imageUrl={product.imageUrl}
+                className="mt-4"
+              />
+            </div>
           ) : (
-            <>
-              <p className="text-sm text-muted-foreground">{product.description}</p>
-              <p className="text-sm mt-2">Stock: {product.inventory}</p>
-            </>
+            <div className="space-y-4">
+              {product.imageUrl && (
+                <img
+                  src={product.imageUrl}
+                  alt={product.name}
+                  className="w-full max-w-[200px] h-auto rounded-md"
+                />
+              )}
+              <div>
+                <p className="text-sm text-muted-foreground">{product.description}</p>
+                <p className="text-sm mt-2">Stock: {product.inventory}</p>
+              </div>
+            </div>
           )}
         </CardContent>
         <CardFooter className="flex justify-end gap-2">
