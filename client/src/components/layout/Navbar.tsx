@@ -14,8 +14,8 @@ export default function Navbar() {
     { href: "/about", label: "About" },
     { href: "/contact", label: "Contact" },
     { 
-      href: "/store", 
-      label: "Store",
+      href: "/gear", 
+      label: "Gear",
       icon: <ShoppingBag className="h-4 w-4 mr-1" />
     },
   ];
