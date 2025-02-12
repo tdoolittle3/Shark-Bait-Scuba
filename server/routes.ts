@@ -6,6 +6,11 @@ import { insertMessageSchema } from "@shared/schema";
 import path from "path";
 import { stripe } from "./stripe";
 
+interface CartItem {
+  id: string;
+  quantity: number;
+}
+
 export function registerRoutes(app: Express): Server {
   // Serve uploaded files statically
   app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
@@ -22,40 +27,20 @@ export function registerRoutes(app: Express): Server {
 
   app.post("/api/checkout", async (req, res) => {
     try {
-      const { productId } = req.body;
+      const { items } = req.body as { items: CartItem[] };
 
-      // Get product details from our products list
-      const { data: products } = await stripe.products.list({
-        ids: [productId],
-        expand: ['data.default_price']
-      });
-
-      if (!products || products.length === 0) {
-        throw new Error('Product not found');
-      }
-
-      const product = products[0];
-      const price = product.default_price as any;
-
-      if (!price) {
-        throw new Error('Product has no price defined');
-      }
-
-      // Create Stripe checkout session
-      const { items } = req.body;
-      
       // Get products from Stripe to get their price IDs
-      const { data: products } = await stripe.products.list({
+      const { data: stripeProducts } = await stripe.products.list({
         expand: ['data.default_price'],
         ids: items.map(item => item.id)
       });
 
-      const line_items = products.map(product => {
+      const line_items = stripeProducts.map(product => {
         const cartItem = items.find(item => item.id === product.id);
         const price = product.default_price as any;
         return {
           price: price.id,
-          quantity: cartItem.quantity
+          quantity: cartItem?.quantity || 1
         };
       });
 
@@ -78,12 +63,12 @@ export function registerRoutes(app: Express): Server {
 
   app.get("/api/products", async (_req, res) => {
     try {
-      const { data: products } = await stripe.products.list({
+      const { data: stripeProducts } = await stripe.products.list({
         expand: ['data.default_price'],
         active: true
       });
 
-      const formattedProducts = products.map(product => {
+      const formattedProducts = stripeProducts.map(product => {
         const price = product.default_price as any;
         return {
           id: product.id,
