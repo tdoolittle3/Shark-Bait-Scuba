@@ -31,14 +31,14 @@ function ProductCard({ product }: ProductCardProps) {
 
   const nextImage = () => {
     if (!product.imageUrls?.length) return;
-    setCurrentImageIndex((prev) => 
+    setCurrentImageIndex((prev) =>
       prev === product.imageUrls!.length - 1 ? 0 : prev + 1
     );
   };
 
   const prevImage = () => {
     if (!product.imageUrls?.length) return;
-    setCurrentImageIndex((prev) => 
+    setCurrentImageIndex((prev) =>
       prev === 0 ? product.imageUrls!.length - 1 : prev - 1
     );
   };
@@ -108,8 +108,8 @@ function ProductCard({ product }: ProductCardProps) {
           </p>
         </CardContent>
         <CardFooter>
-          <Button 
-            className="w-full" 
+          <Button
+            className="w-full"
             disabled={product.inventory <= 0}
           >
             {product.inventory > 0 ? "Add to Cart" : "Out of Stock"}
@@ -173,7 +173,7 @@ export default function Store() {
   const renderContent = () => {
     if (isLoading) {
       return (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 w-full max-w-7xl mx-auto">
           {[...Array(8)].map((_, i) => (
             <Card key={i} className="overflow-hidden">
               <CardHeader>
@@ -196,29 +196,33 @@ export default function Store() {
 
     if (error) {
       return (
-        <Alert variant="destructive">
-          <AlertCircle className="h-4 w-4" />
-          <AlertTitle>Error</AlertTitle>
-          <AlertDescription>
-            Failed to load products. Please try again later.
-          </AlertDescription>
-        </Alert>
+        <div className="w-full max-w-3xl mx-auto">
+          <Alert variant="destructive">
+            <AlertCircle className="h-4 w-4" />
+            <AlertTitle>Error</AlertTitle>
+            <AlertDescription>
+              Failed to load products. Please try again later.
+            </AlertDescription>
+          </Alert>
+        </div>
       );
     }
 
     if (!productsResponse?.data?.length) {
       return (
-        <Alert>
-          <AlertTitle>No Products Available</AlertTitle>
-          <AlertDescription>
-            Check back soon for our upcoming product catalog!
-          </AlertDescription>
-        </Alert>
+        <div className="w-full max-w-3xl mx-auto">
+          <Alert>
+            <AlertTitle>No Products Available</AlertTitle>
+            <AlertDescription>
+              Check back soon for our upcoming product catalog!
+            </AlertDescription>
+          </Alert>
+        </div>
       );
     }
 
     return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 w-full max-w-7xl mx-auto">
         {productsResponse.data.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
@@ -227,8 +231,8 @@ export default function Store() {
   };
 
   return (
-    <div className="container py-12">
-      <div className="text-center mb-12">
+    <div className="min-h-screen py-12 px-4 sm:px-6">
+      <div className="text-center max-w-4xl mx-auto mb-12">
         <h1 className="text-4xl font-bold mb-4">Shark Bait Scuba Store</h1>
         <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
           Discover our collection of high-quality diving equipment and gear

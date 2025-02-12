@@ -593,63 +593,65 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div className="container py-12">
-      <div className="mb-8">
-        <h1 className="text-4xl font-bold">Admin Dashboard</h1>
-        <p className="text-lg text-muted-foreground mt-2">
-          Manage your store's products, orders, and customers
-        </p>
+    <div className="min-h-screen py-12 px-4 sm:px-6">
+      <div className="max-w-7xl mx-auto">
+        <div className="mb-8 text-center sm:text-left">
+          <h1 className="text-4xl font-bold">Admin Dashboard</h1>
+          <p className="text-lg text-muted-foreground mt-2">
+            Manage your store's products, orders, and customers
+          </p>
+        </div>
+
+        <Tabs defaultValue="products" className="w-full">
+          <TabsList className="mb-8">
+            <TabsTrigger value="products">Products</TabsTrigger>
+            <TabsTrigger value="orders">Orders</TabsTrigger>
+            <TabsTrigger value="customers">Customers</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="products" className="space-y-8">
+            <Card>
+              <CardHeader>
+                <CardTitle>Products Overview</CardTitle>
+                <CardDescription>
+                  View and manage your store's products
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                {renderProductsTab()}
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="orders">
+            <Card>
+              <CardHeader>
+                <CardTitle>Orders Management</CardTitle>
+                <CardDescription>
+                  View and manage customer orders
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground">Orders management coming soon...</p>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="customers">
+            <Card>
+              <CardHeader>
+                <CardTitle>Customer Management</CardTitle>
+                <CardDescription>
+                  View and manage customer accounts
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground">Customer management coming soon...</p>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
       </div>
-
-      <Tabs defaultValue="products">
-        <TabsList className="mb-8">
-          <TabsTrigger value="products">Products</TabsTrigger>
-          <TabsTrigger value="orders">Orders</TabsTrigger>
-          <TabsTrigger value="customers">Customers</TabsTrigger>
-        </TabsList>
-
-        <TabsContent value="products" className="space-y-8">
-          <Card>
-            <CardHeader>
-              <CardTitle>Products Overview</CardTitle>
-              <CardDescription>
-                View and manage your store's products
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              {renderProductsTab()}
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="orders">
-          <Card>
-            <CardHeader>
-              <CardTitle>Orders Management</CardTitle>
-              <CardDescription>
-                View and manage customer orders
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground">Orders management coming soon...</p>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="customers">
-          <Card>
-            <CardHeader>
-              <CardTitle>Customer Management</CardTitle>
-              <CardDescription>
-                View and manage customer accounts
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground">Customer management coming soon...</p>
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
     </div>
   );
 }
