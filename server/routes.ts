@@ -9,19 +9,25 @@ export function registerRoutes(app: Express): Server {
     res.json({ 
       status: "ok",
       timestamp: new Date().toISOString(),
-      environment: process.env.NODE_ENV || 'development'
+      environment: process.env.NODE_ENV || 'development',
+      message: "Welcome to Shark Bait Scuba API! This message confirms the API is working."
     });
   });
 
+  // Contact form submission
   app.post("/api/contact", async (req, res) => {
     try {
       const data = insertMessageSchema.parse(req.body);
       const message = await storage.createMessage(data);
-      res.json(message);
+      res.json({
+        message: "Contact message received successfully",
+        data: message
+      });
     } catch (error) {
       res.status(400).json({ 
         message: "Invalid form data",
-        error: error instanceof Error ? error.message : "Unknown error"
+        error: error instanceof Error ? error.message : "Unknown error",
+        help: "Make sure to include name, email, and message in your request"
       });
     }
   });
@@ -30,7 +36,11 @@ export function registerRoutes(app: Express): Server {
   app.get("/api/products", async (_req, res) => {
     try {
       const products = await storage.getProducts();
-      res.json(products);
+      res.json({
+        message: "Successfully retrieved products",
+        count: products.length,
+        data: products
+      });
     } catch (error) {
       res.status(500).json({ 
         message: "Failed to fetch products",
@@ -44,15 +54,24 @@ export function registerRoutes(app: Express): Server {
     try {
       const id = parseInt(req.params.id);
       if (isNaN(id)) {
-        return res.status(400).json({ message: "Invalid product ID" });
+        return res.status(400).json({ 
+          message: "Invalid product ID",
+          help: "The ID should be a number, for example: /api/products/1"
+        });
       }
 
       const product = await storage.getProduct(id);
       if (!product) {
-        return res.status(404).json({ message: "Product not found" });
+        return res.status(404).json({ 
+          message: "Product not found",
+          help: "Try a different product ID or check /api/products for available products"
+        });
       }
 
-      res.json(product);
+      res.json({
+        message: "Successfully retrieved product",
+        data: product
+      });
     } catch (error) {
       res.status(500).json({ 
         message: "Failed to fetch product",
