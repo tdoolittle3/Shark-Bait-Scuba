@@ -13,7 +13,7 @@ interface FileUploadProps extends React.HTMLAttributes<HTMLDivElement> {
 export function FileUpload({
   onFileSelected,
   accept = "image/*",
-  maxSize = 5 * 1024 * 1024, // 5MB
+  maxSize = 10 * 1024 * 1024, // 10MB
   uploading = false,
   imageUrl,
   className,
