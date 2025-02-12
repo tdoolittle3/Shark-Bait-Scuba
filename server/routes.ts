@@ -20,6 +20,51 @@ export function registerRoutes(app: Express): Server {
     });
   });
 
+  app.post("/api/checkout", async (req, res) => {
+    try {
+      const { productId } = req.body;
+      const session = await stripe.checkout.sessions.create({
+        line_items: [{
+          price_data: {
+            currency: 'usd',
+            product: productId,
+            unit_amount_multiplier: 100
+          },
+          quantity: 1,
+        }],
+        mode: 'payment',
+        success_url: `${req.protocol}://${req.get('host')}/success`,
+        cancel_url: `${req.protocol}://${req.get('host')}/store`,
+      });
+      
+      res.json({ id: session.id });
+    } catch (error) {
+      console.error('Error creating checkout session:', error);
+      res.status(500).json({ error: 'Failed to create checkout session' });
+    }
+  });
+
+  app.get("/api/products", async (_req, res) => {
+    try {
+      const { data: products } = await stripe.products.list({
+        expand: ['data.default_price']
+      });
+      
+      const formattedProducts = products.map(product => ({
+        id: product.id,
+        name: product.name,
+        description: product.description,
+        image: product.images[0],
+        price: product.default_price ? (product.default_price as any).unit_amount / 100 : 0
+      }));
+      
+      res.json(formattedProducts);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+      res.status(500).json({ error: 'Failed to fetch products' });
+    }
+  });
+
   // Contact form submission
   app.post("/api/contact", async (req, res) => {
     try {
