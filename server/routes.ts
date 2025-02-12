@@ -11,7 +11,6 @@ export function registerRoutes(app: Express): Server {
   app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
 
   // Public API endpoints
-  // Test endpoint to verify API is working
   app.get("/api/health", (_req, res) => {
     res.json({ 
       status: "ok",
@@ -24,13 +23,28 @@ export function registerRoutes(app: Express): Server {
   app.post("/api/checkout", async (req, res) => {
     try {
       const { productId } = req.body;
+
+      // Get product details from our products list
+      const { data: products } = await stripe.products.list({
+        ids: [productId],
+        expand: ['data.default_price']
+      });
+
+      if (!products || products.length === 0) {
+        throw new Error('Product not found');
+      }
+
+      const product = products[0];
+      const price = product.default_price as any;
+
+      if (!price) {
+        throw new Error('Product has no price defined');
+      }
+
+      // Create Stripe checkout session
       const session = await stripe.checkout.sessions.create({
         line_items: [{
-          price_data: {
-            currency: 'usd',
-            product: productId,
-            unit_amount: 100 // Amount in cents
-          },
+          price: price.id,
           quantity: 1,
         }],
         mode: 'payment',
@@ -41,24 +55,32 @@ export function registerRoutes(app: Express): Server {
       res.json({ id: session.id });
     } catch (error) {
       console.error('Error creating checkout session:', error);
-      res.status(500).json({ error: 'Failed to create checkout session' });
+      res.status(500).json({ 
+        error: 'Failed to create checkout session',
+        details: error instanceof Error ? error.message : 'Unknown error'
+      });
     }
   });
 
   app.get("/api/products", async (_req, res) => {
     try {
       const { data: products } = await stripe.products.list({
-        expand: ['data.default_price']
+        expand: ['data.default_price'],
+        active: true
       });
-      
-      const formattedProducts = products.map(product => ({
-        id: product.id,
-        name: product.name,
-        description: product.description,
-        image: product.images[0],
-        price: product.default_price ? (product.default_price as any).unit_amount / 100 : 0
-      }));
-      
+
+      const formattedProducts = products.map(product => {
+        const price = product.default_price as any;
+        return {
+          id: product.id,
+          name: product.name,
+          description: product.description,
+          image: product.images[0],
+          price: price ? price.unit_amount / 100 : 0,
+          priceId: price ? price.id : null
+        };
+      });
+
       res.json(formattedProducts);
     } catch (error) {
       console.error('Error fetching products:', error);
