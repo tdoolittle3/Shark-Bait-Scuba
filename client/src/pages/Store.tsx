@@ -10,21 +10,19 @@ import {
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Product } from "@shared/schema";
+import { AlertCircle } from "lucide-react";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 export default function Store() {
-  const { data: products, isLoading } = useQuery<Product[]>({
+  const { data: products, isLoading, error } = useQuery<Product[]>({
     queryKey: ['/api/products'],
+    retry: 2,
+    staleTime: 1000 * 60 * 5, // 5 minutes
   });
 
-  if (isLoading) {
-    return (
-      <div className="container py-12">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold mb-4">Shark Bait Scuba Store</h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Discover our collection of high-quality diving equipment and gear
-          </p>
-        </div>
+  const renderContent = () => {
+    if (isLoading) {
+      return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {[...Array(8)].map((_, i) => (
             <Card key={i} className="overflow-hidden">
@@ -43,21 +41,35 @@ export default function Store() {
             </Card>
           ))}
         </div>
-      </div>
-    );
-  }
+      );
+    }
 
-  return (
-    <div className="container py-12">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold mb-4">Shark Bait Scuba Store</h1>
-        <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-          Discover our collection of high-quality diving equipment and gear
-        </p>
-      </div>
+    if (error) {
+      return (
+        <Alert variant="destructive">
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>Error</AlertTitle>
+          <AlertDescription>
+            Failed to load products. Please try again later.
+          </AlertDescription>
+        </Alert>
+      );
+    }
 
+    if (!products?.length) {
+      return (
+        <Alert>
+          <AlertTitle>No Products Available</AlertTitle>
+          <AlertDescription>
+            Check back soon for our upcoming product catalog!
+          </AlertDescription>
+        </Alert>
+      );
+    }
+
+    return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {products?.map((product) => (
+        {products.map((product) => (
           <Card key={product.id} className="overflow-hidden hover:shadow-lg transition-shadow">
             <CardHeader>
               <CardTitle className="line-clamp-1">{product.name}</CardTitle>
@@ -92,6 +104,19 @@ export default function Store() {
           </Card>
         ))}
       </div>
+    );
+  };
+
+  return (
+    <div className="container py-12">
+      <div className="text-center mb-12">
+        <h1 className="text-4xl font-bold mb-4">Shark Bait Scuba Store</h1>
+        <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          Discover our collection of high-quality diving equipment and gear
+        </p>
+      </div>
+
+      {renderContent()}
     </div>
   );
 }
