@@ -13,6 +13,7 @@ import Training from "@/pages/Training";
 import About from "@/pages/About";
 import Contact from "@/pages/Contact";
 import Diving from "@/pages/Diving";
+import Store from "@/pages/Store";
 
 function Router() {
   return (
@@ -39,6 +40,7 @@ function Router() {
           <Route path="/diving" component={Diving} />
           <Route path="/about" component={About} />
           <Route path="/contact" component={Contact} />
+          <Route path="/store" component={Store} />
           <Route component={NotFound} />
         </Switch>
       </main>

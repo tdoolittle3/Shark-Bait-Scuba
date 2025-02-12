@@ -14,7 +14,7 @@ export default function Navbar() {
     { href: "/about", label: "About" },
     { href: "/contact", label: "Contact" },
     { 
-      href: "https://store.sharkbaitscubafl.com", 
+      href: "/store", 
       label: "Store", 
       icon: <ShoppingBag className="h-4 w-4 mr-1" /> 
     },
