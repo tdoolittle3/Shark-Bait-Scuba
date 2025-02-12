@@ -9,24 +9,33 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Product } from "@shared/schema";
 
 export default function Store() {
-  const { data: products, isLoading } = useQuery({
+  const { data: products, isLoading } = useQuery<Product[]>({
     queryKey: ['/api/products'],
   });
 
   if (isLoading) {
     return (
       <div className="container py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[...Array(6)].map((_, i) => (
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold mb-4">Shark Bait Scuba Store</h1>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Discover our collection of high-quality diving equipment and gear
+          </p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {[...Array(8)].map((_, i) => (
             <Card key={i} className="overflow-hidden">
               <CardHeader>
                 <Skeleton className="h-4 w-2/3" />
                 <Skeleton className="h-4 w-full" />
               </CardHeader>
               <CardContent>
-                <Skeleton className="h-[200px] w-full" />
+                <Skeleton className="h-[200px] w-full rounded-md" />
+                <Skeleton className="h-4 w-full mt-4" />
+                <Skeleton className="h-4 w-2/3 mt-2" />
               </CardContent>
               <CardFooter>
                 <Skeleton className="h-10 w-full" />
@@ -47,27 +56,38 @@ export default function Store() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {products?.map((product) => (
-          <Card key={product.id} className="overflow-hidden">
+          <Card key={product.id} className="overflow-hidden hover:shadow-lg transition-shadow">
             <CardHeader>
-              <CardTitle>{product.name}</CardTitle>
-              <CardDescription>${product.price}</CardDescription>
+              <CardTitle className="line-clamp-1">{product.name}</CardTitle>
+              <CardDescription className="text-lg font-semibold text-primary">
+                ${product.price.toFixed(2)}
+              </CardDescription>
             </CardHeader>
             <CardContent>
-              {product.imageUrl && (
+              {product.imageUrl ? (
                 <img
                   src={product.imageUrl}
                   alt={product.name}
                   className="w-full h-[200px] object-cover rounded-md"
                 />
+              ) : (
+                <div className="w-full h-[200px] bg-muted rounded-md flex items-center justify-center">
+                  No image available
+                </div>
               )}
-              <p className="mt-4 text-sm text-muted-foreground">
+              <p className="mt-4 text-sm text-muted-foreground line-clamp-3">
                 {product.description}
               </p>
             </CardContent>
             <CardFooter>
-              <Button className="w-full">Add to Cart</Button>
+              <Button 
+                className="w-full" 
+                disabled={product.inventory <= 0}
+              >
+                {product.inventory > 0 ? "Add to Cart" : "Out of Stock"}
+              </Button>
             </CardFooter>
           </Card>
         ))}
