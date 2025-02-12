@@ -242,7 +242,15 @@ export default function AdminDashboard() {
     const editingProduct = editingProducts[productId];
     if (!editingProduct) return;
 
-    const changedFields = Object.entries(editingProduct.tempData).filter(([_, value]) => value !== undefined);
+    const product = productsResponse?.data.find(p => p.id === productId);
+    if (!product) return;
+
+    const changedFields = Object.entries(editingProduct.tempData).filter(([key, value]) => {
+      if (key === 'price' || key === 'inventory') {
+        return parseFloat(String(value)) !== product[key];
+      }
+      return value !== product[key as keyof typeof product];
+    });
 
     if (changedFields.length === 0) {
       toast({
@@ -267,7 +275,13 @@ export default function AdminDashboard() {
 
   const handleCreateProduct = () => {
     try {
-      const validatedProduct = insertProductSchema.parse(newProduct);
+      // Generate a unique SKU if not provided
+      const productData = {
+        ...newProduct,
+        sku: newProduct.sku || `SB-${Date.now()}`,
+      };
+
+      const validatedProduct = insertProductSchema.parse(productData);
       createProductMutation.mutate(validatedProduct);
     } catch (error) {
       if (error instanceof Error) {
@@ -307,8 +321,8 @@ export default function AdminDashboard() {
         />
       </div>
       <FileUpload
-        onFileSelected={(files) => setNewProduct(prev => ({ 
-          ...prev, 
+        onFileSelected={(files) => setNewProduct(prev => ({
+          ...prev,
           imageUrls: [...(prev.imageUrls || []), ...files.map(() => '')] // Placeholder URLs for validation
         }))}
         imageUrls={newProduct.imageUrls || []}
@@ -498,7 +512,7 @@ export default function AdminDashboard() {
               Add New Product
             </Button>
           </DialogTrigger>
-          <DialogContent>
+          <DialogContent className="max-h-[90vh] overflow-y-auto">
             <DialogHeader>
               <DialogTitle>Add New Product</DialogTitle>
               <DialogDescription>
