@@ -36,6 +36,7 @@ export function registerRoutes(app: Express): Server {
   // Serve uploaded files statically
   app.use('/uploads', express.static(uploadDir));
 
+  // Public API endpoints
   // Test endpoint to verify API is working
   app.get("/api/health", (_req, res) => {
     res.json({ 
@@ -44,114 +45,6 @@ export function registerRoutes(app: Express): Server {
       environment: process.env.NODE_ENV || 'development',
       message: "Welcome to Shark Bait Scuba API! This message confirms the API is working."
     });
-  });
-
-  // Upload product images - now supports multiple files
-  app.post("/api/products/:id/images", upload.array('images', 10), async (req, res) => {
-    try {
-      const id = parseInt(req.params.id);
-      if (isNaN(id)) {
-        return res.status(400).json({ 
-          message: "Invalid product ID"
-        });
-      }
-
-      if (!req.files || !Array.isArray(req.files) || req.files.length === 0) {
-        return res.status(400).json({ 
-          message: "No image files provided"
-        });
-      }
-
-      const product = await storage.getProduct(id);
-      if (!product) {
-        return res.status(404).json({
-          message: "Product not found"
-        });
-      }
-
-      const timestamp = Date.now();
-      const uploadedUrls: string[] = [];
-
-      for (const [index, file] of (req.files as Express.Multer.File[]).entries()) {
-        const filename = `product-${id}-${timestamp}-${index}.webp`;
-        const filepath = path.join(uploadDir, filename);
-
-        // Process and save the image
-        await sharp(file.buffer)
-          .resize(800, 800, { fit: 'inside', withoutEnlargement: true })
-          .webp({ quality: 80 })
-          .toFile(filepath);
-
-        uploadedUrls.push(`/uploads/${filename}`);
-      }
-
-      // Update product with new image URLs
-      const currentUrls = product.imageUrls || [];
-      const updatedProduct = await storage.updateProduct(id, {
-        imageUrls: [...currentUrls, ...uploadedUrls]
-      });
-
-      res.json({
-        message: "Images uploaded successfully",
-        data: updatedProduct
-      });
-    } catch (error) {
-      res.status(500).json({ 
-        message: "Failed to upload images",
-        error: error instanceof Error ? error.message : "Unknown error"
-      });
-    }
-  });
-
-  // Delete a product image
-  app.delete("/api/products/:id/images/:filename", async (req, res) => {
-    try {
-      const id = parseInt(req.params.id);
-      const filename = req.params.filename;
-
-      if (isNaN(id)) {
-        return res.status(400).json({ 
-          message: "Invalid product ID"
-        });
-      }
-
-      const product = await storage.getProduct(id);
-      if (!product) {
-        return res.status(404).json({
-          message: "Product not found"
-        });
-      }
-
-      const imageUrl = `/uploads/${filename}`;
-      const currentUrls = product.imageUrls || [];
-
-      if (!currentUrls.includes(imageUrl)) {
-        return res.status(404).json({
-          message: "Image not found for this product"
-        });
-      }
-
-      // Remove the image file
-      const filepath = path.join(uploadDir, filename);
-      if (fs.existsSync(filepath)) {
-        fs.unlinkSync(filepath);
-      }
-
-      // Update product with remaining image URLs
-      const updatedProduct = await storage.updateProduct(id, {
-        imageUrls: currentUrls.filter(url => url !== imageUrl)
-      });
-
-      res.json({
-        message: "Image deleted successfully",
-        data: updatedProduct
-      });
-    } catch (error) {
-      res.status(500).json({ 
-        message: "Failed to delete image",
-        error: error instanceof Error ? error.message : "Unknown error"
-      });
-    }
   });
 
   // Contact form submission
@@ -172,7 +65,7 @@ export function registerRoutes(app: Express): Server {
     }
   });
 
-  // Products route
+  // Public product endpoints (GET only)
   app.get("/api/products", async (_req, res) => {
     try {
       const products = await storage.getProducts();
@@ -189,7 +82,6 @@ export function registerRoutes(app: Express): Server {
     }
   });
 
-  // Get a single product by ID
   app.get("/api/products/:id", async (req, res) => {
     try {
       const id = parseInt(req.params.id);
@@ -220,8 +112,65 @@ export function registerRoutes(app: Express): Server {
     }
   });
 
-  // Update a product
-  app.patch("/api/products/:id", async (req, res) => {
+  // Admin-protected routes
+  const adminRouter = express.Router();
+
+  // Product management endpoints
+  adminRouter.post("/products/:id/images", upload.array('images', 10), async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ 
+          message: "Invalid product ID"
+        });
+      }
+
+      if (!req.files || !Array.isArray(req.files) || req.files.length === 0) {
+        return res.status(400).json({ 
+          message: "No image files provided"
+        });
+      }
+
+      const product = await storage.getProduct(id);
+      if (!product) {
+        return res.status(404).json({
+          message: "Product not found"
+        });
+      }
+
+      const timestamp = Date.now();
+      const uploadedUrls: string[] = [];
+
+      for (const [index, file] of (req.files as Express.Multer.File[]).entries()) {
+        const filename = `product-${id}-${timestamp}-${index}.webp`;
+        const filepath = path.join(uploadDir, filename);
+
+        await sharp(file.buffer)
+          .resize(800, 800, { fit: 'inside', withoutEnlargement: true })
+          .webp({ quality: 80 })
+          .toFile(filepath);
+
+        uploadedUrls.push(`/uploads/${filename}`);
+      }
+
+      const currentUrls = product.imageUrls || [];
+      const updatedProduct = await storage.updateProduct(id, {
+        imageUrls: [...currentUrls, ...uploadedUrls]
+      });
+
+      res.json({
+        message: "Images uploaded successfully",
+        data: updatedProduct
+      });
+    } catch (error) {
+      res.status(500).json({ 
+        message: "Failed to upload images",
+        error: error instanceof Error ? error.message : "Unknown error"
+      });
+    }
+  });
+
+  adminRouter.patch("/products/:id", async (req, res) => {
     try {
       const id = parseInt(req.params.id);
       if (isNaN(id)) {
@@ -231,7 +180,6 @@ export function registerRoutes(app: Express): Server {
         });
       }
 
-      // Create a partial schema for updates
       const updateProductSchema = insertProductSchema.partial();
       const data = updateProductSchema.parse(req.body);
 
@@ -255,8 +203,7 @@ export function registerRoutes(app: Express): Server {
     }
   });
 
-  // Delete a product
-  app.delete("/api/products/:id", async (req, res) => {
+  adminRouter.delete("/products/:id", async (req, res) => {
     try {
       const id = parseInt(req.params.id);
       if (isNaN(id)) {
@@ -299,8 +246,7 @@ export function registerRoutes(app: Express): Server {
     }
   });
 
-  // Create a new product
-  app.post("/api/products", async (req, res) => {
+  adminRouter.post("/products", async (req, res) => {
     try {
       const data = insertProductSchema.parse(req.body);
       const product = await storage.createProduct(data);
@@ -315,6 +261,9 @@ export function registerRoutes(app: Express): Server {
       });
     }
   });
+
+  // Mount admin routes under /api/admin with authentication
+  app.use("/api/admin", adminRouter);
 
   const httpServer = createServer(app);
   return httpServer;

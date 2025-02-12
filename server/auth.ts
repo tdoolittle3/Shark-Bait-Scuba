@@ -98,5 +98,5 @@ export function setupAdminAuth(app: Express) {
   });
 
   // Protect admin API routes
-  app.use("/api/products", isAuthenticated);
+  app.use("/api/admin", isAuthenticated);
 }
