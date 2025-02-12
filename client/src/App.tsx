@@ -13,11 +13,6 @@ import Training from "@/pages/Training";
 import About from "@/pages/About";
 import Contact from "@/pages/Contact";
 import Diving from "@/pages/Diving";
-import Store from "@/pages/Store";
-import AdminDashboard from "@/pages/admin/Dashboard";
-import AdminLogin from "@/pages/admin/Login";
-import { AdminAuthProvider } from "@/hooks/use-admin-auth";
-import { AdminProtectedRoute } from "@/components/auth/AdminProtectedRoute";
 
 function Router() {
   return (
@@ -44,9 +39,6 @@ function Router() {
           <Route path="/diving" component={Diving} />
           <Route path="/about" component={About} />
           <Route path="/contact" component={Contact} />
-          <Route path="/store" component={Store} />
-          <Route path="/admin/login" component={AdminLogin} />
-          <AdminProtectedRoute path="/admin" component={AdminDashboard} />
           <Route component={NotFound} />
         </Switch>
       </main>
@@ -59,10 +51,8 @@ function Router() {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <AdminAuthProvider>
-        <Router />
-        <Toaster />
-      </AdminAuthProvider>
+      <Router />
+      <Toaster />
     </QueryClientProvider>
   );
 }
