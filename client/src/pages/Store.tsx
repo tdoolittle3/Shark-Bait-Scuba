@@ -43,7 +43,11 @@ export default function Store() {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="text-center py-12">Loading...</div>;
+  }
+
+  if (!products || products.length === 0) {
+    return <div className="text-center py-12">No products available</div>;
   }
 
   return (
