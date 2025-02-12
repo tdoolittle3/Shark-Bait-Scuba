@@ -3,9 +3,13 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu, ShoppingBag } from "lucide-react";
+import { useCart } from "@/contexts/CartContext";
+import { Badge } from "@/components/ui/badge";
 
 export default function Navbar() {
   const [location] = useLocation();
+  const { state } = useCart();
+  const cartItemCount = state.items.reduce((sum, item) => sum + item.quantity, 0);
 
   const navLinks = [
     { href: "/diving", label: "Diving" },
@@ -52,8 +56,7 @@ export default function Navbar() {
                   variant="outline"
                   className={cn(
                     "text-sm md:text-base font-medium transition-all duration-200 hover:scale-105 border-2 hover:bg-primary/20 hover:border-primary flex items-center",
-                    location === link.href ? "bg-primary/10 border-primary text-primary shadow-sm" : "border-muted-foreground/20",
-                    //link.label === "Store" && "bg-primary text-primary-foreground hover:bg-primary/90 border-primary"
+                    location === link.href ? "bg-primary/10 border-primary text-primary shadow-sm" : "border-muted-foreground/20"
                   )}
                 >
                   {link.icon}
@@ -61,17 +64,57 @@ export default function Navbar() {
                 </Button>
               </Link>
             ))}
+            <Link href="/cart">
+              <Button
+                variant="outline"
+                className={cn(
+                  "text-sm md:text-base font-medium transition-all duration-200 hover:scale-105 border-2 hover:bg-primary/20 hover:border-primary flex items-center relative",
+                  location === "/cart" ? "bg-primary/10 border-primary text-primary shadow-sm" : "border-muted-foreground/20"
+                )}
+              >
+                <ShoppingBag className="h-4 w-4" />
+                {cartItemCount > 0 && (
+                  <Badge 
+                    variant="default"
+                    className="absolute -top-2 -right-2 h-5 w-5 flex items-center justify-center p-0 text-xs"
+                  >
+                    {cartItemCount}
+                  </Badge>
+                )}
+                <span className="sr-only">Cart</span>
+              </Button>
+            </Link>
           </div>
         </div>
 
         {/* Mobile Navigation */}
         <Sheet>
-          <SheetTrigger asChild className="md:hidden">
-            <Button variant="ghost" size="icon">
-              <Menu className="h-6 w-6" />
-              <span className="sr-only">Toggle menu</span>
-            </Button>
-          </SheetTrigger>
+          <div className="flex items-center gap-4 md:hidden">
+            <Link href="/cart">
+              <Button
+                variant="outline"
+                size="icon"
+                className="relative"
+              >
+                <ShoppingBag className="h-5 w-5" />
+                {cartItemCount > 0 && (
+                  <Badge 
+                    variant="default"
+                    className="absolute -top-2 -right-2 h-5 w-5 flex items-center justify-center p-0 text-xs"
+                  >
+                    {cartItemCount}
+                  </Badge>
+                )}
+                <span className="sr-only">Cart</span>
+              </Button>
+            </Link>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon">
+                <Menu className="h-6 w-6" />
+                <span className="sr-only">Toggle menu</span>
+              </Button>
+            </SheetTrigger>
+          </div>
           <SheetContent side="right">
             <nav className="flex flex-col space-y-4 mt-6">
               {navLinks.map((link) => (
@@ -81,7 +124,6 @@ export default function Navbar() {
                     className={cn(
                       "w-full justify-start text-lg flex items-center",
                       location === link.href && "text-primary",
-                      //link.label === "Store" && "bg-primary/10 text-primary"
                     )}
                   >
                     {link.icon}
