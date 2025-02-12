@@ -13,8 +13,14 @@ import { Product } from "@shared/schema";
 import { AlertCircle } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
+interface ProductsResponse {
+  message: string;
+  count: number;
+  data: Product[];
+}
+
 export default function Store() {
-  const { data: products, isLoading, error } = useQuery<Product[]>({
+  const { data: productsResponse, isLoading, error } = useQuery<ProductsResponse>({
     queryKey: ['/api/products'],
     retry: 2,
     staleTime: 1000 * 60 * 5, // 5 minutes
@@ -56,7 +62,7 @@ export default function Store() {
       );
     }
 
-    if (!products?.length) {
+    if (!productsResponse?.data?.length) {
       return (
         <Alert>
           <AlertTitle>No Products Available</AlertTitle>
@@ -69,7 +75,7 @@ export default function Store() {
 
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {products.map((product) => (
+        {productsResponse.data.map((product) => (
           <Card key={product.id} className="overflow-hidden hover:shadow-lg transition-shadow">
             <CardHeader>
               <CardTitle className="line-clamp-1">{product.name}</CardTitle>
