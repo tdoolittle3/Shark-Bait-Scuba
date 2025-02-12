@@ -220,3 +220,32 @@ export type Equipment = typeof equipment.$inferSelect;
 
 export type InsertStaff = z.infer<typeof insertStaffSchema>;
 export type Staff = typeof staff.$inferSelect;
+
+// Add administrators table
+export const administrators = pgTable("administrators", {
+  id: serial("id").primaryKey(),
+  username: text("username").notNull().unique(),
+  passwordHash: text("password_hash").notNull(),
+  email: text("email").notNull().unique(),
+  createdAt: timestamp("created_at").defaultNow().notNull()
+});
+
+// Add insert schema for administrators
+export const insertAdministratorSchema = createInsertSchema(administrators)
+  .omit({
+    id: true,
+    createdAt: true,
+    passwordHash: true,
+  })
+  .extend({
+    password: z.string().min(8, "Password must be at least 8 characters"),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ["confirmPassword"],
+  });
+
+// Add administrator types
+export type Administrator = typeof administrators.$inferSelect;
+export type InsertAdministrator = z.infer<typeof insertAdministratorSchema>;

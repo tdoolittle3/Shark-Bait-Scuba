@@ -1,6 +1,6 @@
 import { 
   contactMessages, diveSites, courses, equipment, staff,
-  customers, products, categories, orders, orderItems,
+  customers, products, categories, orders, orderItems, administrators,
   type ContactMessage, type InsertMessage,
   type DiveSite, type InsertDiveSite,
   type Course, type InsertCourse,
@@ -10,7 +10,8 @@ import {
   type Product, type InsertProduct,
   type Category, type InsertCategory,
   type Order, type InsertOrder,
-  type OrderItem, type InsertOrderItem
+  type OrderItem, type InsertOrderItem,
+  type Administrator, type InsertAdministrator
 } from "@shared/schema";
 import { db } from "./db";
 import { eq } from "drizzle-orm";
@@ -68,6 +69,11 @@ export interface IStorage {
   // Order Items
   createOrderItem(item: InsertOrderItem): Promise<OrderItem>;
   getOrderItems(orderId: number): Promise<OrderItem[]>;
+
+  // Administrators
+  createAdmin(admin: InsertAdministrator): Promise<Administrator>;
+  getAdmin(id: number): Promise<Administrator | undefined>;
+  getAdminByUsername(username: string): Promise<Administrator | undefined>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -256,6 +262,31 @@ export class DatabaseStorage implements IStorage {
 
   async getOrderItems(orderId: number): Promise<OrderItem[]> {
     return await db.select().from(orderItems).where(eq(orderItems.orderId, orderId));
+  }
+
+  // Administrators
+  async createAdmin(adminData: InsertAdministrator): Promise<Administrator> {
+    const saltRounds = 10;
+    const passwordHash = await bcrypt.hash(adminData.password, saltRounds);
+
+    const adminToInsert = {
+      username: adminData.username,
+      email: adminData.email,
+      passwordHash
+    };
+
+    const [created] = await db.insert(administrators).values(adminToInsert).returning();
+    return created;
+  }
+
+  async getAdmin(id: number): Promise<Administrator | undefined> {
+    const [admin] = await db.select().from(administrators).where(eq(administrators.id, id));
+    return admin;
+  }
+
+  async getAdminByUsername(username: string): Promise<Administrator | undefined> {
+    const [admin] = await db.select().from(administrators).where(eq(administrators.username, username));
+    return admin;
   }
 }
 
