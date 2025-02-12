@@ -39,7 +39,6 @@ export default function Home() {
   const [currentTagline, setCurrentTagline] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
-  // Handle tagline rotation
   useEffect(() => {
     const timer = setInterval(() => {
       setIsTransitioning(true);
@@ -52,14 +51,12 @@ export default function Home() {
     return () => clearInterval(timer);
   }, []);
 
-  // Handle Instagram embed script loading
   useEffect(() => {
     const script = document.createElement('script');
     script.src = 'https://www.instagram.com/embed.js';
     script.async = true;
     script.defer = true;
 
-    // Process embeds after script loads
     script.onload = () => {
       if (window.instgrm) {
         window.instgrm.Embeds.process();
@@ -69,14 +66,12 @@ export default function Home() {
     document.body.appendChild(script);
 
     return () => {
-      // Clean up script when component unmounts
       if (script.parentNode) {
         document.body.removeChild(script);
       }
     };
   }, []);
 
-  // Process embeds whenever component mounts or updates
   useEffect(() => {
     if (window.instgrm) {
       window.instgrm.Embeds.process();
@@ -109,8 +104,8 @@ export default function Home() {
             backgroundPosition: 'center'
           }}
         />
-        <div className="container relative z-10 text-white text-center">
-          <div className={`transition-opacity duration-500 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
+        <div className="container relative z-10 px-4 sm:px-6 mx-auto max-w-7xl">
+          <div className={`transition-opacity duration-500 ${isTransitioning ? 'opacity-0' : 'opacity-100'} text-white text-center`}>
             <h1 className="text-5xl md:text-7xl font-bold mb-6">
               {taglines[currentTagline].title}
             </h1>
@@ -150,8 +145,8 @@ export default function Home() {
       </section>
 
       {/* Instagram Feed Section */}
-      <section className="py-20">
-        <div className="container">
+      <section className="py-20 px-4 sm:px-6">
+        <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12">Check It Out</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="mx-auto">
