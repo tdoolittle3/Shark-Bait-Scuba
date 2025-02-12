@@ -31,14 +31,14 @@ function ProductCard({ product }: ProductCardProps) {
 
   const nextImage = () => {
     if (!product.imageUrls?.length) return;
-    setCurrentImageIndex((prev) => 
+    setCurrentImageIndex((prev) =>
       prev === product.imageUrls!.length - 1 ? 0 : prev + 1
     );
   };
 
   const prevImage = () => {
     if (!product.imageUrls?.length) return;
-    setCurrentImageIndex((prev) => 
+    setCurrentImageIndex((prev) =>
       prev === 0 ? product.imageUrls!.length - 1 : prev - 1
     );
   };
@@ -108,8 +108,8 @@ function ProductCard({ product }: ProductCardProps) {
           </p>
         </CardContent>
         <CardFooter>
-          <Button 
-            className="w-full" 
+          <Button
+            className="w-full"
             disabled={product.inventory <= 0}
           >
             {product.inventory > 0 ? "Add to Cart" : "Out of Stock"}
@@ -118,7 +118,7 @@ function ProductCard({ product }: ProductCardProps) {
       </Card>
 
       <Dialog open={showZoom} onOpenChange={setShowZoom}>
-        <DialogContent className="max-w-4xl">
+        <DialogContent className="max-w-2xl sm:max-w-3xl">
           <div className="relative aspect-square">
             <img
               src={product.imageUrls?.[currentImageIndex]}
@@ -128,7 +128,7 @@ function ProductCard({ product }: ProductCardProps) {
             <Button
               variant="outline"
               size="icon"
-              className="absolute top-2 right-2"
+              className="absolute top-2 right-2 bg-white hover:bg-gray-100"
               onClick={() => setShowZoom(false)}
             >
               <X className="h-4 w-4" />
@@ -138,7 +138,7 @@ function ProductCard({ product }: ProductCardProps) {
                 <Button
                   variant="outline"
                   size="icon"
-                  className="absolute left-2 top-1/2 -translate-y-1/2"
+                  className="absolute left-2 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-100"
                   onClick={prevImage}
                 >
                   <ChevronLeft className="h-4 w-4" />
@@ -146,7 +146,7 @@ function ProductCard({ product }: ProductCardProps) {
                 <Button
                   variant="outline"
                   size="icon"
-                  className="absolute right-2 top-1/2 -translate-y-1/2"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-100"
                   onClick={nextImage}
                 >
                   <ChevronRight className="h-4 w-4" />
