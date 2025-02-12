@@ -14,6 +14,9 @@ export default function NotFound() {
           <p className="mt-4 text-sm text-gray-600">
             Did you forget to add the page to the router?
           </p>
+          <p className="mt-2 text-sm text-gray-600 italic">
+            ESTNE VOLUMEN IN TOGA, AN SOLUM TIBI LIBET ME VIDERE?
+          </p>
         </CardContent>
       </Card>
     </div>
