@@ -10,8 +10,9 @@ import {
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Product } from "@shared/schema";
-import { AlertCircle, ChevronLeft, ChevronRight } from "lucide-react";
+import { AlertCircle, ChevronLeft, ChevronRight, Maximize2, X } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { useState } from "react";
 
 interface ProductsResponse {
@@ -26,6 +27,7 @@ interface ProductCardProps {
 
 function ProductCard({ product }: ProductCardProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [showZoom, setShowZoom] = useState(false);
 
   const nextImage = () => {
     if (!product.imageUrls?.length) return;
@@ -42,42 +44,110 @@ function ProductCard({ product }: ProductCardProps) {
   };
 
   return (
-    <Card className="overflow-hidden hover:shadow-lg transition-shadow">
-      <CardHeader>
-        <CardTitle className="line-clamp-1">{product.name}</CardTitle>
-        <CardDescription className="text-lg font-semibold text-primary">
-          ${product.price.toFixed(2)}
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        {product.imageUrls?.length ? (
-          <div className="relative w-full h-[200px] group">
+    <>
+      <Card className="overflow-hidden hover:shadow-lg transition-shadow">
+        <CardHeader>
+          <CardTitle className="line-clamp-1">{product.name}</CardTitle>
+          <CardDescription className="text-lg font-semibold text-primary">
+            ${product.price.toFixed(2)}
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          {product.imageUrls?.length ? (
+            <div className="relative w-full h-[200px] group">
+              <img
+                src={product.imageUrls[currentImageIndex]}
+                alt={`${product.name} - Image ${currentImageIndex + 1}`}
+                className="w-full h-full object-cover rounded-md"
+              />
+              {product.imageUrls.length > 1 && (
+                <>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="absolute left-2 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      prevImage();
+                    }}
+                  >
+                    <ChevronLeft className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      nextImage();
+                    }}
+                  >
+                    <ChevronRight className="h-4 w-4" />
+                  </Button>
+                  <div className="absolute bottom-2 left-1/2 -translate-x-1/2 bg-black/50 text-white px-2 py-1 rounded-full text-xs">
+                    {currentImageIndex + 1} / {product.imageUrls.length}
+                  </div>
+                </>
+              )}
+              <Button
+                variant="outline"
+                size="icon"
+                className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity"
+                onClick={() => setShowZoom(true)}
+              >
+                <Maximize2 className="h-4 w-4" />
+              </Button>
+            </div>
+          ) : (
+            <div className="w-full h-[200px] bg-muted rounded-md flex items-center justify-center">
+              No image available
+            </div>
+          )}
+          <p className="mt-4 text-sm text-muted-foreground line-clamp-3">
+            {product.description}
+          </p>
+        </CardContent>
+        <CardFooter>
+          <Button 
+            className="w-full" 
+            disabled={product.inventory <= 0}
+          >
+            {product.inventory > 0 ? "Add to Cart" : "Out of Stock"}
+          </Button>
+        </CardFooter>
+      </Card>
+
+      <Dialog open={showZoom} onOpenChange={setShowZoom}>
+        <DialogContent className="max-w-4xl">
+          <div className="relative aspect-square">
             <img
-              src={product.imageUrls[currentImageIndex]}
+              src={product.imageUrls?.[currentImageIndex]}
               alt={`${product.name} - Image ${currentImageIndex + 1}`}
-              className="w-full h-full object-cover rounded-md"
+              className="w-full h-full object-contain rounded-lg"
             />
-            {product.imageUrls.length > 1 && (
+            <Button
+              variant="outline"
+              size="icon"
+              className="absolute top-2 right-2"
+              onClick={() => setShowZoom(false)}
+            >
+              <X className="h-4 w-4" />
+            </Button>
+            {product.imageUrls && product.imageUrls.length > 1 && (
               <>
                 <Button
                   variant="outline"
                   size="icon"
-                  className="absolute left-2 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    prevImage();
-                  }}
+                  className="absolute left-2 top-1/2 -translate-y-1/2"
+                  onClick={prevImage}
                 >
                   <ChevronLeft className="h-4 w-4" />
                 </Button>
                 <Button
                   variant="outline"
                   size="icon"
-                  className="absolute right-2 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    nextImage();
-                  }}
+                  className="absolute right-2 top-1/2 -translate-y-1/2"
+                  onClick={nextImage}
                 >
                   <ChevronRight className="h-4 w-4" />
                 </Button>
@@ -87,24 +157,9 @@ function ProductCard({ product }: ProductCardProps) {
               </>
             )}
           </div>
-        ) : (
-          <div className="w-full h-[200px] bg-muted rounded-md flex items-center justify-center">
-            No image available
-          </div>
-        )}
-        <p className="mt-4 text-sm text-muted-foreground line-clamp-3">
-          {product.description}
-        </p>
-      </CardContent>
-      <CardFooter>
-        <Button 
-          className="w-full" 
-          disabled={product.inventory <= 0}
-        >
-          {product.inventory > 0 ? "Add to Cart" : "Out of Stock"}
-        </Button>
-      </CardFooter>
-    </Card>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 }
 
