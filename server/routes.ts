@@ -2,6 +2,8 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertMessageSchema } from "@shared/schema";
+import { insertProductSchema } from "@shared/schema";
+import { z } from "zod";
 
 export function registerRoutes(app: Express): Server {
   // Test endpoint to verify API is working
@@ -75,6 +77,41 @@ export function registerRoutes(app: Express): Server {
     } catch (error) {
       res.status(500).json({ 
         message: "Failed to fetch product",
+        error: error instanceof Error ? error.message : "Unknown error"
+      });
+    }
+  });
+
+  // Update a product
+  app.patch("/api/products/:id", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ 
+          message: "Invalid product ID",
+          help: "The ID should be a number"
+        });
+      }
+
+      // Create a partial schema for updates
+      const updateProductSchema = insertProductSchema.partial();
+      const data = updateProductSchema.parse(req.body);
+
+      const product = await storage.updateProduct(id, data);
+      if (!product) {
+        return res.status(404).json({ 
+          message: "Product not found",
+          help: "Check if the product ID exists"
+        });
+      }
+
+      res.json({
+        message: "Successfully updated product",
+        data: product
+      });
+    } catch (error) {
+      res.status(500).json({ 
+        message: "Failed to update product",
         error: error instanceof Error ? error.message : "Unknown error"
       });
     }

@@ -1,10 +1,17 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { useQuery } from "@tanstack/react-query";
-import { Product } from "@shared/schema";
-import { AlertCircle } from "lucide-react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { Product, InsertProduct, insertProductSchema } from "@shared/schema";
+import { AlertCircle, Edit, Save, X } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
+import { apiRequest, queryClient } from "@/lib/queryClient";
+import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+
 
 interface ProductsResponse {
   message: string;
@@ -12,12 +19,177 @@ interface ProductsResponse {
   data: Product[];
 }
 
+interface EditingProduct extends Product {
+  isEditing: boolean;
+  tempData: Partial<InsertProduct>;
+}
+
 export default function AdminDashboard() {
+  const { toast } = useToast();
+  const [editingProducts, setEditingProducts] = useState<Record<number, EditingProduct>>({});
+
   const { data: productsResponse, isLoading, error } = useQuery<ProductsResponse>({
     queryKey: ['/api/products'],
     retry: 2,
     staleTime: 1000 * 60 * 5, // 5 minutes
   });
+
+  const updateProductMutation = useMutation({
+    mutationFn: async ({ id, data }: { id: number; data: Partial<InsertProduct> }) => {
+      const response = await apiRequest("PATCH", `/api/products/${id}`, data);
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/products'] });
+      toast({
+        title: "Success",
+        description: "Product updated successfully",
+      });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
+  const startEditing = (product: Product) => {
+    setEditingProducts(prev => ({
+      ...prev,
+      [product.id]: {
+        ...product,
+        isEditing: true,
+        tempData: {},
+      },
+    }));
+  };
+
+  const cancelEditing = (productId: number) => {
+    setEditingProducts(prev => {
+      const newState = { ...prev };
+      delete newState[productId];
+      return newState;
+    });
+  };
+
+  const handleInputChange = (productId: number, field: keyof InsertProduct, value: any) => {
+    setEditingProducts(prev => ({
+      ...prev,
+      [productId]: {
+        ...prev[productId],
+        tempData: {
+          ...prev[productId].tempData,
+          [field]: value,
+        },
+      },
+    }));
+  };
+
+  const saveChanges = async (productId: number) => {
+    const editingProduct = editingProducts[productId];
+    if (!editingProduct?.tempData) return;
+
+    try {
+      await updateProductMutation.mutateAsync({
+        id: productId,
+        data: editingProduct.tempData,
+      });
+      cancelEditing(productId);
+    } catch (error) {
+      // Error is handled by the mutation
+    }
+  };
+
+  const renderProductCard = (product: Product) => {
+    const editingProduct = editingProducts[product.id];
+    const isEditing = editingProduct?.isEditing;
+
+    return (
+      <Card key={product.id} className="relative">
+        <CardHeader>
+          {isEditing ? (
+            <>
+              <Input
+                defaultValue={product.name}
+                onChange={(e) => handleInputChange(product.id, 'name', e.target.value)}
+                className="font-semibold text-lg mb-2"
+                placeholder="Product name"
+              />
+              <Input
+                type="number"
+                defaultValue={product.price}
+                onChange={(e) => handleInputChange(product.id, 'price', parseFloat(e.target.value))}
+                className="w-32"
+                placeholder="Price"
+              />
+            </>
+          ) : (
+            <>
+              <CardTitle>{product.name}</CardTitle>
+              <CardDescription>${product.price.toFixed(2)}</CardDescription>
+            </>
+          )}
+        </CardHeader>
+        <CardContent>
+          {isEditing ? (
+            <>
+              <Textarea
+                defaultValue={product.description}
+                onChange={(e) => handleInputChange(product.id, 'description', e.target.value)}
+                className="mb-2"
+                placeholder="Product description"
+              />
+              <Input
+                type="number"
+                defaultValue={product.inventory}
+                onChange={(e) => handleInputChange(product.id, 'inventory', parseInt(e.target.value))}
+                className="w-32"
+                placeholder="Inventory"
+              />
+            </>
+          ) : (
+            <>
+              <p className="text-sm text-muted-foreground">{product.description}</p>
+              <p className="text-sm mt-2">Stock: {product.inventory}</p>
+            </>
+          )}
+        </CardContent>
+        <CardFooter className="flex justify-end gap-2">
+          {isEditing ? (
+            <>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => cancelEditing(product.id)}
+              >
+                <X className="h-4 w-4 mr-1" />
+                Cancel
+              </Button>
+              <Button
+                size="sm"
+                onClick={() => saveChanges(product.id)}
+                disabled={updateProductMutation.isPending}
+              >
+                <Save className="h-4 w-4 mr-1" />
+                Save
+              </Button>
+            </>
+          ) : (
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => startEditing(product)}
+            >
+              <Edit className="h-4 w-4 mr-1" />
+              Edit
+            </Button>
+          )}
+        </CardFooter>
+      </Card>
+    );
+  };
 
   const renderProductsTab = () => {
     if (isLoading) {
@@ -63,18 +235,7 @@ export default function AdminDashboard() {
 
     return (
       <div className="space-y-4">
-        {productsResponse.data.map((product) => (
-          <Card key={product.id}>
-            <CardHeader>
-              <CardTitle>{product.name}</CardTitle>
-              <CardDescription>${product.price.toFixed(2)}</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground">{product.description}</p>
-              <p className="text-sm mt-2">Stock: {product.inventory}</p>
-            </CardContent>
-          </Card>
-        ))}
+        {productsResponse.data.map(renderProductCard)}
       </div>
     );
   };
