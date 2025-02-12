@@ -1,91 +1,61 @@
-import { useEffect, useState } from 'react';
-import { loadStripe } from '@stripe/stripe-js';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-
-const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY!);
+import { useQuery } from "@tanstack/react-query";
+import { Card, CardContent } from "@/components/ui/card";
+import { Loader2 } from "lucide-react";
 
 interface Product {
   id: string;
   name: string;
-  price: number;
   description: string;
   image: string;
+  price: number;
 }
 
 export default function Store() {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { data: products, isLoading, error } = useQuery<Product[]>({
+    queryKey: ['products'],
+    queryFn: async () => {
+      const response = await fetch('/api/products');
+      if (!response.ok) {
+        throw new Error('Failed to fetch products');
+      }
+      return response.json();
+    }
+  });
 
-  useEffect(() => {
-    fetch('/api/products')
-      .then(res => res.json())
-      .then(data => {
-        if (Array.isArray(data)) {
-          setProducts(data);
-        } else if (data.error) {
-          console.error('Error:', data.error);
-          setProducts([]);
-        }
-        setLoading(false);
-      })
-      .catch(err => {
-        console.error('Error fetching products:', err);
-        setProducts([]);
-        setLoading(false);
-      });
-  }, []);
-
-  const handleCheckout = async (productId: string) => {
-    const stripe = await stripePromise;
-    const response = await fetch('/api/checkout', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ productId }),
-    });
-
-    const session = await response.json();
-    await stripe?.redirectToCheckout({
-      sessionId: session.id,
-    });
-  };
-
-  if (loading) {
-    return <div className="text-center py-12">Loading...</div>;
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <Loader2 className="h-8 w-8 animate-spin" />
+      </div>
+    );
   }
 
-  if (!products || products.length === 0) {
-    return <div className="text-center py-12">No products available</div>;
+  if (error) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <p className="text-red-500">Error loading products. Please try again later.</p>
+      </div>
+    );
   }
 
   return (
-    <div className="container py-12">
-      <h1 className="text-4xl font-bold mb-8 text-center">Our Store</h1>
+    <div className="container mx-auto py-8">
+      <h1 className="text-3xl font-bold mb-6">Store</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {products.map((product) => (
+        {products && products.map((product) => (
           <Card key={product.id}>
-            <CardHeader>
-              <CardTitle>{product.name}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <img 
-                src={product.image} 
-                alt={product.name} 
-                className="w-full h-48 object-cover rounded-md"
-              />
-              <p className="mt-4">{product.description}</p>
-              <p className="mt-2 text-xl font-bold">${product.price}</p>
+            <CardContent className="p-4">
+              {product.image && (
+                <img 
+                  src={product.image} 
+                  alt={product.name}
+                  className="w-full h-48 object-cover rounded-lg mb-4"
+                />
+              )}
+              <h2 className="text-xl font-semibold mb-2">{product.name}</h2>
+              <p className="text-gray-600 mb-2">{product.description}</p>
+              <p className="text-lg font-bold">${product.price}</p>
             </CardContent>
-            <CardFooter>
-              <Button 
-                className="w-full" 
-                onClick={() => handleCheckout(product.id)}
-              >
-                Buy Now
-              </Button>
-            </CardFooter>
           </Card>
         ))}
       </div>
