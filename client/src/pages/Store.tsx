@@ -21,7 +21,17 @@ export default function Store() {
     fetch('/api/products')
       .then(res => res.json())
       .then(data => {
-        setProducts(data);
+        if (Array.isArray(data)) {
+          setProducts(data);
+        } else if (data.error) {
+          console.error('Error:', data.error);
+          setProducts([]);
+        }
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error('Error fetching products:', err);
+        setProducts([]);
         setLoading(false);
       });
   }, []);

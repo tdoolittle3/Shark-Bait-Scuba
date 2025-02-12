@@ -4,6 +4,7 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertMessageSchema } from "@shared/schema";
 import path from "path";
+import { stripe } from "./stripe";
 
 export function registerRoutes(app: Express): Server {
   // Serve uploaded files statically
