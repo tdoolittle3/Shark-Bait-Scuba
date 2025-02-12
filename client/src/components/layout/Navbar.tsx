@@ -2,7 +2,7 @@ import { Link, useLocation } from "wouter";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu } from "lucide-react";
+import { Menu, ShoppingBag } from "lucide-react";
 
 export default function Navbar() {
   const [location] = useLocation();
@@ -13,6 +13,11 @@ export default function Navbar() {
     { href: "/dive-sites", label: "Dive Sites" },
     { href: "/about", label: "About" },
     { href: "/contact", label: "Contact" },
+    { 
+      href: "https://store.sharkbaitscubafl.com", 
+      label: "Store", 
+      icon: <ShoppingBag className="h-4 w-4 mr-1" /> 
+    },
   ];
 
   return (
@@ -46,10 +51,12 @@ export default function Navbar() {
                 <Button
                   variant="outline"
                   className={cn(
-                    "text-sm md:text-base font-medium transition-all duration-200 hover:scale-105 border-2 hover:bg-primary/20 hover:border-primary",
-                    location === link.href ? "bg-primary/10 border-primary text-primary shadow-sm" : "border-muted-foreground/20"
+                    "text-sm md:text-base font-medium transition-all duration-200 hover:scale-105 border-2 hover:bg-primary/20 hover:border-primary flex items-center",
+                    location === link.href ? "bg-primary/10 border-primary text-primary shadow-sm" : "border-muted-foreground/20",
+                    link.label === "Store" && "bg-primary text-primary-foreground hover:bg-primary/90 border-primary"
                   )}
                 >
+                  {link.icon}
                   {link.label}
                 </Button>
               </Link>
@@ -72,10 +79,12 @@ export default function Navbar() {
                   <Button
                     variant="ghost"
                     className={cn(
-                      "w-full justify-start text-lg",
-                      location === link.href && "text-primary"
+                      "w-full justify-start text-lg flex items-center",
+                      location === link.href && "text-primary",
+                      link.label === "Store" && "bg-primary/10 text-primary"
                     )}
                   >
+                    {link.icon}
                     {link.label}
                   </Button>
                 </Link>
