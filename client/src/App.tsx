@@ -14,6 +14,7 @@ import About from "@/pages/About";
 import Contact from "@/pages/Contact";
 import Diving from "@/pages/Diving";
 import Store from "@/pages/Store";
+import AdminDashboard from "@/pages/admin/Dashboard";
 
 function Router() {
   return (
@@ -41,6 +42,7 @@ function Router() {
           <Route path="/about" component={About} />
           <Route path="/contact" component={Contact} />
           <Route path="/store" component={Store} />
+          <Route path="/admin" component={AdminDashboard} />
           <Route component={NotFound} />
         </Switch>
       </main>
