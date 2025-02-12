@@ -1,7 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Loader2 } from "lucide-react";
-import { CheckoutButton } from "@/components/checkout/CheckoutButton";
+import { Button } from "@/components/ui/button";
+import { Loader2, ShoppingCart } from "lucide-react";
+import { useCart } from "@/contexts/CartContext";
+import { useToast } from "@/hooks/use-toast";
 
 interface Product {
   id: string;
@@ -12,6 +14,9 @@ interface Product {
 }
 
 export default function Store() {
+  const { addItem } = useCart();
+  const { toast } = useToast();
+
   const { data: products, isLoading, error } = useQuery<Product[]>({
     queryKey: ['products'],
     queryFn: async () => {
@@ -22,6 +27,19 @@ export default function Store() {
       return response.json();
     }
   });
+
+  const handleAddToCart = (product: Product) => {
+    addItem({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      image: product.image
+    });
+    toast({
+      title: "Added to cart",
+      description: `${product.name} has been added to your cart.`
+    });
+  };
 
   if (isLoading) {
     return (
@@ -64,10 +82,13 @@ export default function Store() {
                 />
               )}
               <p className="text-muted-foreground mb-6">{product.description}</p>
-              <CheckoutButton 
-                productId={product.id}
+              <Button 
+                onClick={() => handleAddToCart(product)}
                 className="w-full"
-              />
+              >
+                <ShoppingCart className="mr-2 h-4 w-4" />
+                Add to Cart
+              </Button>
             </CardContent>
           </Card>
         ))}
