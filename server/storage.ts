@@ -52,6 +52,7 @@ export interface IStorage {
   getProduct(id: number): Promise<Product | undefined>;
   updateProduct(id: number, product: Partial<InsertProduct>): Promise<Product>;
   updateProductInventory(id: number, quantity: number): Promise<Product>;
+  deleteProduct(id: number): Promise<Product | undefined>;
 
   // Categories
   createCategory(category: InsertCategory): Promise<Category>;
@@ -198,6 +199,14 @@ export class DatabaseStorage implements IStorage {
       .where(eq(products.id, id))
       .returning();
     return updated;
+  }
+
+  async deleteProduct(id: number): Promise<Product | undefined> {
+    const [deleted] = await db
+      .delete(products)
+      .where(eq(products.id, id))
+      .returning();
+    return deleted;
   }
 
   // Categories

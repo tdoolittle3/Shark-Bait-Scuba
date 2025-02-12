@@ -2,7 +2,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { Product, InsertProduct, insertProductSchema } from "@shared/schema";
-import { AlertCircle, Edit, Save, X } from "lucide-react";
+import { AlertCircle, Edit, Save, X, Trash2, Plus } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -12,6 +12,25 @@ import { apiRequest, queryClient } from "@/lib/queryClient";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { FileUpload } from "@/components/ui/file-upload";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 interface ProductsResponse {
   message: string;
@@ -28,6 +47,12 @@ export default function AdminDashboard() {
   const { toast } = useToast();
   const [editingProducts, setEditingProducts] = useState<Record<number, EditingProduct>>({});
   const [uploadingImage, setUploadingImage] = useState<Record<number, boolean>>({});
+  const [newProduct, setNewProduct] = useState<Partial<InsertProduct>>({
+    name: "",
+    description: "",
+    price: 0,
+    inventory: 0,
+  });
 
   const { data: productsResponse, isLoading, error } = useQuery<ProductsResponse>({
     queryKey: ['/api/products'],
@@ -88,6 +113,54 @@ export default function AdminDashboard() {
     },
   });
 
+  const deleteProductMutation = useMutation({
+    mutationFn: async (id: number) => {
+      const response = await apiRequest("DELETE", `/api/products/${id}`);
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/products'] });
+      toast({
+        title: "Success",
+        description: "Product deleted successfully",
+      });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
+  const createProductMutation = useMutation({
+    mutationFn: async (product: InsertProduct) => {
+      const response = await apiRequest("POST", "/api/products", product);
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/products'] });
+      toast({
+        title: "Success",
+        description: "Product created successfully",
+      });
+      setNewProduct({
+        name: "",
+        description: "",
+        price: 0,
+        inventory: 0,
+      });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
   const handleImageUpload = async (productId: number, file: File) => {
     setUploadingImage(prev => ({ ...prev, [productId]: true }));
     try {
@@ -133,7 +206,6 @@ export default function AdminDashboard() {
     const editingProduct = editingProducts[productId];
     if (!editingProduct) return;
 
-    // Only include fields that have actually changed
     const changedFields = Object.entries(editingProduct.tempData).filter(([_, value]) => value !== undefined);
 
     if (changedFields.length === 0) {
@@ -156,6 +228,50 @@ export default function AdminDashboard() {
       // Error is handled by the mutation
     }
   };
+
+  const handleCreateProduct = () => {
+    try {
+      const validatedProduct = insertProductSchema.parse(newProduct);
+      createProductMutation.mutate(validatedProduct);
+    } catch (error) {
+      if (error instanceof Error) {
+        toast({
+          title: "Validation Error",
+          description: error.message,
+          variant: "destructive",
+        });
+      }
+    }
+  };
+
+  const renderNewProductForm = () => (
+    <div className="space-y-4">
+      <Input
+        placeholder="Product name"
+        value={newProduct.name}
+        onChange={(e) => setNewProduct(prev => ({ ...prev, name: e.target.value }))}
+      />
+      <Textarea
+        placeholder="Product description"
+        value={newProduct.description}
+        onChange={(e) => setNewProduct(prev => ({ ...prev, description: e.target.value }))}
+      />
+      <div className="flex gap-4">
+        <Input
+          type="number"
+          placeholder="Price"
+          value={newProduct.price}
+          onChange={(e) => setNewProduct(prev => ({ ...prev, price: parseFloat(e.target.value) }))}
+        />
+        <Input
+          type="number"
+          placeholder="Inventory"
+          value={newProduct.inventory}
+          onChange={(e) => setNewProduct(prev => ({ ...prev, inventory: parseInt(e.target.value) }))}
+        />
+      </div>
+    </div>
+  );
 
   const renderProductCard = (product: Product) => {
     const editingProduct = editingProducts[product.id];
@@ -248,14 +364,41 @@ export default function AdminDashboard() {
               </Button>
             </>
           ) : (
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => startEditing(product)}
-            >
-              <Edit className="h-4 w-4 mr-1" />
-              Edit
-            </Button>
+            <>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button variant="destructive" size="sm">
+                    <Trash2 className="h-4 w-4 mr-1" />
+                    Delete
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      This action cannot be undone. This will permanently delete the product
+                      and remove the data from our servers.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction
+                      onClick={() => deleteProductMutation.mutate(product.id)}
+                    >
+                      Delete
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => startEditing(product)}
+              >
+                <Edit className="h-4 w-4 mr-1" />
+                Edit
+              </Button>
+            </>
           )}
         </CardFooter>
       </Card>
@@ -293,20 +436,44 @@ export default function AdminDashboard() {
       );
     }
 
-    if (!productsResponse?.data?.length) {
-      return (
-        <Alert>
-          <AlertTitle>No Products</AlertTitle>
-          <AlertDescription>
-            No products found. Add some products to get started.
-          </AlertDescription>
-        </Alert>
-      );
-    }
-
     return (
       <div className="space-y-4">
-        {productsResponse.data.map(renderProductCard)}
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button>
+              <Plus className="h-4 w-4 mr-1" />
+              Add New Product
+            </Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Add New Product</DialogTitle>
+              <DialogDescription>
+                Fill in the product details below. Click save when you're done.
+              </DialogDescription>
+            </DialogHeader>
+            {renderNewProductForm()}
+            <div className="flex justify-end mt-4">
+              <Button
+                onClick={handleCreateProduct}
+                disabled={createProductMutation.isPending}
+              >
+                {createProductMutation.isPending ? "Creating..." : "Create Product"}
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
+
+        {!productsResponse?.data?.length ? (
+          <Alert>
+            <AlertTitle>No Products</AlertTitle>
+            <AlertDescription>
+              No products found. Add some products to get started.
+            </AlertDescription>
+          </Alert>
+        ) : (
+          productsResponse.data.map(renderProductCard)
+        )}
       </div>
     );
   };

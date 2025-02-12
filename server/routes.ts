@@ -189,6 +189,65 @@ export function registerRoutes(app: Express): Server {
     }
   });
 
+  // Delete a product
+  app.delete("/api/products/:id", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ 
+          message: "Invalid product ID",
+          help: "The ID should be a number"
+        });
+      }
+
+      const product = await storage.deleteProduct(id);
+      if (!product) {
+        return res.status(404).json({ 
+          message: "Product not found",
+          help: "Check if the product ID exists"
+        });
+      }
+
+      // If product has an image, delete it from the uploads directory
+      if (product.imageUrl) {
+        const filename = product.imageUrl.split('/').pop();
+        if (filename) {
+          const filepath = path.join(uploadDir, filename);
+          if (fs.existsSync(filepath)) {
+            fs.unlinkSync(filepath);
+          }
+        }
+      }
+
+      res.json({
+        message: "Successfully deleted product",
+        data: product
+      });
+    } catch (error) {
+      res.status(500).json({ 
+        message: "Failed to delete product",
+        error: error instanceof Error ? error.message : "Unknown error"
+      });
+    }
+  });
+
+  // Create a new product
+  app.post("/api/products", async (req, res) => {
+    try {
+      const data = insertProductSchema.parse(req.body);
+      const product = await storage.createProduct(data);
+      res.status(201).json({
+        message: "Successfully created product",
+        data: product
+      });
+    } catch (error) {
+      res.status(400).json({ 
+        message: "Invalid product data",
+        error: error instanceof Error ? error.message : "Unknown error"
+      });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
