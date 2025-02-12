@@ -118,49 +118,49 @@ function ProductCard({ product }: ProductCardProps) {
       </Card>
 
       <Dialog open={showZoom} onOpenChange={setShowZoom}>
-        <DialogContent className="max-w-xl max-h-[600px] my-8 p-4">
-          <div className="relative w-full h-full">
-            <Button
-              variant="outline"
-              size="icon"
-              className="absolute -top-2 -right-2 h-8 w-8 rounded-full border-2 bg-white hover:bg-gray-100 z-10"
-              onClick={() => setShowZoom(false)}
-            >
-              <X className="h-4 w-4" />
-            </Button>
-            <div className="relative rounded-lg overflow-hidden h-[500px]">
-              <img
-                src={product.imageUrls?.[currentImageIndex]}
-                alt={`${product.name} - Image ${currentImageIndex + 1}`}
-                className="w-full h-full object-contain"
-              />
-              {product.imageUrls && product.imageUrls.length > 1 && (
-                <>
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    className="absolute left-2 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-100"
-                    onClick={prevImage}
-                  >
-                    <ChevronLeft className="h-4 w-4" />
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    className="absolute right-2 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-100"
-                    onClick={nextImage}
-                  >
-                    <ChevronRight className="h-4 w-4" />
-                  </Button>
-                  <div className="absolute bottom-2 left-1/2 -translate-x-1/2 bg-black/50 text-white px-2 py-1 rounded-full text-xs">
-                    {currentImageIndex + 1} / {product.imageUrls.length}
+                <DialogContent className="fixed inset-0 m-auto w-[90vw] max-w-[500px] h-[60vh] max-h-[500px] p-6">
+                  <div className="relative w-full h-full">
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      className="absolute -top-2 -right-2 h-8 w-8 rounded-full border-2 bg-white hover:bg-gray-100 z-10"
+                      onClick={() => setShowZoom(false)}
+                    >
+                      <X className="h-4 w-4" />
+                    </Button>
+                    <div className="relative rounded-lg overflow-hidden h-full">
+                      <img
+                        src={product.imageUrls?.[currentImageIndex]}
+                        alt={`${product.name} - Image ${currentImageIndex + 1}`}
+                        className="w-full h-full object-contain"
+                      />
+                      {product.imageUrls && product.imageUrls.length > 1 && (
+                        <>
+                          <Button
+                            variant="outline"
+                            size="icon"
+                            className="absolute left-2 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-100"
+                            onClick={prevImage}
+                          >
+                            <ChevronLeft className="h-4 w-4" />
+                          </Button>
+                          <Button
+                            variant="outline"
+                            size="icon"
+                            className="absolute right-2 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-100"
+                            onClick={nextImage}
+                          >
+                            <ChevronRight className="h-4 w-4" />
+                          </Button>
+                          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 bg-black/50 text-white px-2 py-1 rounded-full text-xs">
+                            {currentImageIndex + 1} / {product.imageUrls.length}
+                          </div>
+                        </>
+                      )}
+                    </div>
                   </div>
-                </>
-              )}
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
+                </DialogContent>
+              </Dialog>
     </>
   );
 }
