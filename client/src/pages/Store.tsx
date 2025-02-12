@@ -118,44 +118,46 @@ function ProductCard({ product }: ProductCardProps) {
       </Card>
 
       <Dialog open={showZoom} onOpenChange={setShowZoom}>
-        <DialogContent className="max-w-2xl sm:max-w-3xl">
-          <div className="relative aspect-square">
-            <img
-              src={product.imageUrls?.[currentImageIndex]}
-              alt={`${product.name} - Image ${currentImageIndex + 1}`}
-              className="w-full h-full object-contain rounded-lg"
-            />
+        <DialogContent className="max-w-xl h-[80vh] mt-20">
+          <div className="relative w-full h-full flex flex-col">
             <Button
               variant="outline"
               size="icon"
-              className="absolute top-2 right-2 bg-white hover:bg-gray-100"
+              className="absolute -top-2 -right-2 h-8 w-8 rounded-full border-2 bg-white hover:bg-gray-100 z-10"
               onClick={() => setShowZoom(false)}
             >
               <X className="h-4 w-4" />
             </Button>
-            {product.imageUrls && product.imageUrls.length > 1 && (
-              <>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  className="absolute left-2 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-100"
-                  onClick={prevImage}
-                >
-                  <ChevronLeft className="h-4 w-4" />
-                </Button>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  className="absolute right-2 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-100"
-                  onClick={nextImage}
-                >
-                  <ChevronRight className="h-4 w-4" />
-                </Button>
-                <div className="absolute bottom-2 left-1/2 -translate-x-1/2 bg-black/50 text-white px-2 py-1 rounded-full text-xs">
-                  {currentImageIndex + 1} / {product.imageUrls.length}
-                </div>
-              </>
-            )}
+            <div className="flex-1 relative rounded-lg overflow-hidden">
+              <img
+                src={product.imageUrls?.[currentImageIndex]}
+                alt={`${product.name} - Image ${currentImageIndex + 1}`}
+                className="w-full h-full object-contain"
+              />
+              {product.imageUrls && product.imageUrls.length > 1 && (
+                <>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="absolute left-2 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-100"
+                    onClick={prevImage}
+                  >
+                    <ChevronLeft className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-100"
+                    onClick={nextImage}
+                  >
+                    <ChevronRight className="h-4 w-4" />
+                  </Button>
+                  <div className="absolute bottom-2 left-1/2 -translate-x-1/2 bg-black/50 text-white px-2 py-1 rounded-full text-xs">
+                    {currentImageIndex + 1} / {product.imageUrls.length}
+                  </div>
+                </>
+              )}
+            </div>
           </div>
         </DialogContent>
       </Dialog>
