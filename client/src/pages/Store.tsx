@@ -118,8 +118,8 @@ function ProductCard({ product }: ProductCardProps) {
       </Card>
 
       <Dialog open={showZoom} onOpenChange={setShowZoom}>
-        <DialogContent className="max-w-xl h-[80vh] mt-20">
-          <div className="relative w-full h-full flex flex-col">
+        <DialogContent className="max-w-xl max-h-[70vh] my-16">
+          <div className="relative w-full h-full">
             <Button
               variant="outline"
               size="icon"
@@ -128,7 +128,7 @@ function ProductCard({ product }: ProductCardProps) {
             >
               <X className="h-4 w-4" />
             </Button>
-            <div className="flex-1 relative rounded-lg overflow-hidden">
+            <div className="relative rounded-lg overflow-hidden aspect-square">
               <img
                 src={product.imageUrls?.[currentImageIndex]}
                 alt={`${product.name} - Image ${currentImageIndex + 1}`}
