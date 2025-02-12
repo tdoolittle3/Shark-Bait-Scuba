@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import { loadStripe } from "@stripe/stripe-js";
 
-// Initialize Stripe
+// Initialize Stripe with publishable key
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
 interface CheckoutButtonProps {
@@ -19,6 +19,8 @@ export function CheckoutButton({ productId, className }: CheckoutButtonProps) {
   const handleCheckout = async () => {
     try {
       setLoading(true);
+      
+      // Create checkout session
       const response = await fetch("/api/checkout", {
         method: "POST",
         headers: {
