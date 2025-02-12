@@ -1,32 +1,37 @@
+
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import { loadStripe } from "@stripe/stripe-js";
+import { useCart } from "@/contexts/CartContext";
 
-// Initialize Stripe with publishable key
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
 interface CheckoutButtonProps {
-  productId: string;
   className?: string;
 }
 
-export function CheckoutButton({ productId, className }: CheckoutButtonProps) {
+export function CheckoutButton({ className }: CheckoutButtonProps) {
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
+  const { state } = useCart();
 
   const handleCheckout = async () => {
     try {
       setLoading(true);
       
-      // Create checkout session
       const response = await fetch("/api/checkout", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ productId }),
+        body: JSON.stringify({ 
+          items: state.items.map(item => ({
+            id: item.id,
+            quantity: item.quantity
+          }))
+        }),
       });
 
       if (!response.ok) {
@@ -35,7 +40,6 @@ export function CheckoutButton({ productId, className }: CheckoutButtonProps) {
 
       const { id: sessionId } = await response.json();
       
-      // Redirect to Stripe checkout
       const stripe = await stripePromise;
       if (!stripe) {
         throw new Error("Stripe failed to initialize");
@@ -60,7 +64,7 @@ export function CheckoutButton({ productId, className }: CheckoutButtonProps) {
   return (
     <Button 
       onClick={handleCheckout} 
-      disabled={loading}
+      disabled={loading || state.items.length === 0}
       className={className}
     >
       {loading ? (

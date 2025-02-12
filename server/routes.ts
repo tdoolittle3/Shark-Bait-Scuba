@@ -42,11 +42,25 @@ export function registerRoutes(app: Express): Server {
       }
 
       // Create Stripe checkout session
-      const session = await stripe.checkout.sessions.create({
-        line_items: [{
+      const { items } = req.body;
+      
+      // Get products from Stripe to get their price IDs
+      const { data: products } = await stripe.products.list({
+        expand: ['data.default_price'],
+        ids: items.map(item => item.id)
+      });
+
+      const line_items = products.map(product => {
+        const cartItem = items.find(item => item.id === product.id);
+        const price = product.default_price as any;
+        return {
           price: price.id,
-          quantity: 1,
-        }],
+          quantity: cartItem.quantity
+        };
+      });
+
+      const session = await stripe.checkout.sessions.create({
+        line_items,
         mode: 'payment',
         success_url: `${req.protocol}://${req.get('host')}/checkout/success`,
         cancel_url: `${req.protocol}://${req.get('host')}/checkout/cancel`,
