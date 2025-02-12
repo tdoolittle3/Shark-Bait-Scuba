@@ -13,6 +13,11 @@ export default function Navbar() {
     { href: "/dive-sites", label: "Dive Sites" },
     { href: "/about", label: "About" },
     { href: "/contact", label: "Contact" },
+    { 
+      href: "/store", 
+      label: "Store",
+      icon: <ShoppingBag className="h-4 w-4 mr-1" />
+    },
   ];
 
   return (
