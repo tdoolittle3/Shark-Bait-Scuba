@@ -54,6 +54,7 @@ export default function AdminDashboard() {
     inventory: 0,
     imageUrls: [],
   });
+  const [newProductFiles, setNewProductFiles] = useState<File[]>([]);
 
   const { data: productsResponse, isLoading, error } = useQuery<ProductsResponse>({
     queryKey: ['/api/products'],
@@ -176,6 +177,7 @@ export default function AdminDashboard() {
         inventory: 0,
         imageUrls: [],
       });
+      setNewProductFiles([]);
     },
     onError: (error: Error) => {
       toast({
@@ -273,7 +275,7 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleCreateProduct = () => {
+  const handleCreateProduct = async () => {
     try {
       // Generate a unique SKU if not provided
       const productData = {
@@ -282,11 +284,39 @@ export default function AdminDashboard() {
       };
 
       const validatedProduct = insertProductSchema.parse(productData);
-      createProductMutation.mutate(validatedProduct);
+      const response = await createProductMutation.mutateAsync(validatedProduct);
+
+      // If we have files to upload, do it after product creation
+      if (newProductFiles.length > 0) {
+        const formData = new FormData();
+        newProductFiles.forEach(file => {
+          formData.append('images', file);
+        });
+
+        const uploadResponse = await fetch(`/api/products/${response.data.id}/images`, {
+          method: 'POST',
+          body: formData,
+        });
+
+        if (!uploadResponse.ok) {
+          throw new Error('Failed to upload product images');
+        }
+      }
+
+      // Reset the form
+      setNewProduct({
+        name: "",
+        description: "",
+        price: 0,
+        inventory: 0,
+        imageUrls: [],
+      });
+      setNewProductFiles([]);
+
     } catch (error) {
       if (error instanceof Error) {
         toast({
-          title: "Validation Error",
+          title: "Error",
           description: error.message,
           variant: "destructive",
         });
@@ -321,10 +351,27 @@ export default function AdminDashboard() {
         />
       </div>
       <FileUpload
-        onFileSelected={(files) => setNewProduct(prev => ({
-          ...prev,
-          imageUrls: [...(prev.imageUrls || []), ...files.map(() => '')] // Placeholder URLs for validation
-        }))}
+        onFileSelected={(files) => {
+          setNewProductFiles(prev => [...prev, ...files]);
+          // Create temporary URLs for preview
+          const tempUrls = files.map(file => URL.createObjectURL(file));
+          setNewProduct(prev => ({
+            ...prev,
+            imageUrls: [...(prev.imageUrls || []), ...tempUrls],
+          }));
+        }}
+        onImageDelete={(url) => {
+          // Remove the temporary URL and corresponding file
+          const index = newProduct.imageUrls?.indexOf(url) ?? -1;
+          if (index !== -1) {
+            URL.revokeObjectURL(url); // Clean up the temporary URL
+            setNewProduct(prev => ({
+              ...prev,
+              imageUrls: prev.imageUrls?.filter(u => u !== url),
+            }));
+            setNewProductFiles(prev => prev.filter((_, i) => i !== index));
+          }
+        }}
         imageUrls={newProduct.imageUrls || []}
       />
     </div>
