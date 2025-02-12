@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Loader2 } from "lucide-react";
+import { CheckoutButton } from "@/components/checkout/CheckoutButton";
 
 interface Product {
   id: string;
@@ -39,12 +40,22 @@ export default function Store() {
   }
 
   return (
-    <div className="container mx-auto py-8">
-      <h1 className="text-3xl font-bold mb-6">Store</h1>
+    <div className="container mx-auto py-12 px-4">
+      <div className="text-center mb-12">
+        <h1 className="text-4xl font-bold mb-4">Shark Bait Scuba Store</h1>
+        <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          Get the best diving gear and accessories for your underwater adventures.
+        </p>
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {products && products.map((product) => (
-          <Card key={product.id}>
-            <CardContent className="p-4">
+          <Card key={product.id} className="flex flex-col">
+            <CardHeader>
+              <CardTitle>{product.name}</CardTitle>
+              <CardDescription>${product.price.toFixed(2)}</CardDescription>
+            </CardHeader>
+            <CardContent className="flex-grow">
               {product.image && (
                 <img 
                   src={product.image} 
@@ -52,9 +63,11 @@ export default function Store() {
                   className="w-full h-48 object-cover rounded-lg mb-4"
                 />
               )}
-              <h2 className="text-xl font-semibold mb-2">{product.name}</h2>
-              <p className="text-gray-600 mb-2">{product.description}</p>
-              <p className="text-lg font-bold">${product.price}</p>
+              <p className="text-muted-foreground mb-6">{product.description}</p>
+              <CheckoutButton 
+                productId={product.id}
+                className="w-full"
+              />
             </CardContent>
           </Card>
         ))}
