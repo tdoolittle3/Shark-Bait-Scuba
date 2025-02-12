@@ -84,12 +84,19 @@ export default function Store() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              {product.imageUrl ? (
-                <img
-                  src={product.imageUrl}
-                  alt={product.name}
-                  className="w-full h-[200px] object-cover rounded-md"
-                />
+              {product.imageUrls?.length ? (
+                <div className="relative w-full h-[200px] overflow-hidden rounded-md">
+                  <img
+                    src={product.imageUrls[0]}
+                    alt={product.name}
+                    className="w-full h-full object-cover"
+                  />
+                  {product.imageUrls.length > 1 && (
+                    <div className="absolute bottom-2 right-2 bg-black/50 text-white px-2 py-1 rounded-full text-xs">
+                      +{product.imageUrls.length - 1} more
+                    </div>
+                  )}
+                </div>
               ) : (
                 <div className="w-full h-[200px] bg-muted rounded-md flex items-center justify-center">
                   No image available

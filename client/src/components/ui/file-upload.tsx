@@ -1,21 +1,26 @@
 import { useCallback, useRef } from "react";
 import { cn } from "@/lib/utils";
-import { ImageIcon, UploadIcon } from "lucide-react";
+import { ImageIcon, UploadIcon, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface FileUploadProps extends React.HTMLAttributes<HTMLDivElement> {
-  onFileSelected: (file: File) => void;
+  onFileSelected: (files: File[]) => void;
+  onImageDelete?: (url: string) => void;
   accept?: string;
   maxSize?: number;
   uploading?: boolean;
-  imageUrl?: string;
+  imageUrls?: string[];
+  multiple?: boolean;
 }
 
 export function FileUpload({
   onFileSelected,
+  onImageDelete,
   accept = "image/*",
   maxSize = 10 * 1024 * 1024, // 10MB
   uploading = false,
-  imageUrl,
+  imageUrls = [],
+  multiple = true,
   className,
   ...props
 }: FileUploadProps) {
@@ -26,8 +31,8 @@ export function FileUpload({
       e.preventDefault();
       e.stopPropagation();
 
-      const file = e.dataTransfer.files[0];
-      if (file) validateAndProcessFile(file);
+      const files = Array.from(e.dataTransfer.files);
+      if (files.length) validateAndProcessFiles(files);
     },
     [onFileSelected]
   );
@@ -38,68 +43,86 @@ export function FileUpload({
   }, []);
 
   const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) validateAndProcessFile(file);
+    const files = e.target.files ? Array.from(e.target.files) : [];
+    if (files.length) validateAndProcessFiles(files);
   };
 
-  const validateAndProcessFile = (file: File) => {
-    if (!file.type.startsWith('image/')) {
-      alert('Please upload an image file');
-      return;
-    }
+  const validateAndProcessFiles = (files: File[]) => {
+    const validFiles = files.filter(file => {
+      if (!file.type.startsWith('image/')) {
+        alert('Please upload only image files');
+        return false;
+      }
 
-    if (file.size > maxSize) {
-      alert(`File size should not exceed ${maxSize / (1024 * 1024)}MB`);
-      return;
-    }
+      if (file.size > maxSize) {
+        alert(`File size should not exceed ${maxSize / (1024 * 1024)}MB`);
+        return false;
+      }
 
-    onFileSelected(file);
+      return true;
+    });
+
+    if (validFiles.length) {
+      onFileSelected(validFiles);
+    }
   };
 
   return (
-    <div
-      className={cn(
-        "relative border-2 border-dashed rounded-lg p-4 text-center cursor-pointer",
-        "hover:bg-muted/50 transition-colors",
-        uploading && "opacity-50 cursor-not-allowed",
-        className
-      )}
-      onDrop={handleDrop}
-      onDragOver={handleDragOver}
-      onClick={() => !uploading && fileInputRef.current?.click()}
-      {...props}
-    >
-      <input
-        ref={fileInputRef}
-        type="file"
-        className="hidden"
-        accept={accept}
-        onChange={handleFileInput}
-        disabled={uploading}
-      />
+    <div className={cn("space-y-4", className)} {...props}>
+      <div
+        className={cn(
+          "relative border-2 border-dashed rounded-lg p-4 text-center cursor-pointer",
+          "hover:bg-muted/50 transition-colors",
+          uploading && "opacity-50 cursor-not-allowed"
+        )}
+        onDrop={handleDrop}
+        onDragOver={handleDragOver}
+        onClick={() => !uploading && fileInputRef.current?.click()}
+      >
+        <input
+          ref={fileInputRef}
+          type="file"
+          className="hidden"
+          accept={accept}
+          multiple={multiple}
+          onChange={handleFileInput}
+          disabled={uploading}
+        />
 
-      {imageUrl ? (
-        <div className="relative aspect-square w-full max-w-[200px] mx-auto">
-          <img
-            src={imageUrl}
-            alt="Product"
-            className="w-full h-full object-cover rounded-md"
-          />
-          <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 hover:opacity-100 transition-opacity rounded-md">
-            <UploadIcon className="h-8 w-8 text-white" />
-          </div>
-        </div>
-      ) : (
         <div className="flex flex-col items-center gap-2 text-muted-foreground">
           <ImageIcon className="h-8 w-8" />
           <div>
             <p className="font-medium">
-              Drop image here or click to upload
+              Drop image{multiple ? 's' : ''} here or click to upload
             </p>
             <p className="text-sm">
-              PNG, JPG or WebP (max. {maxSize / (1024 * 1024)}MB)
+              PNG, JPG or WebP (max. {maxSize / (1024 * 1024)}MB{multiple ? ' each' : ''})
             </p>
           </div>
+        </div>
+      </div>
+
+      {imageUrls.length > 0 && (
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+          {imageUrls.map((url, index) => (
+            <div key={url} className="relative aspect-square">
+              <img
+                src={url}
+                alt={`Product ${index + 1}`}
+                className="w-full h-full object-cover rounded-md"
+              />
+              {onImageDelete && (
+                <Button
+                  variant="destructive"
+                  size="icon"
+                  className="absolute top-2 right-2"
+                  onClick={() => onImageDelete(url)}
+                >
+                  <X className="h-4 w-4" />
+                </Button>
+              )}
+            </div>
+          ))}
         </div>
       )}
     </div>

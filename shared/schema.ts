@@ -106,7 +106,7 @@ export const products = pgTable("products", {
   categoryId: integer("category_id").references(() => categories.id),
   sku: text("sku").notNull().unique(),
   inventory: integer("inventory").notNull().default(0),
-  imageUrl: text("image_url"),
+  imageUrls: text("image_urls").array(),
   specifications: jsonb("specifications"),
   createdAt: timestamp("created_at").defaultNow().notNull()
 });
@@ -172,6 +172,8 @@ export const insertProductSchema = createInsertSchema(products).omit({
   createdAt: true
 }).extend({
   specifications: z.record(z.string(), z.any()).optional(),
+  imageUrls: z.array(z.string()).optional(),
+  sku: z.string().optional()
 });
 
 export const insertCategorySchema = createInsertSchema(categories).omit({

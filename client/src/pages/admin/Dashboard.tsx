@@ -52,6 +52,7 @@ export default function AdminDashboard() {
     description: "",
     price: 0,
     inventory: 0,
+    imageUrls: [],
   });
 
   const { data: productsResponse, isLoading, error } = useQuery<ProductsResponse>({
@@ -82,17 +83,19 @@ export default function AdminDashboard() {
   });
 
   const uploadImageMutation = useMutation({
-    mutationFn: async ({ id, file }: { id: number; file: File }) => {
+    mutationFn: async ({ id, files }: { id: number; files: File[] }) => {
       const formData = new FormData();
-      formData.append('image', file);
+      files.forEach(file => {
+        formData.append('images', file);
+      });
 
-      const response = await fetch(`/api/products/${id}/image`, {
+      const response = await fetch(`/api/products/${id}/images`, {
         method: 'POST',
         body: formData,
       });
 
       if (!response.ok) {
-        throw new Error('Failed to upload image');
+        throw new Error('Failed to upload images');
       }
 
       return response.json();
@@ -101,7 +104,28 @@ export default function AdminDashboard() {
       queryClient.invalidateQueries({ queryKey: ['/api/products'] });
       toast({
         title: "Success",
-        description: "Image uploaded successfully",
+        description: "Images uploaded successfully",
+      });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
+  const deleteImageMutation = useMutation({
+    mutationFn: async ({ productId, filename }: { productId: number; filename: string }) => {
+      const response = await apiRequest("DELETE", `/api/products/${productId}/images/${filename}`);
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/products'] });
+      toast({
+        title: "Success",
+        description: "Image deleted successfully",
       });
     },
     onError: (error: Error) => {
@@ -150,6 +174,7 @@ export default function AdminDashboard() {
         description: "",
         price: 0,
         inventory: 0,
+        imageUrls: [],
       });
     },
     onError: (error: Error) => {
@@ -161,12 +186,23 @@ export default function AdminDashboard() {
     },
   });
 
-  const handleImageUpload = async (productId: number, file: File) => {
+  const handleImageUpload = async (productId: number, files: File[]) => {
     setUploadingImage(prev => ({ ...prev, [productId]: true }));
     try {
-      await uploadImageMutation.mutateAsync({ id: productId, file });
+      await uploadImageMutation.mutateAsync({ id: productId, files });
     } finally {
       setUploadingImage(prev => ({ ...prev, [productId]: false }));
+    }
+  };
+
+  const handleImageDelete = async (productId: number, imageUrl: string) => {
+    const filename = imageUrl.split('/').pop();
+    if (!filename) return;
+
+    try {
+      await deleteImageMutation.mutateAsync({ productId, filename });
+    } catch (error) {
+      // Error is handled by the mutation
     }
   };
 
@@ -270,6 +306,13 @@ export default function AdminDashboard() {
           onChange={(e) => setNewProduct(prev => ({ ...prev, inventory: parseInt(e.target.value) }))}
         />
       </div>
+      <FileUpload
+        onFileSelected={(files) => setNewProduct(prev => ({ 
+          ...prev, 
+          imageUrls: [...(prev.imageUrls || []), ...files.map(() => '')] // Placeholder URLs for validation
+        }))}
+        imageUrls={newProduct.imageUrls || []}
+      />
     </div>
   );
 
@@ -321,20 +364,30 @@ export default function AdminDashboard() {
                 placeholder="Inventory"
               />
               <FileUpload
-                onFileSelected={(file) => handleImageUpload(product.id, file)}
+                onFileSelected={(files) => handleImageUpload(product.id, files)}
+                onImageDelete={url => handleImageDelete(product.id, url)}
                 uploading={isUploading}
-                imageUrl={product.imageUrl}
+                imageUrls={product.imageUrls || []}
                 className="mt-4"
               />
             </div>
           ) : (
             <div className="space-y-4">
-              {product.imageUrl && (
-                <img
-                  src={product.imageUrl}
-                  alt={product.name}
-                  className="w-full max-w-[200px] h-auto rounded-md"
-                />
+              {product.imageUrls && product.imageUrls.length > 0 ? (
+                <div className="grid grid-cols-2 gap-2">
+                  {product.imageUrls.map((url) => (
+                    <img
+                      key={url}
+                      src={url}
+                      alt={product.name}
+                      className="w-full h-auto rounded-md"
+                    />
+                  ))}
+                </div>
+              ) : (
+                <div className="w-full h-32 bg-muted rounded-md flex items-center justify-center">
+                  <p className="text-muted-foreground">No images available</p>
+                </div>
               )}
               <div>
                 <p className="text-sm text-muted-foreground">{product.description}</p>
