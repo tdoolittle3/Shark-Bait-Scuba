@@ -29,15 +29,15 @@ export function registerRoutes(app: Express): Server {
           price_data: {
             currency: 'usd',
             product: productId,
-            unit_amount_multiplier: 100
+            unit_amount: 100 // Amount in cents
           },
           quantity: 1,
         }],
         mode: 'payment',
-        success_url: `${req.protocol}://${req.get('host')}/success`,
-        cancel_url: `${req.protocol}://${req.get('host')}/store`,
+        success_url: `${req.protocol}://${req.get('host')}/checkout/success`,
+        cancel_url: `${req.protocol}://${req.get('host')}/checkout/cancel`,
       });
-      
+
       res.json({ id: session.id });
     } catch (error) {
       console.error('Error creating checkout session:', error);

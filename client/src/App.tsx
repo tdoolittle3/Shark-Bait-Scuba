@@ -13,12 +13,13 @@ import Training from "@/pages/Training";
 import About from "@/pages/About";
 import Contact from "@/pages/Contact";
 import Diving from "@/pages/Diving";
-import Store from "@/pages/Store"; // Import the Store component
+import Store from "@/pages/Store";
+import CheckoutSuccess from "@/pages/checkout/Success";
+import CheckoutCancel from "@/pages/checkout/Cancel";
 
 function Router() {
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Fixed Background Image */}
       <div 
         className="fixed inset-0 z-0 pointer-events-none opacity-5"
         style={{
@@ -40,7 +41,9 @@ function Router() {
           <Route path="/diving" component={Diving} />
           <Route path="/about" component={About} />
           <Route path="/contact" component={Contact} />
-          <Route path="/store" component={Store} /> {/* Added Store route */}
+          <Route path="/store" component={Store} />
+          <Route path="/checkout/success" component={CheckoutSuccess} />
+          <Route path="/checkout/cancel" component={CheckoutCancel} />
           <Route component={NotFound} />
         </Switch>
       </main>
