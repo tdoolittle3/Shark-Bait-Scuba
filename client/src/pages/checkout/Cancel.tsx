@@ -19,8 +19,8 @@ export default function CheckoutCancel() {
           <p className="text-muted-foreground mb-6">
             Your payment was cancelled. No charges were made.
           </p>
-          <Button onClick={() => setLocation('/gear')}>
-            Return to Gear
+          <Button onClick={() => setLocation('/store')}>
+            Return to Store
           </Button>
         </CardContent>
       </Card>

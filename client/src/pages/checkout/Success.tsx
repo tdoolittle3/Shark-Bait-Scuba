@@ -24,8 +24,8 @@ export default function CheckoutSuccess() {
           <p className="text-muted-foreground mb-6">
             Thank you for your purchase. You will receive an email confirmation shortly.
           </p>
-          <Button onClick={() => setLocation('/gear')}>
-            Return to Gear
+          <Button onClick={() => setLocation('/store')}>
+            Return to Store
           </Button>
         </CardContent>
       </Card>
