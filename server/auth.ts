@@ -2,8 +2,7 @@ import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import { Express, Request, Response, NextFunction } from "express";
 import session from "express-session";
-import { scrypt, randomBytes, timingSafeEqual } from "crypto";
-import { promisify } from "util";
+import bcrypt from "bcrypt";
 import { storage } from "./storage";
 import { Administrator } from "@shared/schema";
 
@@ -11,21 +10,6 @@ declare global {
   namespace Express {
     interface User extends Administrator {}
   }
-}
-
-const scryptAsync = promisify(scrypt);
-
-async function hashPassword(password: string) {
-  const salt = randomBytes(16).toString("hex");
-  const buf = (await scryptAsync(password, salt, 64)) as Buffer;
-  return `${buf.toString("hex")}.${salt}`;
-}
-
-async function comparePasswords(supplied: string, stored: string) {
-  const [hashed, salt] = stored.split(".");
-  const hashedBuf = Buffer.from(hashed, "hex");
-  const suppliedBuf = (await scryptAsync(supplied, salt, 64)) as Buffer;
-  return timingSafeEqual(hashedBuf, suppliedBuf);
 }
 
 export function setupAdminAuth(app: Express) {
@@ -51,9 +35,15 @@ export function setupAdminAuth(app: Express) {
   passport.use('admin', new LocalStrategy(async (username, password, done) => {
     try {
       const admin = await storage.getAdminByUsername(username);
-      if (!admin || !(await comparePasswords(password, admin.passwordHash))) {
+      if (!admin) {
         return done(null, false, { message: "Invalid username or password" });
       }
+
+      const isValidPassword = await bcrypt.compare(password, admin.passwordHash);
+      if (!isValidPassword) {
+        return done(null, false, { message: "Invalid username or password" });
+      }
+
       return done(null, admin);
     } catch (error) {
       return done(error);
@@ -67,6 +57,9 @@ export function setupAdminAuth(app: Express) {
   passport.deserializeUser(async (id: number, done) => {
     try {
       const admin = await storage.getAdmin(id);
+      if (!admin) {
+        return done(new Error('Admin not found'));
+      }
       done(null, admin);
     } catch (error) {
       done(error);
@@ -82,14 +75,27 @@ export function setupAdminAuth(app: Express) {
   };
 
   // Admin authentication routes
-  app.post("/api/admin/login", passport.authenticate('admin'), (req, res) => {
-    res.json(req.user);
+  app.post("/api/admin/login", (req, res, next) => {
+    passport.authenticate('admin', (err, user, info) => {
+      if (err) {
+        return next(err);
+      }
+      if (!user) {
+        return res.status(401).json({ message: info?.message || "Authentication failed" });
+      }
+      req.logIn(user, (err) => {
+        if (err) {
+          return next(err);
+        }
+        return res.json({ message: "Login successful", user });
+      });
+    })(req, res, next);
   });
 
   app.post("/api/admin/logout", (req, res, next) => {
     req.logout((err) => {
       if (err) return next(err);
-      res.sendStatus(200);
+      res.json({ message: "Logged out successfully" });
     });
   });
 
