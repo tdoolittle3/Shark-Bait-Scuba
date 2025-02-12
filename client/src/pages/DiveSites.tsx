@@ -163,95 +163,96 @@ function scrollToCard(siteId: string) {
 
 export default function DiveSites() {
   return (
-    <div className="container py-12">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold mb-4">Northwest Florida Dive Sites</h1>
-        <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-          Explore our carefully selected dive sites in the emerald waters of Northwest Florida, from springs to wrecks and reefs.
-        </p>
-      </div>
+    <div className="min-h-screen py-12 px-4 sm:px-6">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold mb-4">Northwest Florida Dive Sites</h1>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Explore our carefully selected dive sites in the emerald waters of Northwest Florida, from springs to wrecks and reefs.
+          </p>
+        </div>
 
-      <div className="mb-12 h-[500px] rounded-lg overflow-hidden border">
-        <MapContainer
-          center={[30.2714, -87.2550]} // Centered on Pensacola area
-          zoom={8}
-          style={{ height: "100%", width: "100%" }}
-        >
-          <MapInvalidator />
-          <TileLayer
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          />
+        <div className="mb-12 h-[500px] rounded-lg overflow-hidden border">
+          <MapContainer
+            center={[30.2714, -87.2550]} // Centered on Pensacola area
+            zoom={8}
+            style={{ height: "100%", width: "100%" }}
+          >
+            <MapInvalidator />
+            <TileLayer
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            />
+            {diveSites.map((site, index) => (
+              <Marker
+                key={index}
+                position={[site.coordinates[0], site.coordinates[1]] as [number, number]}
+              >
+                <Popup>
+                  <div className="p-2">
+                    <h3
+                      onClick={() => scrollToCard(`dive-site-${index}`)}
+                      className="font-bold text-primary hover:underline cursor-pointer"
+                    >
+                      {site.name}
+                    </h3>
+                    <p className="text-sm">Type: {site.type}</p>
+                    <p className="text-sm">Depth: {site.depth}</p>
+                    <p className="text-sm">Level: {site.level}</p>
+                  </div>
+                </Popup>
+              </Marker>
+            ))}
+          </MapContainer>
+        </div>
+
+        <div className="max-w-3xl mx-auto space-y-6">
           {diveSites.map((site, index) => (
-            <Marker
-              key={index}
-              position={[site.coordinates[0], site.coordinates[1]] as [number, number]}
-            >
-              <Popup>
-                <div className="p-2">
-                  <h3
-                    onClick={() => scrollToCard(`dive-site-${index}`)}
-                    className="font-bold text-primary hover:underline cursor-pointer"
-                  >
-                    {site.name}
-                  </h3>
-                  <p className="text-sm">Type: {site.type}</p>
-                  <p className="text-sm">Depth: {site.depth}</p>
-                  <p className="text-sm">Level: {site.level}</p>
+            <Card key={index} id={`dive-site-${index}`} className="backdrop-blur-sm bg-background/30 border shadow-md hover:bg-background/40 transition-colors">
+              {site.image && (
+                <div className="aspect-video relative overflow-hidden">
+                  <img
+                    src={site.image}
+                    alt={site.name}
+                    className="absolute inset-0 object-cover w-full h-full rounded-t-lg"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.style.display = 'none';
+                      console.error(`Failed to load image for ${site.name}`);
+                    }}
+                  />
                 </div>
-              </Popup>
-            </Marker>
+              )}
+              <CardHeader>
+                <CardTitle className="text-foreground">{site.name}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2">
+                  <div className="flex justify-between">
+                    <span className="text-foreground">Type:</span>
+                    <span className="font-medium text-foreground">{site.type}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-foreground">Depth:</span>
+                    <span className="font-medium text-foreground">{site.depth}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-foreground">Level:</span>
+                    <span className="font-medium text-foreground">{site.level}</span>
+                  </div>
+                  <div
+                    className="text-foreground mt-4 whitespace-pre-line [&_a]:text-primary [&_a]:hover:underline [&_a]:transition-colors [&_a]:duration-200"
+                    dangerouslySetInnerHTML={{ __html: site.description }}
+                  />
+                  <div className="text-sm text-foreground mt-2">
+                    Coordinates: {site.coordinates[0].toFixed(4)}°N, {site.coordinates[1].toFixed(4)}°W
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           ))}
-        </MapContainer>
+        </div>
       </div>
-
-      <div className="grid grid-cols-1 gap-6 max-w-3xl mx-auto">
-        {diveSites.map((site, index) => (
-          <Card key={index} id={`dive-site-${index}`} className="backdrop-blur-sm bg-background/30 border shadow-md hover:bg-background/40 transition-colors">
-            {site.image && (
-              <div className="aspect-video relative overflow-hidden">
-                <img
-                  src={site.image}
-                  alt={site.name}
-                  className="absolute inset-0 object-cover w-full h-full rounded-t-lg"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.style.display = 'none';
-                    console.error(`Failed to load image for ${site.name}`);
-                  }}
-                />
-              </div>
-            )}
-            <CardHeader>
-              <CardTitle className="text-foreground">{site.name}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-2">
-                <div className="flex justify-between">
-                  <span className="text-foreground">Type:</span>
-                  <span className="font-medium text-foreground">{site.type}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-foreground">Depth:</span>
-                  <span className="font-medium text-foreground">{site.depth}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-foreground">Level:</span>
-                  <span className="font-medium text-foreground">{site.level}</span>
-                </div>
-                <div
-                  className="text-foreground mt-4 whitespace-pre-line [&_a]:text-primary [&_a]:hover:underline [&_a]:transition-colors [&_a]:duration-200"
-                  dangerouslySetInnerHTML={{ __html: site.description }}
-                />
-                <div className="text-sm text-foreground mt-2">
-                  Coordinates: {site.coordinates[0].toFixed(4)}°N, {site.coordinates[1].toFixed(4)}°W
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
-
     </div>
   );
 }

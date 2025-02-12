@@ -197,25 +197,27 @@ const courses = [
 
 export default function Training() {
   return (
-    <div className="container py-12">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold mb-4">Training Courses</h1>
-        <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-          From beginners to advanced divers, our professional instructors will guide you through your scuba journey.
-        </p>
-      </div>
+    <div className="min-h-screen py-12 px-4 sm:px-6">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold mb-4">Training Courses</h1>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            From beginners to advanced divers, our professional instructors will guide you through your scuba journey.
+          </p>
+        </div>
 
-      <div className="max-w-3xl mx-auto space-y-6">
-        {courses.map((course, index) => (
-          <Card key={index} className="backdrop-blur-sm bg-background/30 border shadow-md hover:bg-background/40 transition-colors">
-            <CardHeader>
-              <CardTitle className="text-foreground">{course.title}</CardTitle>
-              <CardDescription className="whitespace-pre-wrap text-sm text-foreground">
-                {course.description}
-              </CardDescription>
-            </CardHeader>
-          </Card>
-        ))}
+        <div className="max-w-3xl mx-auto space-y-6">
+          {courses.map((course, index) => (
+            <Card key={index} className="backdrop-blur-sm bg-background/30 border shadow-md hover:bg-background/40 transition-colors">
+              <CardHeader>
+                <CardTitle className="text-foreground">{course.title}</CardTitle>
+                <CardDescription className="whitespace-pre-wrap text-sm text-foreground">
+                  {course.description}
+                </CardDescription>
+              </CardHeader>
+            </Card>
+          ))}
+        </div>
       </div>
     </div>
   );
