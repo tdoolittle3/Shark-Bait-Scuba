@@ -6,8 +6,14 @@ import { AlertCircle } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Skeleton } from "@/components/ui/skeleton";
 
+interface ProductsResponse {
+  message: string;
+  count: number;
+  data: Product[];
+}
+
 export default function AdminDashboard() {
-  const { data: products, isLoading, error } = useQuery<Product[]>({
+  const { data: productsResponse, isLoading, error } = useQuery<ProductsResponse>({
     queryKey: ['/api/products'],
     retry: 2,
     staleTime: 1000 * 60 * 5, // 5 minutes
@@ -44,9 +50,20 @@ export default function AdminDashboard() {
       );
     }
 
+    if (!productsResponse?.data?.length) {
+      return (
+        <Alert>
+          <AlertTitle>No Products</AlertTitle>
+          <AlertDescription>
+            No products found. Add some products to get started.
+          </AlertDescription>
+        </Alert>
+      );
+    }
+
     return (
       <div className="space-y-4">
-        {products?.map((product) => (
+        {productsResponse.data.map((product) => (
           <Card key={product.id}>
             <CardHeader>
               <CardTitle>{product.name}</CardTitle>
