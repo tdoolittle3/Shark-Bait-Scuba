@@ -131,12 +131,25 @@ export default function AdminDashboard() {
 
   const saveChanges = async (productId: number) => {
     const editingProduct = editingProducts[productId];
-    if (!editingProduct?.tempData) return;
+    if (!editingProduct) return;
+
+    // Only include fields that have actually changed
+    const changedFields = Object.entries(editingProduct.tempData).filter(([_, value]) => value !== undefined);
+
+    if (changedFields.length === 0) {
+      toast({
+        title: "No changes made",
+        description: "Please make some changes before saving",
+      });
+      return;
+    }
+
+    const updatedData = Object.fromEntries(changedFields);
 
     try {
       await updateProductMutation.mutateAsync({
         id: productId,
-        data: editingProduct.tempData,
+        data: updatedData,
       });
       cancelEditing(productId);
     } catch (error) {
