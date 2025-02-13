@@ -1,49 +1,33 @@
-
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ShoppingCart } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
 import { useToast } from "@/hooks/use-toast";
-import { useQuery } from "@tanstack/react-query";
-import { apiRequest } from "@/lib/queryClient";
 
-interface Product {
+const products: Array<{
   id: string;
   name: string;
   description: string;
-  imageUrls: string[];
+  image: string;
   price: number;
-}
+}> = [];
 
 export default function Store() {
   const { addItem } = useCart();
   const { toast } = useToast();
 
-  const { data: products = [], isLoading } = useQuery<Product[]>({
-    queryKey: ['/api/products'],
-    queryFn: async () => {
-      const response = await apiRequest('GET', '/api/products');
-      const data = await response.json();
-      return data;
-    }
-  });
-
-  const handleAddToCart = (product: Product) => {
+  const handleAddToCart = (product: typeof products[0]) => {
     addItem({
       id: product.id,
       name: product.name,
       price: product.price,
-      image: product.imageUrls?.[0] || ''
+      image: product.image
     });
     toast({
       title: "Added to cart",
       description: `${product.name} has been added to your cart.`
     });
   };
-
-  if (isLoading) {
-    return <div className="container mx-auto py-12 px-4">Loading products...</div>;
-  }
 
   return (
     <div className="container mx-auto py-12 px-4">
@@ -62,9 +46,9 @@ export default function Store() {
               <CardDescription>${product.price.toFixed(2)}</CardDescription>
             </CardHeader>
             <CardContent className="flex-grow">
-              {product.imageUrls?.[0] && (
+              {product.image && (
                 <img 
-                  src={product.imageUrls[0]} 
+                  src={product.image} 
                   alt={product.name}
                   className="w-full h-48 object-cover rounded-lg mb-4"
                 />
