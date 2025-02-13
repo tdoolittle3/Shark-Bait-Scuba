@@ -29,20 +29,17 @@ export function registerRoutes(app: Express): Server {
     try {
       const { items } = req.body as { items: CartItem[] };
 
-      // Get products from Stripe to get their price IDs
-      const { data: stripeProducts } = await stripe.products.list({
-        expand: ['data.default_price'],
-        ids: items.map(item => item.id)
-      });
-
-      const line_items = stripeProducts.map(product => {
-        const cartItem = items.find(item => item.id === product.id);
-        const price = product.default_price as any;
-        return {
-          price: price.id,
-          quantity: cartItem?.quantity || 1
-        };
-      });
+      const line_items = items.map(item => ({
+        price_data: {
+          currency: 'usd',
+          product_data: {
+            name: item.name,
+            images: item.image ? [item.image] : []
+          },
+          unit_amount: Math.round(item.price * 100), // Convert to cents
+        },
+        quantity: item.quantity || 1
+      }));
 
       const session = await stripe.checkout.sessions.create({
         line_items,
