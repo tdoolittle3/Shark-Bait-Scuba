@@ -18,6 +18,9 @@ import Store from "@/pages/Store";
 import Cart from "@/pages/Cart";
 import CheckoutSuccess from "@/pages/checkout/Success";
 import CheckoutCancel from "@/pages/checkout/Cancel";
+import { AdminProtectedRoute } from "./components/auth/AdminProtectedRoute";
+import Dashboard from "./pages/admin/Dashboard";
+import AdminLogin from "./pages/admin/Login";
 
 function Router() {
   return (
@@ -45,6 +48,8 @@ function Router() {
           <Route path="/contact" component={Contact} />
           <Route path="/store" component={Store} />
           <Route path="/cart" component={Cart} />
+          <AdminProtectedRoute path="/admin" component={Dashboard} />
+          <Route path="/admin/login" component={AdminLogin} />
           <Route path="/checkout/success" component={CheckoutSuccess} />
           <Route path="/checkout/cancel" component={CheckoutCancel} />
           <Route component={NotFound} />
