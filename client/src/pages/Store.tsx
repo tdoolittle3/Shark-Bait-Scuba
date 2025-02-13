@@ -1,34 +1,32 @@
-import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Loader2, ShoppingCart } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
 import { useToast } from "@/hooks/use-toast";
 
-interface Product {
-  id: number;
-  name: string;
-  description: string;
-  imageUrls: string[];
-  price: number;
-}
+const products = [
+  {
+    id: "basic-gear",
+    name: "Basic Scuba Kit",
+    description: "Complete starter kit including mask, fins, and snorkel",
+    image: "/images/products/basic-kit.jpg",
+    price: 299.99
+  },
+  {
+    id: "advanced-gear",
+    name: "Advanced Diving Package",
+    description: "Professional grade BCD, regulator, and dive computer",
+    image: "/images/products/advanced-kit.jpg",
+    price: 1299.99
+  }
+  // Add more products as needed
+];
 
 export default function Store() {
   const { addItem } = useCart();
   const { toast } = useToast();
 
-  const { data: products, isLoading, error } = useQuery<Product[]>({
-    queryKey: ['products'],
-    queryFn: async () => {
-      const response = await fetch('/api/products');
-      if (!response.ok) {
-        throw new Error('Failed to fetch products');
-      }
-      return response.json();
-    }
-  });
-
-  const handleAddToCart = (product: Product) => {
+  const handleAddToCart = (product: typeof products[0]) => {
     addItem({
       id: product.id,
       name: product.name,
@@ -41,22 +39,6 @@ export default function Store() {
     });
   };
 
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <Loader2 className="h-8 w-8 animate-spin" />
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <p className="text-red-500">Error loading products. Please try again later.</p>
-      </div>
-    );
-  }
-
   return (
     <div className="container mx-auto py-12 px-4">
       <div className="text-center mb-12">
@@ -67,7 +49,7 @@ export default function Store() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {products?.map((product) => (
+        {products.map((product) => (
           <Card key={product.id} className="flex flex-col">
             <CardHeader>
               <CardTitle>{product.name}</CardTitle>
