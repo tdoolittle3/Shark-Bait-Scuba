@@ -32,29 +32,31 @@ export function setupAdminAuth(app: Express) {
   app.use(passport.initialize());
   app.use(passport.session());
 
-  passport.use('admin', new LocalStrategy(async (username, password, done) => {
-    try {
-      const admin = await storage.getAdminByUsername(username);
-      if (!admin) {
-        return done(null, false, { message: "Invalid username or password" });
-      }
+  passport.use('admin', new LocalStrategy(
+    async (username: string, password: string, done: any) => {
+      try {
+        const admin = await storage.getAdminByUsername(username);
+        if (!admin) {
+          return done(null, false, { message: "Invalid username or password" });
+        }
 
-      const isValidPassword = await bcrypt.compare(password, admin.passwordHash);
-      if (!isValidPassword) {
-        return done(null, false, { message: "Invalid username or password" });
-      }
+        const isValidPassword = await bcrypt.compare(password, admin.passwordHash);
+        if (!isValidPassword) {
+          return done(null, false, { message: "Invalid username or password" });
+        }
 
-      return done(null, admin);
-    } catch (error) {
-      return done(error);
+        return done(null, admin);
+      } catch (error) {
+        return done(error);
+      }
     }
-  }));
+  ));
 
-  passport.serializeUser((user, done) => {
+  passport.serializeUser((user: Express.User, done: any) => {
     done(null, user.id);
   });
 
-  passport.deserializeUser(async (id: number, done) => {
+  passport.deserializeUser(async (id: number, done: any) => {
     try {
       const admin = await storage.getAdmin(id);
       if (!admin) {
@@ -75,8 +77,8 @@ export function setupAdminAuth(app: Express) {
   };
 
   // Admin authentication routes
-  app.post("/api/admin/login", (req, res, next) => {
-    passport.authenticate('admin', (err, user, info) => {
+  app.post("/api/admin/login", (req: Request, res: Response, next: NextFunction) => {
+    passport.authenticate('admin', (err: any, user: Express.User | false, info: any) => {
       if (err) {
         return next(err);
       }
@@ -87,19 +89,19 @@ export function setupAdminAuth(app: Express) {
         if (err) {
           return next(err);
         }
-        return res.json({ message: "Login successful", user });
+        return res.json(user);
       });
     })(req, res, next);
   });
 
-  app.post("/api/admin/logout", (req, res, next) => {
+  app.post("/api/admin/logout", (req: Request, res: Response, next: NextFunction) => {
     req.logout((err) => {
       if (err) return next(err);
       res.json({ message: "Logged out successfully" });
     });
   });
 
-  app.get("/api/admin/user", isAuthenticated, (req, res) => {
+  app.get("/api/admin/user", isAuthenticated, (req: Request, res: Response) => {
     res.json(req.user);
   });
 
