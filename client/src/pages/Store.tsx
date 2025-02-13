@@ -3,31 +3,57 @@ import { Button } from "@/components/ui/button";
 import { ShoppingCart } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
 import { useToast } from "@/hooks/use-toast";
+import { useQuery } from "@tanstack/react-query";
+import { Product } from "@shared/schema";
 
-const products: Array<{
-  id: string;
-  name: string;
-  description: string;
-  image: string;
-  price: number;
-}> = [];
+interface ProductsResponse {
+  message: string;
+  count: number;
+  data: Product[];
+}
 
 export default function Store() {
   const { addItem } = useCart();
   const { toast } = useToast();
 
-  const handleAddToCart = (product: typeof products[0]) => {
+  const { data: productsResponse, isLoading, error } = useQuery<ProductsResponse>({
+    queryKey: ['/api/products'],
+    retry: 2,
+    staleTime: 1000 * 60 * 5, // 5 minutes
+  });
+
+  const handleAddToCart = (product: Product) => {
     addItem({
-      id: product.id,
+      id: product.id.toString(),
       name: product.name,
       price: product.price,
-      image: product.image
+      image: product.imageUrls?.[0] || ''
     });
     toast({
       title: "Added to cart",
       description: `${product.name} has been added to your cart.`
     });
   };
+
+  if (isLoading) {
+    return (
+      <div className="container mx-auto py-12 px-4">
+        <div className="text-center">
+          <p>Loading products...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="container mx-auto py-12 px-4">
+        <div className="text-center">
+          <p className="text-red-500">Error loading products. Please try again later.</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto py-12 px-4">
@@ -39,19 +65,23 @@ export default function Store() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {products.map((product) => (
+        {productsResponse?.data.map((product) => (
           <Card key={product.id} className="flex flex-col">
             <CardHeader>
               <CardTitle>{product.name}</CardTitle>
               <CardDescription>${product.price.toFixed(2)}</CardDescription>
             </CardHeader>
             <CardContent className="flex-grow">
-              {product.image && (
+              {product.imageUrls && product.imageUrls.length > 0 ? (
                 <img 
-                  src={product.image} 
+                  src={product.imageUrls[0]} 
                   alt={product.name}
                   className="w-full h-48 object-cover rounded-lg mb-4"
                 />
+              ) : (
+                <div className="w-full h-48 bg-muted rounded-lg mb-4 flex items-center justify-center">
+                  <p className="text-muted-foreground">No image available</p>
+                </div>
               )}
               <p className="text-muted-foreground mb-6">{product.description}</p>
               <Button 
