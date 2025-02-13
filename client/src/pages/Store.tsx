@@ -4,23 +4,13 @@ import { ShoppingCart } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
 import { useToast } from "@/hooks/use-toast";
 
-const products = [
-  {
-    id: "basic-gear",
-    name: "Basic Scuba Kit",
-    description: "Complete starter kit including mask, fins, and snorkel",
-    image: "/images/products/basic-kit.jpg",
-    price: 299.99
-  },
-  {
-    id: "advanced-gear",
-    name: "Advanced Diving Package",
-    description: "Professional grade BCD, regulator, and dive computer",
-    image: "/images/products/advanced-kit.jpg",
-    price: 1299.99
-  }
-  // Add more products as needed
-];
+const products: Array<{
+  id: string;
+  name: string;
+  description: string;
+  image: string;
+  price: number;
+}> = [];
 
 export default function Store() {
   const { addItem } = useCart();
