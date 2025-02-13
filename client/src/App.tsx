@@ -3,6 +3,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./lib/queryClient";
 import { Toaster } from "@/components/ui/toaster";
 import { CartProvider } from "@/contexts/CartContext";
+import { AdminAuthProvider } from "./hooks/use-admin-auth"; // Added import
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import FloatingPhoneWidget from "@/components/layout/FloatingPhoneWidget";
@@ -49,10 +50,12 @@ function Router() {
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <CartProvider>
-        <Router />
-        <Toaster />
-      </CartProvider>
+      <AdminAuthProvider> {/* Added AdminAuthProvider */}
+        <CartProvider>
+          <Router />
+          <Toaster />
+        </CartProvider>
+      </AdminAuthProvider> {/* Closed AdminAuthProvider */}
     </QueryClientProvider>
   );
 }
