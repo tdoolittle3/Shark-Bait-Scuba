@@ -109,6 +109,23 @@ export function registerRoutes(app: Express): Server {
     }
   });
 
+  app.patch("/api/products/:id", async (req, res) => {
+    try {
+      const productId = parseInt(req.params.id);
+      const product = await storage.updateProduct(productId, req.body);
+      res.json({
+        message: "Product updated successfully",
+        data: product
+      });
+    } catch (error) {
+      console.error('Error updating product:', error);
+      res.status(400).json({ 
+        error: 'Failed to update product',
+        details: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
   app.post("/api/checkout", async (req, res) => {
     try {
       const { items } = req.body as { items: CartItem[] };
