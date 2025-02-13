@@ -25,27 +25,15 @@ import AdminLogin from "./pages/admin/Login";
 
 function Router() {
   return (
-    <div className="min-h-screen flex flex-col">
-      <div 
-        className="fixed inset-0 z-0 pointer-events-none opacity-5"
-        style={{
-          backgroundImage: 'url("/images/sb_fin.png")',
-          backgroundPosition: 'center',
-          backgroundSize: 'contain',
-          backgroundRepeat: 'no-repeat',
-          backgroundAttachment: 'fixed'
-        }}
-      />
-
+    <div>
       <Navbar />
-      <ScrollToTop />
-      <main className="flex-grow relative z-10">
+      <main>
         <Switch>
           <Route path="/" component={Home} />
-          <Route path="/dive-sites" component={DiveSites} />
-          <Route path="/training" component={Training} />
-          <Route path="/diving" component={Diving} />
           <Route path="/about" component={About} />
+          <Route path="/training" component={Training} />
+          <Route path="/dive-sites" component={DiveSites} />
+          <Route path="/diving" component={Diving} />
           <Route path="/contact" component={Contact} />
           <Route path="/store" component={Store} />
           <Route path="/cart" component={Cart} />
@@ -62,17 +50,15 @@ function Router() {
   );
 }
 
-function App() {
+export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <CartProvider>
-        <AdminAuthProvider>
+      <AdminAuthProvider>
+        <CartProvider>
           <Router />
           <Toaster />
-        </AdminAuthProvider>
-      </CartProvider>
+        </CartProvider>
+      </AdminAuthProvider>
     </QueryClientProvider>
   );
 }
-
-export default App;
