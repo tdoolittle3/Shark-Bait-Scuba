@@ -2,14 +2,30 @@ import express from "express";
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertMessageSchema } from "@shared/schema";
+import { insertMessageSchema, insertProductSchema } from "@shared/schema";
 import path from "path";
 import { stripe } from "./stripe";
+import multer from "multer";
+import { mkdirSync } from "fs";
 
 interface CartItem {
   id: string;
   quantity: number;
 }
+
+// Configure multer for file uploads
+const uploadDir = path.join(process.cwd(), 'uploads');
+mkdirSync(uploadDir, { recursive: true });
+
+const upload = multer({
+  storage: multer.diskStorage({
+    destination: uploadDir,
+    filename: (req, file, cb) => {
+      const uniqueName = `${Date.now()}-${Math.round(Math.random() * 1E9)}${path.extname(file.originalname)}`;
+      cb(null, uniqueName);
+    }
+  })
+});
 
 export function registerRoutes(app: Express): Server {
   // Serve uploaded files statically
@@ -25,20 +41,92 @@ export function registerRoutes(app: Express): Server {
     });
   });
 
+  // Products API
+  app.get("/api/products", async (_req, res) => {
+    try {
+      const products = await storage.getProducts();
+      res.json({
+        message: "Products retrieved successfully",
+        count: products.length,
+        data: products
+      });
+    } catch (error) {
+      console.error('Error fetching products:', error);
+      res.status(500).json({ 
+        error: 'Failed to fetch products',
+        details: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  app.post("/api/products", async (req, res) => {
+    try {
+      const productData = insertProductSchema.parse(req.body);
+      const product = await storage.createProduct(productData);
+      res.json({
+        message: "Product created successfully",
+        data: product
+      });
+    } catch (error) {
+      console.error('Error creating product:', error);
+      res.status(400).json({ 
+        error: 'Failed to create product',
+        details: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  app.post("/api/products/:id/images", upload.array('images'), async (req, res) => {
+    try {
+      const productId = parseInt(req.params.id);
+      const files = req.files as Express.Multer.File[];
+
+      if (!files || files.length === 0) {
+        return res.status(400).json({ error: 'No files uploaded' });
+      }
+
+      const imageUrls = files.map(file => `/uploads/${file.filename}`);
+
+      const product = await storage.getProduct(productId);
+      if (!product) {
+        return res.status(404).json({ error: 'Product not found' });
+      }
+
+      const updatedProduct = await storage.updateProduct(productId, {
+        imageUrls: [...(product.imageUrls || []), ...imageUrls]
+      });
+
+      res.json({
+        message: "Images uploaded successfully",
+        data: updatedProduct
+      });
+    } catch (error) {
+      console.error('Error uploading images:', error);
+      res.status(500).json({ 
+        error: 'Failed to upload images',
+        details: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
   app.post("/api/checkout", async (req, res) => {
     try {
       const { items } = req.body as { items: CartItem[] };
+      const line_items = await Promise.all(items.map(async item => {
+        const product = await storage.getProduct(parseInt(item.id));
+        if (!product) throw new Error(`Product not found: ${item.id}`);
 
-      const line_items = items.map(item => ({
-        price_data: {
-          currency: 'usd',
-          product_data: {
-            name: item.name,
-            images: item.image ? [item.image] : []
+        return {
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: product.name,
+              images: product.imageUrls || []
+            },
+            unit_amount: Math.round(product.price * 100),
           },
-          unit_amount: Math.round(item.price * 100), // Convert to cents
-        },
-        quantity: item.quantity || 1
+          quantity: item.quantity || 1
+        };
       }));
 
       const session = await stripe.checkout.sessions.create({
@@ -55,32 +143,6 @@ export function registerRoutes(app: Express): Server {
         error: 'Failed to create checkout session',
         details: error instanceof Error ? error.message : 'Unknown error'
       });
-    }
-  });
-
-  app.get("/api/products", async (_req, res) => {
-    try {
-      const { data: stripeProducts } = await stripe.products.list({
-        expand: ['data.default_price'],
-        active: true
-      });
-
-      const formattedProducts = stripeProducts.map(product => {
-        const price = product.default_price as any;
-        return {
-          id: product.id,
-          name: product.name,
-          description: product.description,
-          image: product.images[0],
-          price: price ? price.unit_amount / 100 : 0,
-          priceId: price ? price.id : null
-        };
-      });
-
-      res.json(formattedProducts);
-    } catch (error) {
-      console.error('Error fetching products:', error);
-      res.status(500).json({ error: 'Failed to fetch products' });
     }
   });
 
