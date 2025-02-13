@@ -126,6 +126,23 @@ export function registerRoutes(app: Express): Server {
     }
   });
 
+  app.delete("/api/products/:id", async (req, res) => {
+    try {
+      const productId = parseInt(req.params.id);
+      const deleted = await storage.deleteProduct(productId);
+      if (!deleted) {
+        return res.status(404).json({ error: 'Product not found' });
+      }
+      res.json(deleted);
+    } catch (error) {
+      console.error('Error deleting product:', error);
+      res.status(500).json({ 
+        error: 'Failed to delete product',
+        details: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
   app.post("/api/checkout", async (req, res) => {
     try {
       const { items } = req.body as { items: CartItem[] };
