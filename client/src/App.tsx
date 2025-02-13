@@ -3,7 +3,6 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./lib/queryClient";
 import { Toaster } from "@/components/ui/toaster";
 import { CartProvider } from "@/contexts/CartContext";
-import { AdminAuthProvider } from "@/hooks/use-admin-auth";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import FloatingPhoneWidget from "@/components/layout/FloatingPhoneWidget";
@@ -19,9 +18,7 @@ import Store from "@/pages/Store";
 import Cart from "@/pages/Cart";
 import CheckoutSuccess from "@/pages/checkout/Success";
 import CheckoutCancel from "@/pages/checkout/Cancel";
-import { AdminProtectedRoute } from "./components/auth/AdminProtectedRoute";
 import Dashboard from "./pages/admin/Dashboard";
-import AdminLogin from "./pages/admin/Login";
 
 function Router() {
   return (
@@ -37,8 +34,7 @@ function Router() {
           <Route path="/contact" component={Contact} />
           <Route path="/store" component={Store} />
           <Route path="/cart" component={Cart} />
-          <AdminProtectedRoute path="/admin" component={Dashboard} />
-          <Route path="/admin/login" component={AdminLogin} />
+          <Route path="/admin" component={Dashboard} />
           <Route path="/checkout/success" component={CheckoutSuccess} />
           <Route path="/checkout/cancel" component={CheckoutCancel} />
           <Route component={NotFound} />
@@ -53,12 +49,10 @@ function Router() {
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <AdminAuthProvider>
-        <CartProvider>
-          <Router />
-          <Toaster />
-        </CartProvider>
-      </AdminAuthProvider>
+      <CartProvider>
+        <Router />
+        <Toaster />
+      </CartProvider>
     </QueryClientProvider>
   );
 }
