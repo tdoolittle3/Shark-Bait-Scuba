@@ -19,8 +19,7 @@ export default function Navbar() {
     { href: "/contact", label: "Contact" },
     { 
       href: "/store", 
-      label: "Store",
-      icon: <ShoppingBag className="h-4 w-4 mr-1" />
+      label: "Store"
     },
   ];
 
