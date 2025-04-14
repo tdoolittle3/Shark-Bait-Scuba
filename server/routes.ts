@@ -1,10 +1,8 @@
 import express from "express";
 import type { Express } from "express";
 import { createServer, type Server } from "http";
-import { storage } from "./storage";
 import { insertMessageSchema, insertProductSchema } from "@shared/schema";
 import path from "path";
-import { stripe } from "./stripe";
 import multer from "multer";
 import { mkdirSync } from "fs";
 

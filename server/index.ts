@@ -1,7 +1,6 @@
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
-import { setupAdminAuth } from "./auth";
 
 const app = express();
 
@@ -41,7 +40,7 @@ app.use((req, res, next) => {
 });
 
 // Set up authentication before any routes
-setupAdminAuth(app);
+//setupAdminAuth(app);
 
 (async () => {
   const server = registerRoutes(app);
