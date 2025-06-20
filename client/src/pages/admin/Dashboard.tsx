@@ -1,7 +1,6 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { useQuery, useMutation } from "@tanstack/react-query";
-import { Product, InsertProduct, insertProductSchema } from "@shared/schema";
 import { AlertCircle, Edit, Save, X, Trash2, Plus } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Input } from "@/components/ui/input";
